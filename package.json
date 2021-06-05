@@ -1,0 +1,41 @@
+{
+  "name": "pdx_yahtzee",
+  "version": "1.0.0",
+  "description": "Yahtzee web-app game utilizing socket.io, React, Express, MongoDB, and MongoDB Atlas",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server",
+    "mongo": "mongod --dbpath=./data",
+    "front-end": "cd yahtzee_app && react-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcbridz/pdx_yahtzee.git"
+  },
+  "keywords": [
+    "yahtzee",
+    "pdxcg",
+    "pdxcodeguild",
+    "pdx_code_guild",
+    "pdxCodeGuild",
+    "PdxCodeGuild",
+    "PDXCodeGuild",
+    "capstone",
+    "project",
+    "educational"
+  ],
+  "author": "Students @ PDX Code Guild",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcbridz/pdx_yahtzee/issues"
+  },
+  "homepage": "https://github.com/mcbridz/pdx_yahtzee#readme",
+  "dependencies": {
+    "mongod": "^2.0.0",
+    "mongodb": "^3.6.9",
+    "mongoose": "^5.12.13",
+    "nodemon": "^2.0.7",
+    "socket.io": "^4.1.2"
+  }
+}
