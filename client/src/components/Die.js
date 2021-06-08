@@ -8,7 +8,7 @@ import { FaDiceSix } from "react-icons/fa";
 
 const Die = (props) => {
   const diceSides = ["One", "Two", "Three", "Four", "Five", "Six"];
-  const numDie = diceSides[5 - 1];
+  const numDie = diceSides[props.val - 1];
 
   return (
     <div>

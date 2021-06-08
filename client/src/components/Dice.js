@@ -4,6 +4,7 @@ import Die from "./Die";
 const Dice = (props) => {
   return (
     <div>
+      {console.log(props.dice)}
       {props.dice.map((die, index) => (
         <Die
           val={die}

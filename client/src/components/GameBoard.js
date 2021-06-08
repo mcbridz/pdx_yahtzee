@@ -31,16 +31,37 @@ const GameBoard = () => {
     totalScore: undefined,
   });
 
+  const initiateRoll = () => {
+    setRolling(true);
+
+    setTimeout(rollDice, 1000);
+  };
+
   const rollDice = (evt) => {
     console.log(dice);
-    dice.map((die, i) => {
-      setDice(locked[i] ? die : Math.ceil(Math.random() * 6));
-      setLocked({
-        locked: rollsRemaining > 1 ? locked : Array(numOfDice).fill(true),
-      });
-      setRollsRemaining({ rollsRemaining: rollsRemaining - 1 });
-      setRolling(false);
+    let rolls = [];
+
+    for (let i = 0; i < numOfDice; i++) {
+      rolls[i] = Math.ceil(Math.random() * 6);
+      setDice(rolls);
+    }
+    // dice.map((d, i) => {
+    //   for (let j = 0; j < numOfDice; j++) {
+    //     if (!locked[i]) {
+    //       let num = Math.ceil(Math.random() * 6);
+    //       setDice({ ...dice.concat(num) });
+    //     }
+    //   }
+    // });
+
+    // dice.map((die, i) => {
+    //   setDice(locked[i] ? die : Math.ceil(Math.random() * 6));
+    setLocked({
+      locked: rollsRemaining > 1 ? locked : Array(numOfDice).fill(true),
     });
+    setRollsRemaining({ rollsRemaining: rollsRemaining - 1 });
+    setRolling(false);
+    // });
   };
 
   const toggleLocked = (i) => {
@@ -62,7 +83,7 @@ const GameBoard = () => {
         rollDice={rollDice}
         toggleLocked={toggleLocked}
       />
-      <button onClick={rollDice}>Roll</button>
+      <button onClick={initiateRoll}>Roll</button>
     </div>
   );
 };
