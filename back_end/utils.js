@@ -8,3 +8,5 @@ const unpackEmit = (emit) => {
     }
 
 }
+
+module.exports = { unpackEmit }
