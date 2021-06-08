@@ -1,5 +1,6 @@
 secrets.js
 data/*
+secrets.js
 # Logs
 logs
 *.log
