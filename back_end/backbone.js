@@ -36,7 +36,7 @@ module.exports = function (deps) {
     }
     if (process.env.KEY) {
         app.get("*", (req, res) => {
-            res.sendFile(path.join(__dirname, "client", "build", "index.html"))
+            res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
         })
     }
     const server = require('http').createServer(app)
