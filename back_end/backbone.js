@@ -16,7 +16,7 @@ app.use(morgan('dev'))
 
 module.exports = function (deps) {
     const mongoose = require('mongoose')
-    const url = 'mongodb://localhost/' + deps.dbname
+    const url = process.env.MONGODB_URI || 'mongodb://localhost/' + deps.dbname
     mongoose.connect(url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
