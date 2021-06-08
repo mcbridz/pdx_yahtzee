@@ -15,6 +15,10 @@ const scoreCardSchema = new Schema({
         type: Number,
         required: true
     },
+    player: {
+        type: String,
+        required: true
+    },
     upperSection: {
         type: Array,
         default: [
@@ -70,10 +74,11 @@ const scoreCardSchema = new Schema({
     }
 })
 
-scoreCardSchema.statics.create = async function (gameID, gameNum) {
+scoreCardSchema.statics.create = async function (gameID, gameNum, playerID) {
     const scoreCard = new this()
     scoreCard.game = gameID
     scoreCard.gameNum = gameNum
+    scoreCard.player = playerID
     await scoreCard.save()
     return this
 }

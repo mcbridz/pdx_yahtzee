@@ -20,11 +20,11 @@ gameSchema.statics.newGame = async function (playerList) {
     const game = new this()
     playerList.map(playerID => {
         game.users.push(playerID)
+        scoreCard = ScoreCard.create(game._id, 1, playerID)
+        game.scoreCards.push(scoreCard.packCard())
     })
-    scoreCard = ScoreCard.create(game._id, 1)
-    game.scoreCards.push(scoreCard.packCard())
     await game.save()
-    return scoreCard
+    return game.scoreCards
 }
 
 const Game = mongoose.model('Game', gameSchema)
