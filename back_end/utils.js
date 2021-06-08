@@ -6,7 +6,6 @@ const unpackEmit = (emit) => {
     else {
         return null
     }
-
 }
 
 module.exports = { unpackEmit }
