@@ -12,8 +12,7 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    },
-    todos: []
+    }
 })
 
 userSchema.statics.signup = async function (username, plainTextPassword) {
@@ -34,6 +33,8 @@ userSchema.methods.sanitize = function () {
 userSchema.methods.hashPassword = function (plainTextPassword) {
     const user = this
     let randomSalt = Math.floor(Math.random() * 4 + 2)
+    console.log('randomSalt is ' + randomSalt.toString())
+    console.log('plaintextpassword is ' + plainTextPassword)
     return bcrypt.hash(plainTextPassword, randomSalt).then(hash => {
         user.password = hash
     })
@@ -46,4 +47,4 @@ userSchema.methods.comparePassword = function (plainTextPassword) {
 
 const User = mongoose.model('User', userSchema)
 
-module.exports = { User }
+module.exports = User
