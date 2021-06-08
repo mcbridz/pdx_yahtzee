@@ -1,3 +1,4 @@
+require('dotenv').config()
 const port = process.env.PORT || 8000
 const DATA_PATH = './data'
 const DB_NAME = 'yahtzee'
