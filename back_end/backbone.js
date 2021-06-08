@@ -9,7 +9,7 @@ const app = express()
 
 
 if (process.env.PORT) {
-    app.use(express.static(path.join(__dirname, 'client', 'build')))
+    app.use(express.static(path.join(__dirname, '..', 'client', 'build')))
 } else {
     app.use(express.static('static'))    
 }
@@ -36,7 +36,7 @@ module.exports = function (deps) {
     }
     if (process.env.KEY) {
         app.get("*", (req, res) => {
-            res.sendFile(path.join(__dirname, "..", "client", "build"))
+            res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
         })
     }
     const server = require('http').createServer(app)
