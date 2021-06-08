@@ -9,7 +9,7 @@ const app = express()
 
 
 if (process.env.PORT) {
-    app.use(express.static(path.join(__dirnmane, 'client', 'build')))
+    app.use(express.static(path.join(__dirname, 'client', 'build')))
 } else {
     app.use(express.static('static'))    
 }
