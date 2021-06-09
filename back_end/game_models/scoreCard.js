@@ -83,6 +83,67 @@ scoreCardSchema.statics.create = async function (gameID, gameNum, playerID) {
     return this
 }
 
+scoreCardSchema.methods.updateScore = async function() {
+    let total = 0
+    let upperSectionTotal = 0
+    for (let i = 0; i < upperSectionRef.length; i++){
+        let subtotal = this.upperSection[i][upperSectionRef[i]] * this.upperSection[i].value
+        total += subtotal
+        upperSectionTotal += subtotal
+    }
+    this.upperSectionTotal = subtotal
+    let lowerSectionTotal = 0
+    for (let i = 0; i < lowerSectionRef.length; i++){
+        let subtotal2 = this.lowerSection[i][lowerSectionRef[i]]
+        total += subtotal2
+        lowerSectionTotal += subtotal2
+    }
+    this.lowerSectionTotal = subtotal2
+    this.grandTotal = total
+    this.save()
+}
+
+scoreCardSchema.methods.markFullHouse = async function () {
+    if (!this.lowerSection[2].marked) {
+        this.lowerSection[2].fullHouse = this.lowerSection[2].value
+        this.lowerSection[2].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markSmStraight = async function () {
+    if (!this.lowerSection[3].marked) {
+        this.lowerSection[3].smStraight = this.lowerSection[3].value
+        this.lowerSection[3].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markLgStraight = async function () {
+    if (!this.lowerSection[4].marked) {
+        this.lowerSection[4].lgStraight = this.lowerSection[4].value
+        this.lowerSection[4].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markYahtzee = async function () {
+    if (this.lowerSection[5].marked) {
+        let newBonus = this.yahtzeeBonus.score + 100
+        let newNumYahtzees = this.yahtzeeBonus.numYahtzees + 1
+        this.yahtzeeBonus.score = newBonus
+        this.yahtzeeBonus.numYahtzees = newNumYahtzees
+    } else {
+        this.lowerSection[5].yahtzee = this.lowerSection[5].value
+        this.lowerSection[5].marked = true
+    }
+    await this.save()
+    this.updateScore()
+}
+
 scoreCardSchema.methods.packCard = function () {
     let output = {
         id: this._id,
