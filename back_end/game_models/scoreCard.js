@@ -103,6 +103,66 @@ scoreCardSchema.methods.updateScore = async function() {
     this.save()
 }
 
+scoreCardSchema.methods.markAces = async function (numAces) {
+    if (!this.upperSection[0].marked) {
+        let subtotal = this.upperSection[0].value * numAces
+        this.upperSection[0].aces = subtotal
+        this.upperSection[0].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markTwos = async function (numTwos) {
+    if (!this.upperSection[1].marked) {
+        let subtotal = this.upperSection[1].value * numTwos
+        this.upperSection[1].twos = subtotal
+        this.upperSection[1].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markThrees = async function (numThrees) {
+    if (!this.upperSection[2].marked) {
+        let subtotal = this.upperSection[2].value * numThrees
+        this.upperSection[2].threes = subtotal
+        this.upperSection[2].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markFours = async function (numFours) {
+    if (!this.upperSection[3].marked) {
+        let subtotal = this.upperSection[3].value * numFours
+        this.upperSection[3].fours = subtotal
+        this.upperSection[3].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markFives = async function (numFives) {
+    if (!this.upperSection[4].marked) {
+        let subtotal = this.upperSection[4].value * numFives
+        this.upperSection[4].fives = subtotal
+        this.upperSection[4].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markSixes = async function (numSixes) {
+    if (!this.upperSection[5].marked) {
+        let subtotal = this.upperSection[5].value * numSixes
+        this.upperSection[5].sixes = subtotal
+        this.upperSection[5].marked = true
+        await this.save()
+        this.updateScore()
+    }
+}
+
 scoreCardSchema.methods.markFullHouse = async function () {
     if (!this.lowerSection[2].marked) {
         this.lowerSection[2].fullHouse = this.lowerSection[2].value
