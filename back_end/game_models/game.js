@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const ScoreCard = require('./scoreCard')
+const User = require('../protected_routes/userModel')
 
 const upperSectionRef = ['aces', 'twos', 'threes', 'fours', 'fives', 'sixes']
 const lowerSectionRef = ['threeOfAKind', 'fourOfAKind', 'fullHouse', 'smStraight', 'lgStraight', 'yahtzee']
@@ -20,18 +21,28 @@ const gameSchema = new Schema({
         type: Array,
         default: [],
         required: true
+    },
+    public: {
+        type: Boolean,
+        required: true
+    },
+    started: {
+        type: Boolean,
+        default: false,
+        required: true
     }
 })
 
-gameSchema.statics.newGame = async function (playerList) {
+gameSchema.statics.createGame = async function (playerList, public) {
     const game = new this()
-    playerList.map(playerID => {
-        game.users.push(playerID)
-        scoreCard = ScoreCard.create(game._id, 1, playerID)
+    game.public = public
+    playerList.map(playerObj => {
+        game.users.push(playerObj)
+        scoreCard = ScoreCard.create(game._id, 1, playerObj.id)
         game.scoreCards.push(scoreCard.packCard())
     })
     await game.save()
-    return game.scoreCards
+    return game
 }
 
 // taskObj = {game: gameID, scoreCard: scoreCardID, tasks: [{task: name, data: data}, {task: name2, data: data2}]}
@@ -45,9 +56,42 @@ gameSchema.statics.performTasks = async function (taskObj) {
     })
 }
 
+gameSchema.statics.newGame = function (playerList) {
+    let usernameList = []
+    playerList.map(async function (playerObj) {
+        usernameList.push({ username: playerObj.username, userID: playerObj.id })
+    })
+    return {
+        public: null,
+        players: usernameList
+    }
+}
+
+gameSchema.statics.getUnstartedGames = function () {
+    return this.find({ started: false })
+}
+
 gameSchema.methods.addPlayer = async function (player) {
     this.users.push(player)
-    this.save()
+    await this.save()
+}
+
+gameSchema.methods.removePlayer = async function (playerID) {
+    const index = this.users.find(obj => obj.id === playerID)
+    let newList = []
+    if (index === this.users.length - 1) {
+        newList = this.users.slice(0, index)
+        this.users = newList
+    } else if (index === 0) {
+        newList = this.users.slice(1)
+        this.users = newList
+    } else {
+        let part1 = this.users.slice(0, index)
+        let part2 = this.users.slice(index + 1)
+        this.users = part1.concat(part2)
+    }
+    //need logic here to remove scorecards
+    await this.save()
 }
 
 const Game = mongoose.model('Game', gameSchema)
