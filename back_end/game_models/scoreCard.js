@@ -163,7 +163,7 @@ scoreCardSchema.methods.markSixes = async function (numSixes) {
     }
 }
 
-scoreCardSchema.methods.markFullHouse = async function () {
+scoreCardSchema.methods.markFullHouse = async function (pass) {
     if (!this.lowerSection[2].marked) {
         this.lowerSection[2].fullHouse = this.lowerSection[2].value
         this.lowerSection[2].marked = true
@@ -172,7 +172,7 @@ scoreCardSchema.methods.markFullHouse = async function () {
     }
 }
 
-scoreCardSchema.methods.markSmStraight = async function () {
+scoreCardSchema.methods.markSmStraight = async function (pass) {
     if (!this.lowerSection[3].marked) {
         this.lowerSection[3].smStraight = this.lowerSection[3].value
         this.lowerSection[3].marked = true
@@ -181,7 +181,7 @@ scoreCardSchema.methods.markSmStraight = async function () {
     }
 }
 
-scoreCardSchema.methods.markLgStraight = async function () {
+scoreCardSchema.methods.markLgStraight = async function (pass) {
     if (!this.lowerSection[4].marked) {
         this.lowerSection[4].lgStraight = this.lowerSection[4].value
         this.lowerSection[4].marked = true
@@ -190,7 +190,7 @@ scoreCardSchema.methods.markLgStraight = async function () {
     }
 }
 
-scoreCardSchema.methods.markYahtzee = async function () {
+scoreCardSchema.methods.markYahtzee = async function (pass) {
     if (this.lowerSection[5].marked) {
         let newBonus = this.yahtzeeBonus.score + 100
         let newNumYahtzees = this.yahtzeeBonus.numYahtzees + 1
