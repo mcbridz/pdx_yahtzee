@@ -41,7 +41,7 @@ gameSchema.statics.newGame = async function (playerList) {
 gameSchema.statics.performTasks = async function (taskObj) {
     const scoreCard = await ScoreCard.findOne({ _id: taskObj.scoreCard })
     taskObj.tasks.map((task, data) => {
-        scoreCard['mark'+capitalize(task)](data)
+        scoreCard[task](data)
     })
 }
 
