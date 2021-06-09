@@ -36,7 +36,7 @@ const gameSchema = new Schema({
     }
 })
 
-gameSchema.statics.createGame = async function (playerList, public) {
+gameSchema.statics.createGame = function (playerList, public) {
     const game = new this()
     game.public = public
     playerList.map(playerObj => {
@@ -44,7 +44,7 @@ gameSchema.statics.createGame = async function (playerList, public) {
         scoreCard = ScoreCard.create(game._id, 1, playerObj.id)
         game.scoreCards.push(scoreCard.packCard())
     })
-    await game.save()
+    game.save()
     return game
 }
 
@@ -83,7 +83,7 @@ gameSchema.methods.addPlayer = async function (player) {
     await this.save()
 }
 
-gameSchema.methods.removePlayer = async function (playerID) {
+gameSchema.methods.removePlayer = function (playerID) {
     const index = this.users.find(obj => obj.id === playerID)
     let newList = []
     if (index === this.users.length - 1) {
@@ -98,20 +98,20 @@ gameSchema.methods.removePlayer = async function (playerID) {
         this.users = part1.concat(part2)
     }
     //need logic here to remove scorecards
-    await this.save()
+    return this.save()
 }
 
-gameSchema.methods.getCurrentPlayer = () => {
+gameSchema.methods.getCurrentPlayer = function () {
     return this.currentPlayer.id
 }
 
-gameSchema.methods.startGame = () => {
+gameSchema.methods.startGame = function () {
     this.currentPlayer = this.users[0]
     this.started = true
     return this.save()
 }
 
-gameSchema.methods.endGame = () => {
+gameSchema.methods.endGame = function () {
     this.started = false
     return this.save()
 }
