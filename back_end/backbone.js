@@ -96,6 +96,23 @@ module.exports = function (deps) {
             await game.save()
             io.emit('startGame', JSON.stringify(game))
         })
+
+        // taskObj = {game: gameID, scoreCard: scoreCardID, tasks: [{task: name, data: data}, {task: name2, data: data2}]}
+        // data inside taskObj:
+        // data = {'markOnes', <number of ones dice>, 'markSixes', <number of sixes dice>}
+        socket.on('markScore', async function (taskObj) {
+            let game = await Game.findOne({ _id: taskObj.game })
+            await game.performTasks(taskObj)
+            io.emit('markScore', JSON.stringify(game))
+        })
+
+        socket.on('diceRoll', (numRolls) => {
+            let rolls = []
+            for (let i = 0; i < numRolls; i++){
+                rolls.push(Math.floor(Math.random()*6))
+            }
+            io.emit('diceRoll', JSON.stringify(rolls))
+        })
     })
 
 

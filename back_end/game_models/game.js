@@ -54,6 +54,12 @@ gameSchema.statics.performTasks = async function (taskObj) {
     taskObj.tasks.map((task, data) => {
         scoreCard[task](data)
     })
+    scoreCard.save()
+        .then(scoreCard => {
+            let index = this.scorecards.find(scorecard => scorecard.id === scoreCard._id)
+            this.scorecards[index] = scoreCard.packCard()
+            return this.save()
+    })
 }
 
 gameSchema.statics.newGame = function (playerList) {
