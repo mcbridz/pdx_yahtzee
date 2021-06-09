@@ -208,6 +208,7 @@ scoreCardSchema.methods.packCard = function () {
     let output = {
         id: this._id,
         gameID: this.game,
+        player: this.player,
         upperSection: [
             { aces: this.upperSection[0].aces, marked: this.upperSection[0].marked },
             { twos: this.upperSection[1].twos, marked: this.upperSection[1].marked },
