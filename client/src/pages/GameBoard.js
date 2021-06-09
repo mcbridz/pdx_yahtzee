@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Dice from "./Dice";
+
+import Dice from "../components/Dice";
+import RollButton from "../components/RollButton";
 
 const numOfDice = 5;
 const numOfRolls = 3;
@@ -39,35 +41,28 @@ const GameBoard = () => {
 
   const rollDice = (evt) => {
     console.log(dice);
-    let rolls = [];
-
+    const rolls = [];
     for (let i = 0; i < numOfDice; i++) {
-      rolls[i] = Math.ceil(Math.random() * 6);
+      if (locked[i]) {
+        rolls.push(dice[i]);
+      } else {
+        dice[i] = Math.ceil(Math.random() * 6);
+        rolls.push(dice[i]);
+      }
       setDice(rolls);
     }
-    // dice.map((d, i) => {
-    //   for (let j = 0; j < numOfDice; j++) {
-    //     if (!locked[i]) {
-    //       let num = Math.ceil(Math.random() * 6);
-    //       setDice({ ...dice.concat(num) });
-    //     }
-    //   }
-    // });
 
-    // dice.map((die, i) => {
-    //   setDice(locked[i] ? die : Math.ceil(Math.random() * 6));
-    setLocked({
-      locked: rollsRemaining > 1 ? locked : Array(numOfDice).fill(true),
-    });
-    setRollsRemaining({ rollsRemaining: rollsRemaining - 1 });
-    setRolling(false);
+    // setLocked({
+    //   locked: rollsRemaining > 0 ? locked : Array(numOfDice).fill(true),
     // });
+    setRollsRemaining(rollsRemaining - 1);
+    setRolling(false);
   };
 
   const toggleLocked = (i) => {
-    if (rollsRemaining > 0 && !rolling) {
-      setLocked([...locked.slice(0, i), !locked[i], ...locked.slice(i + 1)]);
-    }
+    console.log(i);
+    let lockedArr = [...locked.slice(0, i), !locked[i], ...locked.slice(i + 1)];
+    setLocked(lockedArr);
   };
 
   return (
@@ -82,8 +77,10 @@ const GameBoard = () => {
         setRolling={setRolling}
         rollDice={rollDice}
         toggleLocked={toggleLocked}
+        rollsRemaining={rollsRemaining}
+        disabled={rollsRemaining === 0}
       />
-      <button onClick={initiateRoll}>Roll</button>
+      <RollButton initiateRoll={initiateRoll} rollsRemaining={rollsRemaining} />
     </div>
   );
 };
