@@ -90,13 +90,6 @@ module.exports = function (deps) {
             io.emit('removePlayer', JSON.stringify(await game.removePlayer(user)))
         })
 
-        socket.on('startGame', async function (game) {
-            let game = await Game.findOne({ _id: game })
-            game.started = true
-            await game.save()
-            io.emit('startGame', JSON.stringify(game))
-        })
-
         // taskObj = {game: gameID, scoreCard: scoreCardID, tasks: [{task: name, data: data}, {task: name2, data: data2}]}
         // data inside taskObj:
         // data = {'markOnes', <number of ones dice>, 'markSixes', <number of sixes dice>}
@@ -112,6 +105,18 @@ module.exports = function (deps) {
                 rolls.push(Math.floor(Math.random()*6))
             }
             io.emit('diceRoll', JSON.stringify(rolls))
+        })
+
+        socket.on('startGame', async function (gameID) {
+            let game = await Game.findOne({ _id: gameID })
+            await game.startGame()
+            io.emit('startGame', JSON.stringify(game))
+        })
+
+        socket.on('endGame', async function (gameID) {
+            let game = await Game.findOne({ _id: gameID })
+            await game.endGame()
+            io.emit('endGame', JSON.stringify(game))
         })
     })
 

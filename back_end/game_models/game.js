@@ -30,6 +30,9 @@ const gameSchema = new Schema({
         type: Boolean,
         default: false,
         required: true
+    },
+    currentPlayer: {
+        type: Object
     }
 })
 
@@ -55,11 +58,9 @@ gameSchema.statics.performTasks = async function (taskObj) {
         scoreCard[task](data)
     })
     scoreCard.save()
-        .then(scoreCard => {
-            let index = this.scorecards.find(scorecard => scorecard.id === scoreCard._id)
-            this.scorecards[index] = scoreCard.packCard()
-            return this.save()
-    })
+    let index = this.scorecards.find(scorecard => scorecard.id === scoreCard._id)
+    this.scorecards[index] = scoreCard.packCard()
+    return this.save()    
 }
 
 gameSchema.statics.newGame = function (playerList) {
@@ -98,6 +99,21 @@ gameSchema.methods.removePlayer = async function (playerID) {
     }
     //need logic here to remove scorecards
     await this.save()
+}
+
+gameSchema.methods.getCurrentPlayer = () => {
+    return this.currentPlayer.id
+}
+
+gameSchema.methods.startGame = () => {
+    this.currentPlayer = this.users[0]
+    this.started = true
+    return this.save()
+}
+
+gameSchema.methods.endGame = () => {
+    this.started = false
+    return this.save()
 }
 
 const Game = mongoose.model('Game', gameSchema)
