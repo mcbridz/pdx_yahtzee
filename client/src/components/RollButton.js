@@ -7,7 +7,7 @@ const RollButton = (props) => {
       "No rolls remaining",
       "One roll remaining",
       "Two rolls remaining",
-      "Start turn",
+      "Start your turn!",
     ];
     return messages[props.rollsRemaining];
   };
