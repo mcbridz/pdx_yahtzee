@@ -6,6 +6,8 @@ const morgan = require('morgan')
 const path = require('path')
 const Game = require('./game_models/game')
 const User = require('./protected_routes/userModel')
+const jwt = require('jsonwebtoken')
+const key = process.env.KEY || require('../secrets').key
 
 const app = express()
 
