@@ -79,8 +79,7 @@ scoreCardSchema.statics.create = async function (gameID, gameNum, playerID) {
     scoreCard.game = gameID
     scoreCard.gameNum = gameNum
     scoreCard.player = playerID
-    await scoreCard.save()
-    return this
+    return scoreCard.save()
 }
 
 scoreCardSchema.methods.updateScore = async function() {

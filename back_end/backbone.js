@@ -52,6 +52,10 @@ module.exports = function (deps) {
         }
     })
 
+    const mapAwaiter = (list, callback) => {
+        return Promise.all(list.map(callback))
+    }
+
     io.on('connection', (socket) => {
         console.log('a user has connected')
 
@@ -65,13 +69,23 @@ module.exports = function (deps) {
         socket.on('createGame', async function (order) {
             let idList = order.playerList
             let usernameList = []
-            idList.map(async function (token) {
+            await mapAwaiter(idList, async function (token) {
                 const id = jwt.decode(token, key)._id
-                const username = await User.findOne({ _id: id }).username
-                usernameList.push({ id: id, username: username })
+                // console.log(id)
+                const userQ = await User.findOne({ _id: id })
+                // console.log(username)
+                const user = { id: id, username: userQ.username }
+                usernameList.push(user)
+                // console.log(usernameList)
             })
-            io.emit('createGame', JSON.stringify(Game.createGame(usernameList, order.public)))
+            // console.log(usernameList)
+            Game.createGame(usernameList, order.public)
+                .then((game) => {
+                    console.log(JSON.stringify(game))
+                    io.emit('createGame', JSON.stringify(game))                
+            })
         })
+    
 
         // order is an object, with the structure of:
         // { game: <game._id>, player: <playerIDTOKEN> }

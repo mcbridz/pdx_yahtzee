@@ -5,6 +5,10 @@ const User = require('../protected_routes/userModel')
 const upperSectionRef = ['aces', 'twos', 'threes', 'fours', 'fives', 'sixes']
 const lowerSectionRef = ['threeOfAKind', 'fourOfAKind', 'fullHouse', 'smStraight', 'lgStraight', 'yahtzee']
 
+const mapAwaiter = (list, callback) => {
+    return Promise.all(list.map(callback))
+}
+
 const Schema = mongoose.Schema
 
 const capitalize = (str) => {
@@ -36,17 +40,26 @@ const gameSchema = new Schema({
     }
 })
 
-gameSchema.statics.createGame = function (playerList, public) {
+gameSchema.statics.createGame = async function (playerList, public) {
     const game = new this()
     game.public = public
-    playerList.map(playerObj => {
+    console.log('game.js playerList')
+    console.log(playerList)
+    await mapAwaiter(playerList, (playerObj, index) => {
         game.users.push(playerObj)
-        scoreCard = ScoreCard.create(game._id, 1, playerObj.id)
-        game.scoreCards.push(scoreCard.packCard())
-    })
-    game.save()
-    return game
+        ScoreCard.create(game._id, 1, playerObj.id)
+            .then((card) => {
+                // console.log(card)
+                console.log('/////////////////created card/////////////')
+                game.scoreCards.push(card.packCard())
+            })
+    })    
+    return game.save()
+    // console.log(game)
+    // return game
+    
 }
+
 
 // taskObj = {game: gameID, scoreCard: scoreCardID, tasks: [{task: name, data: data}, {task: name2, data: data2}]}
 // data inside taskObj:

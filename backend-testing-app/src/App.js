@@ -64,6 +64,7 @@ function App() {
   const diceRef = [1,2,3,4,5,6]
   useEffect(() => {
     socket.on('createGame', (game) => {
+      console.log(JSON.parse(game))
       setGame(JSON.parse(game))
     })
     socket.on('getUnstartedGames', (list) => {
