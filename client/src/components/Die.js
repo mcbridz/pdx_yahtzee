@@ -14,7 +14,7 @@ const Die = (props) => {
     <div>
       {numDie === "One" && (
         <FaDiceOne
-          size={64}
+          size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={props.rollsRemaining === 0}
           style={props.locked ? lockedStyle : ""}
@@ -22,7 +22,7 @@ const Die = (props) => {
       )}
       {numDie === "Two" && (
         <FaDiceTwo
-          size={64}
+          size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={props.rollsRemaining === 0}
           style={props.locked ? lockedStyle : ""}
@@ -30,7 +30,7 @@ const Die = (props) => {
       )}
       {numDie === "Three" && (
         <FaDiceThree
-          size={64}
+          size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={props.rollsRemaining === 0}
           style={props.locked ? lockedStyle : ""}
@@ -38,7 +38,7 @@ const Die = (props) => {
       )}
       {numDie === "Four" && (
         <FaDiceFour
-          size={64}
+          size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={props.rollsRemaining === 0}
           style={props.locked ? lockedStyle : ""}
@@ -46,7 +46,7 @@ const Die = (props) => {
       )}
       {numDie === "Five" && (
         <FaDiceFive
-          size={64}
+          size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={props.rollsRemaining === 0}
           style={props.locked ? lockedStyle : ""}
@@ -54,7 +54,7 @@ const Die = (props) => {
       )}
       {numDie === "Six" && (
         <FaDiceSix
-          size={64}
+          size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={props.rollsRemaining === 0}
           style={props.locked ? lockedStyle : ""}
