@@ -82,6 +82,16 @@ function App() {
     socket.on('endGame', (game) => {
       setGame(JSON.parse(game))
     })
+    socket.on('addPlayer', (game) => {
+      // console.log('new player added')
+      // console.log(JSON.parse(game))
+      setGame(JSON.parse(game))
+    })
+    socket.on('removePlayer', (game) => {
+      console.log('player removed on database')
+      console.log(JSON.parse(game))
+      setGame(JSON.parse(game))
+    })
   }, [])
 
 
@@ -90,7 +100,11 @@ function App() {
     socket.emit('createGame', {public: true, playerList: ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJlZDhlMWIyNjUzOTVkYjAwNjY3ZjUiLCJpYXQiOjE2MjMyOTI4MDl9.I8SWHgeMHPjATaQqGgZnmXxmkDZ343blVBk-U_wuysc", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJlZDkwNzcwNGUxZDZiYTBjMjJjZTEiLCJpYXQiOjE2MjMyOTI4MzV9.Jr88pvQi9iAm365QXAD_HoBayuOas-QXlkrB7mC7zHQ", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGMxNzljZjY3YmY5NjZkNTQ2MjcyMDgiLCJpYXQiOjE2MjMyOTI4NjZ9.rULhPWRWsS-jnRFxNFX88Rq7ncLGN5RQ-p4H4oCMiF0"]})
   }
   const testStartGame = () => {
-    return () => socket.emit('startGame', game._id)    
+    return () => {
+      setScoreCard(game.scoreCards[0])
+      console.log(scoreCard)
+      socket.emit('startGame', game._id)
+    }
   }
   const testEndGame = () => {
     return () => socket.emit('endGame', game._id)
@@ -102,6 +116,7 @@ function App() {
   const testAddPlayer = (order) => {
     return () => {
       order.game = game._id
+      order.player = player4.player
       socket.emit('addPlayer', order)
     }
   }
@@ -181,14 +196,16 @@ function App() {
       <input value={game._id} disabled name="gameID" />
       <label htmlFor="players">Players </label>
       <ul name="players">
-
+        {game.users.map((playerObj, key) => {
+          return <li key={key}>id: {playerObj.id} username: {playerObj.username}</li>
+        })}
       </ul>
       <label htmlFor="public" >Public? </label>
       <input type="checkbox" checked={game.public} disabled name="public" />
       <label htmlFor="started" >Started? </label>
       <input type="checkbox" checked={game.started} disabled name="started" />
       <label htmlFor="currentPlayer" >Current Player </label>
-      <input value={game.currentPlayer.username} disabled name="currentPlayer" />
+      <input value={(!game.started)?'':game.currentPlayer.username} disabled name="currentPlayer" />
 
       <h2>Current Player Scorecard</h2>
       <label htmlFor="gameNum" >Game Number </label>

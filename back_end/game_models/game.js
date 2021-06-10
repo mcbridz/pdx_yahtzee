@@ -43,14 +43,14 @@ const gameSchema = new Schema({
 gameSchema.statics.createGame = async function (playerList, public) {
     const game = new this()
     game.public = public
-    console.log('game.js playerList')
-    console.log(playerList)
-    await mapAwaiter(playerList, (playerObj, index) => {
+    // console.log('game.js playerList')
+    // console.log(playerList)
+    await mapAwaiter(playerList, async (playerObj, index) => {
         game.users.push(playerObj)
-        ScoreCard.create(game._id, 1, playerObj.id)
+        let card = await ScoreCard.create(game._id, 1, playerObj.username)
             .then((card) => {
                 // console.log(card)
-                console.log('/////////////////created card/////////////')
+                // console.log('/////////////////created card/////////////')
                 game.scoreCards.push(card.packCard())
             })
     })    
@@ -93,23 +93,23 @@ gameSchema.statics.getUnstartedGames = function () {
 
 gameSchema.methods.addPlayer = async function (player) {
     this.users.push(player)
-    await this.save()
+    const scoreCard = new ScoreCard()
+    scoreCard.game = this._id
+    scoreCard.gameNum = 1
+    scoreCard.player = player.username
+    await scoreCard.save()
+    this.scoreCards.push(scoreCard.packCard())
+    return this.save()
 }
 
 gameSchema.methods.removePlayer = function (playerID) {
-    const index = this.users.find(obj => obj.id === playerID)
-    let newList = []
-    if (index === this.users.length - 1) {
-        newList = this.users.slice(0, index)
-        this.users = newList
-    } else if (index === 0) {
-        newList = this.users.slice(1)
-        this.users = newList
-    } else {
-        let part1 = this.users.slice(0, index)
-        let part2 = this.users.slice(index + 1)
-        this.users = part1.concat(part2)
-    }
+    // const index = this.users.find(obj => obj.id === playerID)
+    console.log('removing player: ' + playerID._id)
+    let newList = this.users.filter(playerObj => playerObj.id !== playerID._id)
+    console.log(newList)
+    this.users = newList
+    const newCardsArr = this.scoreCards.filter((playerObj => playerObj.id !== playerID))
+    this.scoreCards = newCardsArr
     //need logic here to remove scorecards
     return this.save()
 }

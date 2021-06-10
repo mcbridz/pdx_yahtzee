@@ -81,7 +81,7 @@ module.exports = function (deps) {
             // console.log(usernameList)
             Game.createGame(usernameList, order.public)
                 .then((game) => {
-                    console.log(JSON.stringify(game))
+                    // console.log(JSON.stringify(game))
                     io.emit('createGame', JSON.stringify(game))                
             })
         })
@@ -90,11 +90,15 @@ module.exports = function (deps) {
         // order is an object, with the structure of:
         // { game: <game._id>, player: <playerIDTOKEN> }
         socket.on('addPlayer', async function (order) {
-            let user = await User.findOne({ _id: jwt.decode(order.player, key) })
+            // console.log('adding player')
+            let user = await User.findOne({ _id: jwt.decode(order.player, key)._id })
             let game = await Game.findOne({ _id: order.game })
+            // console.log(user)
             if (!game.started) {
-                game.addPlayer({ id: user._id, username: user.username })
+                game = await game.addPlayer({ id: user._id, username: user.username })
             }
+            // console.log('SENDING THIS GAME:')
+            // console.log(game)
             io.emit('addPlayer', JSON.stringify(game))
         })
         
