@@ -1,0 +1,110 @@
+.score-card {
+  min-width: 1050px;
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  border: 1px solid black;
+  border-radius: 13px;
+  max-width: 1050px;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+}
+
+#game-table {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upper-scores-category-title {
+  border: 1px solid black;
+  min-width: 120px;
+  max-width: 120px;
+  height: 50px;
+  font-weight: bold;
+}
+
+#upper-scores-table {
+  min-width: 1000px;
+  max-width: 1000px;
+  border-collapse: collapse;
+}
+
+td {
+  min-height: 110px;
+  max-height: 110px;
+}
+
+#spacer {
+  min-width: 5px;
+  max-width: 5px;
+}
+
+#big-spacer {
+  min-width: 140px;
+  max-width: 140px;
+}
+
+#upper-total-desc {
+  border: 1px solid black;
+  min-width: 200px;
+  max-width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+#upper-total-score {
+  min-width: 80px;
+  max-width: 80px;
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
+
+/* #upper-totals-table {
+  min-width: 1000px;
+  max-width: 1000px;
+  border-collapse: collapse;
+} */
+
+#upper-totals-table-header {
+  margin-bottom: 10px;
+}
+
+#lower-scores-table {
+  border-collapse: collapse;
+}
+
+#bonus-yahtzee-checkbox {
+  border: 1px solid black;
+  max-width: 20px;
+  min-width: 20px;
+}
+
+#bonus-yahtzee-row {
+  max-width: 100px;
+  min-width: 100px;
+}
+
+#bonus-spacer {
+  min-width: 140px;
+}
+
+#bonus-checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+#dice-icon {
+  font-size: 32px;
+  font-weight: 100;
+}
+
+/* #curved-border {
+  border-radius: 14px 0 0 0;
+} */

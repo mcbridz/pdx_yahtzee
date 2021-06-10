@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/RollButton.css";
 
 const RollButton = (props) => {
   const rollMessage = () => {
@@ -12,10 +13,11 @@ const RollButton = (props) => {
   };
 
   return (
-    <div>
+    <div id="roll-btn-div">
       <button
         onClick={props.initiateRoll}
         disabled={props.rollsRemaining === 0}
+        id="roll-btn"
       >
         {rollMessage()}
       </button>

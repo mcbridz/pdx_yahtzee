@@ -7,6 +7,13 @@ function App() {
   // const [credentials, setCredentials] = useState({ username: "", token: "" });
 
   // const token = credentials.token
+
+  // const checkLoginStatus = useCallback(() => {
+  //   if (!!credentials) {
+  //     history.push("/login");
+  //   }
+  // }, [credentials, history]);
+
   return (
     <div className="App">
       <Switch>

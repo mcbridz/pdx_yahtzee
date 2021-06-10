@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Dice from "../components/Dice";
 import RollButton from "../components/RollButton";
+import ScoreCard from "../components/ScoreCard";
 
 const numOfDice = 5;
 const numOfRolls = 3;
@@ -66,21 +67,24 @@ const GameBoard = () => {
   };
 
   return (
-    <div>
+    <div id="game-table">
       <h1>Hey it's yahtzee!</h1>
-      <Dice
-        dice={dice}
-        setDice={setDice}
-        locked={locked}
-        setLocked={setLocked}
-        rolling={rolling}
-        setRolling={setRolling}
-        rollDice={rollDice}
-        toggleLocked={toggleLocked}
-        rollsRemaining={rollsRemaining}
-        disabled={rollsRemaining === 0}
-      />
+      <div id="dice-div">
+        <Dice
+          dice={dice}
+          setDice={setDice}
+          locked={locked}
+          setLocked={setLocked}
+          rolling={rolling}
+          setRolling={setRolling}
+          rollDice={rollDice}
+          toggleLocked={toggleLocked}
+          rollsRemaining={rollsRemaining}
+          disabled={rollsRemaining === 0}
+        />
+      </div>
       <RollButton initiateRoll={initiateRoll} rollsRemaining={rollsRemaining} />
+      <ScoreCard />
     </div>
   );
 };
