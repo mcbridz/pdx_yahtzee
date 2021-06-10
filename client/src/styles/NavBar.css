@@ -1,0 +1,11 @@
+#nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+#navbar-link {
+  margin-right: 15px;
+  font-size: 22px;
+  font-weight: bold;
+}

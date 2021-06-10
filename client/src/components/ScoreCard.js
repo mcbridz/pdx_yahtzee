@@ -25,11 +25,7 @@ const ScoreCard = (props) => {
         </thead>
         <tbody>
           <tr id="aces-row">
-            <td
-              colspan="2"
-              className="upper-scores-category-title"
-              id="curved-border"
-            >
+            <td colspan="2" className="upper-scores-category-title rounded-top">
               {upperScores[0]} <span id="dice-icon">&#x2680;</span>
             </td>
             <td id="spacer"></td>
@@ -146,7 +142,11 @@ const ScoreCard = (props) => {
             <ScoreLine value={7} />
             <td id="spacer"> </td>
             <td colspan="2" className="upper-scores-category-title">
-              {lowerScores[5]}
+              {lowerScores[5]} <span id="dice-icon-yahtzee">&#x2685;</span>
+              <span id="dice-icon-yahtzee">&#x2685;</span>
+              <span id="dice-icon-yahtzee">&#x2685;</span>
+              <span id="dice-icon-yahtzee">&#x2685;</span>
+              <span id="dice-icon-yahtzee">&#x2685;</span>
             </td>
             <td id="spacer"></td>
             <ScoreLine value={10} />

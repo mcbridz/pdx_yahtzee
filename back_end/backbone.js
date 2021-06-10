@@ -1,29 +1,28 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const MongoClient = require('mongodb').MongoClient
-const cors = require('cors')
-const morgan = require('morgan')
-const path = require('path')
-const Game = require('./game_models/game')
-const User = require('./protected_routes/userModel')
-const jwt = require('jsonwebtoken')
-const key = process.env.KEY || require('../secrets').key
+const express = require("express");
+const mongoose = require("mongoose");
+const MongoClient = require("mongodb").MongoClient;
+const cors = require("cors");
+const morgan = require("morgan");
+const path = require("path");
+const Game = require("./game_models/game");
+const User = require("./protected_routes/userModel");
+const jwt = require("jsonwebtoken");
+const key = process.env.KEY || require("../secrets").key;
 
-const app = express()
-
+const app = express();
 
 if (process.env.PORT) {
-    app.use(express.static(path.join(__dirname, '..', 'client', 'build')))
+  app.use(express.static(path.join(__dirname, "..", "client", "build")));
 } else {
-    app.use(express.static('static'))    
+  app.use(express.static("static"));
 }
-app.use(express.json())
-app.use(cors())
-app.use(morgan('dev'))
-const loginRoute = require('./unprotected_routes/login')
-app.use('/', loginRoute)
-const registerRoute = require('./unprotected_routes/register')
-app.use('/', registerRoute)
+app.use(express.json());
+app.use(cors());
+app.use(morgan("dev"));
+const loginRoute = require("./unprotected_routes/login");
+app.use("/", loginRoute);
+const registerRoute = require("./unprotected_routes/register");
+app.use("/", registerRoute);
 
 module.exports = function (deps) {
     const mongoose = require('mongoose')

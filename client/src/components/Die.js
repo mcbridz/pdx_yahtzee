@@ -11,7 +11,7 @@ const Die = (props) => {
   const numDie = diceSides[props.val - 1];
   const lockedStyle = { color: "red" };
   return (
-    <div>
+    <div id="die">
       {numDie === "One" && (
         <FaDiceOne
           size={80}
