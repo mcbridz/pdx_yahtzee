@@ -137,6 +137,11 @@ module.exports = function (deps) {
             await game.endGame()
             io.emit('endGame', JSON.stringify(game))
         })
+
+        socket.on("connect-to-room", (room) => {
+            socket.join(room);
+            console.log("Joined room " + room);
+          });
     })
 
 
