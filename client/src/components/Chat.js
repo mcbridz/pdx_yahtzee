@@ -1,6 +1,8 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import io from "socket.io-client";
 import { IoIosSend } from "react-icons/io";
+import ScrollableFeed from "react-scrollable-feed";
+
 import "../styles/Chat.css";
 
 let socket;
@@ -45,17 +47,25 @@ const Chat = (props) => {
 
   return (
     <div className="chat-container">
-      <div className="chat-messages">
-        {messageList.map((msg, index) => {
-          return (
-            <div className="chat-message">
-              <h2 key={index}>
-                {msg.author}: {msg.message}
-              </h2>
-            </div>
-          );
-        })}
-      </div>
+      <ScrollableFeed>
+        <div className="chat-messages">
+          {messageList.map((msg, index) => {
+            return (
+              <div
+                className={
+                  msg.author === props.credentials.username
+                    ? "chat-message-you"
+                    : "chat-message-other"
+                }
+              >
+                <h2 key={index}>
+                  {msg.author}: {msg.message}
+                </h2>
+              </div>
+            );
+          })}
+        </div>
+      </ScrollableFeed>
       <div className="chat-inputs">
         <input
           type="text"

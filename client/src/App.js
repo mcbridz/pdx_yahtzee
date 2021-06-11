@@ -23,7 +23,7 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <GameBoard />
+          <GameBoard credentials={credentials} />
         </Route>
         <Route path="/login">
           <Login setCredentials={setCredentials} />

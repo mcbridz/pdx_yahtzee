@@ -9,13 +9,15 @@
   bottom: 0;
   left: 0;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 13px;
 }
 
 .chat-messages {
   flex: 85%;
-  width: 100%;
+  width: 94%;
   padding-left: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .chat-inputs {
@@ -46,8 +48,35 @@
   cursor: pointer;
 }
 
-.chat-message {
+.chat-message-you {
   font-size: 14px;
+  background-color: lightblue;
+  border-radius: 5px;
+  height: 50px;
+}
+
+.chat-message-other {
+  font-size: 14px;
+  background-color: lightgray;
+  border-radius: 5px;
+  min-height: 50px;
+}
+
+.chat-message-other h2 {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+
+.chat-message-you h2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5px;
+  padding-right: 5px;
+  padding-top: 7px;
 }
 
 #send {

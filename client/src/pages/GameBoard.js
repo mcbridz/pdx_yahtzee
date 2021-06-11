@@ -9,7 +9,7 @@ import "../styles/GameTable.css";
 const numOfDice = 5;
 const numOfRolls = 3;
 
-const GameBoard = () => {
+const GameBoard = (props) => {
   const [locked, setLocked] = useState(Array(numOfDice).fill(false));
   const [dice, setDice] = useState(Array.from({ length: numOfDice }));
   const [rolling, setRolling] = useState(false);
@@ -90,7 +90,7 @@ const GameBoard = () => {
           rollsRemaining={rollsRemaining}
         />
       </div>
-      <Chat value={0} />
+      <Chat value={0} credentials={props.credentials} />
       <ScoreCard />
     </div>
   );
