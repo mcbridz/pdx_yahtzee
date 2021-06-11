@@ -33,6 +33,7 @@ function App() {
     currentPlayer: { id: '', username: ''}
   })
   const [scoreCard, setScoreCard] = useState({
+    id: '',
     game: '',
     gameNum: '',
     player: '',
@@ -70,13 +71,20 @@ function App() {
     socket.on('getUnstartedGames', (list) => {
       setGamesList(JSON.parse(list))
     })
-    socket.on('markScore', (game) => {
-      setGame(JSON.parse(game))
+    socket.on('markScore', (gameObj) => {
+      let gameJSON = JSON.parse(gameObj)
+      console.log(gameJSON)
+      console.log(game.currentPlayer.username)
+      const currentPlayerScoreCard = gameJSON.scoreCards.filter((scoreCard) => gameJSON.currentPlayer.username.trim() == scoreCard.player.trim())[0]
+      console.log(currentPlayerScoreCard)
+      setGame(gameJSON)
+      setScoreCard(currentPlayerScoreCard)
     })
     socket.on('diceRoll', (dice) => {
       setDice(JSON.parse(dice))
     })
     socket.on('startGame', (game) => {
+      // console.log(JSON.parse(game))
       setGame(JSON.parse(game))
     })
     socket.on('endGame', (game) => {
@@ -178,6 +186,7 @@ function App() {
   //hardcoded scoremarking functions
   const scoreTest = (order) => {
     return () => {
+      order.scoreCard = scoreCard.id
       order.game = game._id
       socket.emit('markScore', order)
     }

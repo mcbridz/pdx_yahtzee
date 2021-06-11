@@ -115,6 +115,7 @@ module.exports = function (deps) {
         // data inside taskObj:
         // data = {'markOnes', <number of ones dice>, 'markSixes', <number of sixes dice>}
         socket.on('markScore', async function (taskObj) {
+            console.log(taskObj)
             let game = await Game.findOne({ _id: taskObj.game })
             await game.performTasks(taskObj)
             io.emit('markScore', JSON.stringify(game))

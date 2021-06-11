@@ -65,16 +65,6 @@ gameSchema.statics.createGame = async function (playerList, public) {
 // data inside taskObj:
 // data = {'markOnes', <number of ones dice>, 'markSixes', <number of sixes dice>}
 
-gameSchema.statics.performTasks = async function (taskObj) {
-    const scoreCard = await ScoreCard.findOne({ _id: taskObj.scoreCard })
-    taskObj.tasks.map((task, data) => {
-        scoreCard[task](data)
-    })
-    scoreCard.save()
-    let index = this.scorecards.find(scorecard => scorecard.id === scoreCard._id)
-    this.scorecards[index] = scoreCard.packCard()
-    return this.save()    
-}
 
 gameSchema.statics.newGame = function (playerList) {
     let usernameList = []
@@ -115,11 +105,6 @@ gameSchema.methods.removePlayer = function (user) {
     // console.log(newList)
     this.users = newList
     const newCardsArr = this.scoreCards.filter((scoreCard => user.username.trim() != scoreCard.player.trim()))
-    for (let i = 0; i < this.scoreCards.length; ++i){
-        console.log(this.scoreCards[i].player.toString())
-        console.log(user.username.toString())
-        console.log(user.username.trim() != this.scoreCards[i].player.trim())
-    }
     // console.log(newCardsArr)
     this.scoreCards = newCardsArr
     //need logic here to remove scorecards
@@ -139,6 +124,27 @@ gameSchema.methods.startGame = function () {
 gameSchema.methods.endGame = function () {
     this.started = false
     return this.save()
+}
+
+gameSchema.methods.performTasks = async function (taskObj) {
+    console.log(taskObj)
+    const scoreCard = await ScoreCard.findOne({ _id: taskObj.scoreCard })
+    // console.log(scoreCard)
+    // console.log(Object.getOwnPropertyNames(scoreCard))
+    // for (key in scoreCard) {
+    //     console.log(key)
+    // }
+    // console.log(ScoreCard.prototype)
+    // console.log(scoreCard.$__schema.methods['markAces'])
+    taskObj.tasks.map(async (taskObj) => {
+        // console.log(taskObj.task)
+        // console.log(taskObj.data)
+        // console.log(ScoreCard.prototype.$__schema.methods[taskObj.task])
+        await ScoreCard.prototype.$__schema.methods[taskObj.task].call(scoreCard, taskObj.data)
+    })
+    let index = this.scoreCards.find(scorecard => scorecard.id === scoreCard._id)
+    this.scoreCards[index] = scoreCard.packCard()
+    return this.save()    
 }
 
 const Game = mongoose.model('Game', gameSchema)

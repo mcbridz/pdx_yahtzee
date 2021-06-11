@@ -85,31 +85,39 @@ scoreCardSchema.statics.create = async function (gameID, gameNum, playerID) {
 scoreCardSchema.methods.updateScore = async function() {
     let total = 0
     let upperSectionTotal = 0
+    let subtotal = 0
     for (let i = 0; i < upperSectionRef.length; i++){
-        let subtotal = this.upperSection[i][upperSectionRef[i]] * this.upperSection[i].value
+        subtotal = this.upperSection[i][upperSectionRef[i]] * this.upperSection[i].value
         total += subtotal
         upperSectionTotal += subtotal
     }
     this.upperSectionTotal = subtotal
+    console.log('UPPERSECTION TOTAL: ' + subtotal.toString())
     let lowerSectionTotal = 0
+    let subtotal2 = 0
     for (let i = 0; i < lowerSectionRef.length; i++){
-        let subtotal2 = this.lowerSection[i][lowerSectionRef[i]]
+        subtotal2 = this.lowerSection[i][lowerSectionRef[i]]
         total += subtotal2
         lowerSectionTotal += subtotal2
     }
+    console.log('TOTAL SCORE IS: ' + total.toString())
     this.lowerSectionTotal = subtotal2
     this.grandTotal = total
-    this.save()
+    return this.save()
 }
 
 scoreCardSchema.methods.markAces = async function (numAces) {
+    console.log('IN SCORECARD')
+    console.log(this.upperSection)
     if (!this.upperSection[0].marked) {
         let subtotal = this.upperSection[0].value * numAces
         this.upperSection[0].aces = subtotal
         this.upperSection[0].marked = true
         await this.save()
-        this.updateScore()
+        console.log('LEAVING SCOREBOARD')
+        return updateScore()
     }
+    console.log('SAVING BETTER THAN I THOUGHT')
 }
 
 scoreCardSchema.methods.markTwos = async function (numTwos) {
@@ -118,7 +126,7 @@ scoreCardSchema.methods.markTwos = async function (numTwos) {
         this.upperSection[1].twos = subtotal
         this.upperSection[1].marked = true
         await this.save()
-        this.updateScore()
+        return this.updateScore()
     }
 }
 
@@ -128,7 +136,7 @@ scoreCardSchema.methods.markThrees = async function (numThrees) {
         this.upperSection[2].threes = subtotal
         this.upperSection[2].marked = true
         await this.save()
-        this.updateScore()
+        return this.updateScore()
     }
 }
 
@@ -138,7 +146,7 @@ scoreCardSchema.methods.markFours = async function (numFours) {
         this.upperSection[3].fours = subtotal
         this.upperSection[3].marked = true
         await this.save()
-        this.updateScore()
+        return this.updateScore()
     }
 }
 
@@ -148,18 +156,23 @@ scoreCardSchema.methods.markFives = async function (numFives) {
         this.upperSection[4].fives = subtotal
         this.upperSection[4].marked = true
         await this.save()
-        this.updateScore()
+        return this.updateScore()
     }
 }
 
 scoreCardSchema.methods.markSixes = async function (numSixes) {
+    console.log('ENTERING SCORECARD')
     if (!this.upperSection[5].marked) {
         let subtotal = this.upperSection[5].value * numSixes
+        console.log(subtotal)
         this.upperSection[5].sixes = subtotal
         this.upperSection[5].marked = true
         await this.save()
-        this.updateScore()
+        console.log(this)
+        console.log('LEAVING SCOREBOARD')
+        return this.updateScore()
     }
+    console.log('SAVING BETTER THAN EXPECTED')
 }
 
 scoreCardSchema.methods.markFullHouse = async function (pass) {
@@ -167,7 +180,7 @@ scoreCardSchema.methods.markFullHouse = async function (pass) {
         this.lowerSection[2].fullHouse = this.lowerSection[2].value
         this.lowerSection[2].marked = true
         await this.save()
-        this.updateScore()
+        return this.updateScore()
     }
 }
 
@@ -176,7 +189,7 @@ scoreCardSchema.methods.markSmStraight = async function (pass) {
         this.lowerSection[3].smStraight = this.lowerSection[3].value
         this.lowerSection[3].marked = true
         await this.save()
-        this.updateScore()
+        return this.updateScore()
     }
 }
 
@@ -185,7 +198,7 @@ scoreCardSchema.methods.markLgStraight = async function (pass) {
         this.lowerSection[4].lgStraight = this.lowerSection[4].value
         this.lowerSection[4].marked = true
         await this.save()
-        this.updateScore()
+        return this.updateScore()
     }
 }
 
@@ -200,7 +213,7 @@ scoreCardSchema.methods.markYahtzee = async function (pass) {
         this.lowerSection[5].marked = true
     }
     await this.save()
-    this.updateScore()
+    return this.updateScore()
 }
 
 scoreCardSchema.methods.packCard = function () {
