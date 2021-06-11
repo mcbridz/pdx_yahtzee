@@ -114,11 +114,11 @@ gameSchema.methods.removePlayer = function (user) {
     // }
     // console.log(newList)
     this.users = newList
-    const newCardsArr = this.scoreCards.filter((scoreCard => !user.username.trim() != scoreCard.player.trim()))
+    const newCardsArr = this.scoreCards.filter((scoreCard => user.username.trim() != scoreCard.player.trim()))
     for (let i = 0; i < this.scoreCards.length; ++i){
         console.log(this.scoreCards[i].player.toString())
         console.log(user.username.toString())
-        console.log(!user.username.trim() != this.scoreCards[i].player.trim())
+        console.log(user.username.trim() != this.scoreCards[i].player.trim())
     }
     // console.log(newCardsArr)
     this.scoreCards = newCardsArr
