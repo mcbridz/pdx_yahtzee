@@ -104,6 +104,8 @@ module.exports = function (deps) {
         // order is an object, with the structure of:
         // { game: <game._id>, player: <playerIDTOKEN> }
         socket.on('removePlayer', async function (order) {
+            console.log('order is: ')
+            console.log(order)
             let user = await User.findOne({ _id: jwt.decode(order.player, key) })
             let game = await Game.findOne({ _id: order.game })
             io.emit('removePlayer', JSON.stringify(await game.removePlayer(user)))

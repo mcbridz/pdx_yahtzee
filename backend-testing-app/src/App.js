@@ -109,20 +109,21 @@ function App() {
   const testEndGame = () => {
     return () => socket.emit('endGame', game._id)
   }
-  const player4 = { player : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGMxN2YwYmIxYmFlMDAyMDhjNjNlZGQiLCJpYXQiOjE2MjMyOTM3MTV9.wsuqjg64clK7Xe4hBD1y7oNSzkILMXGuQKxIaNyz2j4" }
+  const player5 = { player : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGMyYzU1MDBkZjE0NjRjNjQyZDFmZjUiLCJpYXQiOjE2MjMzNzcyNDJ9.0lUfCmaEdB8MfFXStH0UOirOHeq_qo9zy7-w6M_1O2A" }
   
   //testAddPlayer, this function is unsuitable for copying, due to
   //the order needing the gameID inserted (shouldn't be a problem to re-factor)
   const testAddPlayer = (order) => {
     return () => {
       order.game = game._id
-      order.player = player4.player
+      order.player = player5.player
       socket.emit('addPlayer', order)
     }
   }
   const testRemovePlayer = (order) => {
     return () => {
       order.game = game._id
+      order.player = player5.player
       socket.emit('removePlayer', order)
     }
   }
@@ -258,8 +259,8 @@ function App() {
       <h2>Start Testing Here!</h2>
       <div>
         <button onClick={testCreateGame} > 1. Create Game </button>
-        <button onClick={testAddPlayer(player4)} > 2. Add 'player4' </button>
-        <button onClick={testRemovePlayer(player4)} > 3. Remove 'player4' </button>
+        <button onClick={testAddPlayer(player5)} > 2. Add 'player5' </button>
+        <button onClick={testRemovePlayer(player5)} > 3. Remove 'player5' </button>
         <button onClick={testStartGame()} > 4. Start Game </button>
       </div>
       <h2>Test Buttons</h2>

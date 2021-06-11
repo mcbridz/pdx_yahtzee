@@ -102,13 +102,25 @@ gameSchema.methods.addPlayer = async function (player) {
     return this.save()
 }
 
-gameSchema.methods.removePlayer = function (playerID) {
-    // const index = this.users.find(obj => obj.id === playerID)
-    console.log('removing player: ' + playerID._id)
-    let newList = this.users.filter(playerObj => playerObj.id !== playerID._id)
-    console.log(newList)
+gameSchema.methods.removePlayer = function (user) {
+    // const index = this.users.find(obj => obj.id === user)
+    console.log('removing player: ' + user._id)
+    let newList = this.users.filter(playerObj => !user._id.equals(playerObj.id))
+    // for (let i = 0; i < this.users.length; ++i){
+    //     console.log(this.users[i].id.toString())
+    //     console.log(user._id.toString())
+    //     let tempString = this.users[i].id.toString()
+    //     console.log(user._id.equals(this.users[i].id.toString()))
+    // }
+    // console.log(newList)
     this.users = newList
-    const newCardsArr = this.scoreCards.filter((playerObj => playerObj.id !== playerID))
+    const newCardsArr = this.scoreCards.filter((scoreCard => !user.username.trim() != scoreCard.player.trim()))
+    for (let i = 0; i < this.scoreCards.length; ++i){
+        console.log(this.scoreCards[i].player.toString())
+        console.log(user.username.toString())
+        console.log(!user.username.trim() != this.scoreCards[i].player.trim())
+    }
+    // console.log(newCardsArr)
     this.scoreCards = newCardsArr
     //need logic here to remove scorecards
     return this.save()
