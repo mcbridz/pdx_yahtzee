@@ -141,7 +141,12 @@ module.exports = function (deps) {
         socket.on("connect-to-room", (room) => {
             socket.join(room);
             console.log("Joined room " + room);
-          });
+        });
+        socket.on("send-message", (msg) => {
+            console.log(msg);
+            socket.to(msg.room).emit("get-message", msg.content);
+        });
+        
     })
 
 
