@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-  
+import io from '../../node_modules/socket.io/client-dist/socket.io.js'
 import './App.css';
 import { useState, useEffect } from 'react'
 
