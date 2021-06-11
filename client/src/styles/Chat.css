@@ -42,4 +42,14 @@
   border: none;
   color: white;
   font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.chat-message {
+  font-size: 14px;
+}
+
+#send {
+  margin-top: 5px;
 }

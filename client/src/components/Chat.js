@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import io from "socket.io-client";
+import { IoIosSend } from "react-icons/io";
 import "../styles/Chat.css";
 
 let socket;
@@ -26,6 +27,12 @@ const Chat = (props) => {
     await socket.emit("send-message", msg);
     setMessageList([...messageList, msg.content]);
     setMessage("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      sendMessage();
+    }
   };
 
   useEffect(() => {
@@ -57,8 +64,11 @@ const Chat = (props) => {
             setMessage(e.target.value);
           }}
           value={message}
+          onKeyDown={handleKeyDown}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage}>
+          <IoIosSend color="white" size={44} id="send" />
+        </button>
       </div>
     </div>
   );
