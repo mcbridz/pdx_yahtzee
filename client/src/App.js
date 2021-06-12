@@ -26,10 +26,10 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar credentials={credentials} />
+      <NavBar credentials={credentials} setCredentials={setCredentials} />
 
       <Switch>
-        <Route path="/landing">
+        <Route exact path="/">
           <Landing />
         </Route>
 
@@ -41,7 +41,7 @@ function App() {
           <Signup />
         </Route>
 
-        <Route exact path="/">
+        <Route path="/ingame">
           <GameBoard credentials={credentials} />
         </Route>
 

@@ -12,6 +12,7 @@
   left: 0;
   margin-bottom: 10px;
   margin-left: 13px;
+  background-color: #36393f;
 }
 
 .chat-messages-inGame {
@@ -20,6 +21,7 @@
   padding-left: 20px;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #36393f;
 }
 
 .chat-inputs-inGame {
@@ -87,6 +89,11 @@
 }
 
 /*   MAIN LOBBY CSS */
+/* 
+
+
+
+*/
 
 .chat-container-mainLobby {
   width: 700px;
@@ -98,6 +105,7 @@
 
   margin-bottom: 10px;
   margin-left: 13px;
+  background-color: #36393f;
 }
 
 .chat-messages-mainLobby {
@@ -106,6 +114,7 @@
   padding-left: 20px;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #36393f;
 }
 
 .chat-inputs-mainLobby {
@@ -186,6 +195,7 @@
   left: 0;
   margin-bottom: 10px;
   margin-left: 13px;
+  background-color: #36393f;
 }
 
 .chat-messages {
@@ -194,6 +204,7 @@
   padding-left: 20px;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: #36393f;
 }
 
 .chat-inputs {

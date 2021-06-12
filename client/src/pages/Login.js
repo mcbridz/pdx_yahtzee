@@ -39,7 +39,7 @@ const Login = (props) => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     await loginUser(user).then(() => {
-      history.push("/");
+      history.push("/mainlobby");
     });
   };
 

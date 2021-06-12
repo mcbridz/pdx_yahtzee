@@ -1,11 +1,31 @@
-#nav-bar {
+#nav-bar-right {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  flex: 50%;
 }
 
-#navbar-link {
+#navbar-link-right {
   margin-right: 15px;
   font-size: 22px;
   font-weight: bold;
+}
+
+#nav-bar-left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex: 50%;
+}
+
+#navbar-link-left {
+  margin-left: 15px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.navbar {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
 }

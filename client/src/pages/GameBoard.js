@@ -46,7 +46,7 @@ const GameBoard = (props) => {
   };
 
   const checkLoginStatus = useCallback(() => {
-    if (props.credentials === "") {
+    if (props.credentials.username === "") {
       history.push("/login");
     }
   }, [props.credentials, history]);
