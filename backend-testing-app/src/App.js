@@ -109,8 +109,9 @@ function App() {
   }
   const testStartGame = () => {
     return () => {
+      // console.log(game.scoreCards[0])
       setScoreCard(game.scoreCards[0])
-      console.log(scoreCard)
+      // console.log(scoreCard)
       socket.emit('startGame', game._id)
     }
   }

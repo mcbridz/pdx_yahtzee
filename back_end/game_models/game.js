@@ -51,12 +51,10 @@ gameSchema.statics.createGame = async function (playerList, public) {
     // console.log(playerList)
     await mapAwaiter(playerList, async (playerObj, index) => {
         game.users.push(playerObj)
-        let card = await ScoreCard.create(game._id, 1, playerObj.username)
-            .then((card) => {
-                // console.log(card)
-                // console.log('/////////////////created card/////////////')
-                game.scoreCards.push(card.packCard())
-            })
+        const card = await ScoreCard.create(game._id, 1, playerObj.username)
+        // console.log(card)
+        // console.log('/////////////////created card/////////////')
+        game.scoreCards.push(card.packCard())
     })
     return game.save()
     // console.log(game)
@@ -130,16 +128,25 @@ gameSchema.methods.endGame = function () {
     return this.save()
 }
 gameSchema.methods.performTasks = async function (taskObj) {
-    console.log(taskObj)
-    const scoreCard = await ScoreCard.findOne({ _id: taskObj.scoreCard })
-    await mapAwaiter(taskObj.tasks, async (taskObj) => {
+    // console.log(taskObj)
+    let scoreCard = await ScoreCard.findById(taskObj.scoreCard)
+    // console.log('////////////////////////')
+    // console.log('scoreCard to be bound: ')
+    // console.log(scoreCard)
+    taskObj.tasks.forEach(async (taskObj) => {
         await ScoreCard.prototype.$__schema.methods[taskObj.task].call(scoreCard, taskObj.data)
     })
+    // scoreCard = scoreCard.markSixes(taskObj.tasks[0].data)
+    // console.log(scoreCard)
+    await scoreCard.save()
     let index = this.scoreCards.findIndex(scorecard => scoreCard._id.equals(scorecard.id))
     // console.log('Working on updating packed game scoreCards')
     // console.log('Index of desired scoreCard: ')
     // console.log(index)
     this.scoreCards[index] = scoreCard.packCard()
+    // console.log('///////////////////')
+    // console.log('This game\'s scorecards: ')
+    // console.log(this.scoreCards[index])
     this.turnNum = this.turnNum + taskObj.tasks.length
     return this.save()
 }
