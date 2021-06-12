@@ -20,7 +20,6 @@
   justify-content: center;
   align-items: center;
   background-color: red;
-  /* box-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
 }
 
 .login-logo h1 {
@@ -36,7 +35,16 @@
   border-bottom: 1px solid black;
   width: 400px;
   justify-content: center;
-  background-color: antiquewhite;
+  background-color: white;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.login-username:hover {
+  background-color: #f8f8f8;
+}
+
+.login-pass:hover {
+  background-color: #f8f8f8;
 }
 
 .login-pass {
@@ -44,7 +52,8 @@
   flex-direction: row;
   border-bottom: 1px solid black;
   width: 400px;
-  background-color: antiquewhite;
+  background-color: white;
+  border-radius: 0px 0px 5px 5px;
 }
 
 #user-icon {
@@ -60,15 +69,22 @@
   margin-right: 5px;
 }
 
+#username:hover {
+  background-color: #f8f8f8;
+}
+
+#password:hover {
+  background-color: #f8f8f8;
+}
+
 .login-username input {
   flex: 80%;
   margin-top: 5px;
   height: 36px;
   font-size: 28px;
   border: none;
-  /* margin-right: 20px; */
   outline: none;
-  background-color: antiquewhite;
+  background-color: white;
 }
 
 .login-pass input {
@@ -77,9 +93,8 @@
   height: 36px;
   font-size: 28px;
   border: none;
-  /* margin-right: 20px; */
   outline: none;
-  background-color: antiquewhite;
+  background-color: white;
 }
 
 #login-btn-container {
@@ -104,6 +119,7 @@
   margin-top: 25px;
   font-size: 18px;
   color: white;
+  margin-left: 30px;
 }
 
 #login-link {
