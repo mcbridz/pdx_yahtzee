@@ -19,14 +19,15 @@
   max-height: 250px;
   justify-content: center;
   align-items: center;
-  background-color: lightblue;
-  box-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+  background-color: red;
+  /* box-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
 }
 
 .login-logo h1 {
   font-family: Revue;
-  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
   font-size: 40px;
+  color: white;
 }
 
 .login-username {
@@ -35,7 +36,7 @@
   border-bottom: 1px solid black;
   width: 400px;
   justify-content: center;
-  background-color: lightblue;
+  background-color: antiquewhite;
 }
 
 .login-pass {
@@ -43,7 +44,7 @@
   flex-direction: row;
   border-bottom: 1px solid black;
   width: 400px;
-  background-color: lightblue;
+  background-color: antiquewhite;
 }
 
 #user-icon {
@@ -67,7 +68,7 @@
   border: none;
   /* margin-right: 20px; */
   outline: none;
-  background-color: lightblue;
+  background-color: antiquewhite;
 }
 
 .login-pass input {
@@ -78,7 +79,7 @@
   border: none;
   /* margin-right: 20px; */
   outline: none;
-  background-color: lightblue;
+  background-color: antiquewhite;
 }
 
 #login-btn-container {
@@ -89,7 +90,7 @@
 
 #login-btn-container button {
   flex: 40%;
-  background-color: slateblue;
+  background-color: darkred;
   border-radius: 15px;
   font-size: 30px;
   color: white;
@@ -102,8 +103,10 @@
   font-weight: 700;
   margin-top: 25px;
   font-size: 18px;
+  color: white;
 }
 
 #login-link {
   font-weight: bold;
+  color: antiquewhite;
 }
