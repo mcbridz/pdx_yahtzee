@@ -13,6 +13,7 @@ const Chat = (props) => {
   const [messageList, setMessageList] = useState([]);
 
   const rooms = ["mainLobby", "preGameLobby/" + props.gameID, props.gameID];
+  const version = ["inGame", "mainLobby", "preGameLobby"];
 
   const connectToRoom = useCallback(() => {
     socket.emit("connect-to-room", rooms[props.value]);
@@ -46,17 +47,17 @@ const Chat = (props) => {
   }, []);
 
   return (
-    <div className="chat-container">
+    <div className={"chat-container-" + version[props.version]}>
       <ScrollableFeed>
-        <div className="chat-messages">
+        <div className={"chat-messages-" + version[props.version]}>
           {messageList.map((msg, index) => {
             return (
               <div
                 className={
                   props.credentials.username !== "" ||
                   msg.author !== props.credentials.username
-                    ? "chat-message-you"
-                    : "chat-message-other"
+                    ? "chat-message-you-" + version[props.version]
+                    : "chat-message-other-" + version[props.version]
                 }
               >
                 <h2 key={index}>
@@ -67,7 +68,7 @@ const Chat = (props) => {
           })}
         </div>
       </ScrollableFeed>
-      <div className="chat-inputs">
+      <div className={"chat-inputs-" + version[props.version]}>
         <input
           type="text"
           placeholder="Add message..."
@@ -78,7 +79,11 @@ const Chat = (props) => {
           onKeyDown={handleKeyDown}
         />
         <button onClick={sendMessage} disabled={message === ""}>
-          <IoIosSend color="white" size={44} id="send" />
+          <IoIosSend
+            color="white"
+            size={44}
+            id={"send" + version[props.version]}
+          />
         </button>
       </div>
     </div>

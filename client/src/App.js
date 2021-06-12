@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
+import MainLobby from "./pages/MainLobby";
 
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
@@ -28,17 +29,24 @@ function App() {
       <NavBar credentials={credentials} />
 
       <Switch>
-        <Route exact path="/">
-          <GameBoard credentials={credentials} />
-        </Route>
         <Route path="/landing">
           <Landing />
         </Route>
+
         <Route path="/login">
           <Login credentials={credentials} setCredentials={setCredentials} />
         </Route>
+
         <Route path="/register">
           <Signup />
+        </Route>
+
+        <Route exact path="/">
+          <GameBoard credentials={credentials} />
+        </Route>
+
+        <Route path="/mainlobby">
+          <MainLobby credentials={credentials} />
         </Route>
       </Switch>
     </div>

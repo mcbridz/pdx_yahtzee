@@ -103,7 +103,7 @@ const GameBoard = (props) => {
           rollsRemaining={rollsRemaining}
         />
       </div>
-      <Chat value={0} credentials={props.credentials} />
+      <Chat version={0} value={0} credentials={props.credentials} />
       <ScoreCard />
     </div>
   );

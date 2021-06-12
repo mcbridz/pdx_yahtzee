@@ -1,4 +1,180 @@
-.chat-container {
+/*  IN GAME LOBBY CSS */
+
+.chat-container-inGame {
+  width: 400px;
+  height: 350px;
+  border: 3px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 10px;
+  margin-left: 13px;
+}
+
+.chat-messages-inGame {
+  flex: 85%;
+  width: 94%;
+  padding-left: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.chat-inputs-inGame {
+  flex: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.chat-inputs-inGame input {
+  flex: 80%;
+  height: calc(100% -5px);
+  border: none;
+  border-top: 3px solid black;
+  padding-left: 20px;
+  font-size: 20px;
+  outline: none;
+}
+
+.chat-inputs-inGame button {
+  flex: 20%;
+  height: 100%;
+  background-color: black;
+  border: none;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.chat-message-you-inGame {
+  font-size: 14px;
+  background-color: darkslategray;
+  border-radius: 5px;
+  min-height: 50px;
+  color: antiquewhite;
+}
+
+.chat-message-other-inGame {
+  font-size: 14px;
+  background-color: lightgray;
+  border-radius: 5px;
+  min-height: 50px;
+}
+
+.chat-message-other-inGame h2 {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+
+.chat-message-you-inGame h2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5px;
+  padding-right: 5px;
+  padding-top: 7px;
+}
+
+#send-inGame {
+  margin-top: 5px;
+}
+
+/*   MAIN LOBBY CSS */
+
+.chat-container-mainLobby {
+  width: 700px;
+  height: 450px;
+  border: 3px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 10px;
+  margin-left: 13px;
+}
+
+.chat-messages-mainLobby {
+  flex: 85%;
+  width: 94%;
+  padding-left: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.chat-inputs-mainLobby {
+  flex: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.chat-inputs-mainLobby input {
+  flex: 80%;
+  height: calc(100% -5px);
+  border: none;
+  border-top: 3px solid black;
+  padding-left: 20px;
+  font-size: 20px;
+  outline: none;
+}
+
+.chat-inputs-mainLobby button {
+  flex: 20%;
+  height: 100%;
+  background-color: black;
+  border: none;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.chat-message-you-mainLobby {
+  font-size: 14px;
+  background-color: darkslategray;
+  border-radius: 5px;
+  min-height: 50px;
+  color: antiquewhite;
+}
+
+.chat-message-other-mainLobby {
+  font-size: 14px;
+  background-color: lightgray;
+  border-radius: 5px;
+  min-height: 50px;
+}
+
+.chat-message-other-mainLobby h2 {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 5px;
+  padding-left: 5px;
+  padding-top: 7px;
+  padding-bottom: 5px;
+}
+
+.chat-message-you-mainLobby h2 {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 5px;
+  padding-right: 5px;
+  padding-top: 7px;
+}
+
+#send-mainLobby {
+  margin-top: 5px;
+}
+
+/*   PREGAME LOBBY CSS   */
+
+/* .chat-container {
   width: 400px;
   height: 350px;
   border: 3px solid black;
@@ -82,4 +258,4 @@
 
 #send {
   margin-top: 5px;
-}
+} */
