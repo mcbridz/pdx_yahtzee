@@ -29,14 +29,24 @@ const ScoreCard = (props) => {
               {upperScores[0]} <span id="dice-icon">&#x2680;</span>
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={0} />
+            <ScoreLine
+              value={0}
+              scores={props.scores}
+              setScores={props.setScores}
+              version='aces'
+            />
             <td id="spacer"> </td>
             <td colSpan="2" className="upper-scores-category-title">
               {upperScores[3]}
               <span id="dice-icon"> &#x2683;</span>
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={3} />
+            <ScoreLine
+              value={3}
+              scores={props.scores}
+              setScores={props.setScores}
+              version="fours"
+            />
           </tr>
 
           <tr>
@@ -44,13 +54,23 @@ const ScoreCard = (props) => {
               {upperScores[1]} <span id="dice-icon">&#x2681;</span>
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={1} />
+            <ScoreLine
+              value={1}
+              scores={props.scores}
+              setScores={props.setScores}
+              version="twos"
+            />
             <td id="spacer">{/* {" "} */}</td>
             <td colSpan="2" className="upper-scores-category-title">
               {upperScores[4]} <span id="dice-icon">&#x2684;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
-            <ScoreLine value={4} />
+            <ScoreLine
+              value={4}
+              scores={props.scores}
+              setScores={props.setScores}
+              version="fives"
+            />
           </tr>
 
           <tr>
@@ -58,7 +78,12 @@ const ScoreCard = (props) => {
               {upperScores[2]} <span id="dice-icon">&#x2682;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
-            <ScoreLine value={2} />
+            <ScoreLine
+              value={2}
+              scores={props.scores}
+              setScores={props.setScores}
+              version="threes"
+            />
             <td colSpan="1" id="spacer">
               {/* {" "} */}
             </td>
@@ -66,7 +91,12 @@ const ScoreCard = (props) => {
               {upperScores[5]} <span id="dice-icon">&#x2685;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
-            <ScoreLine value={5} />
+            <ScoreLine
+              value={5}
+              scores={props.scores}
+              setScores={props.setScores}
+              version="sixes"
+            />
           </tr>
           <br />
         </tbody>
@@ -85,15 +115,27 @@ const ScoreCard = (props) => {
             {/* <td id="big-spacer"></td> */}
             <td id="upper-total-desc">Upper Scores Total</td>
             <td colSpan="1" id="spacer"></td>
-            <LittleScoreLine />
+            <LittleScoreLine
+              scores={props.scores}
+              setScores={props.setScores}
+              version="upperPreBonus"
+            />
             <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Bonus</td>
             <td colSpan="1" id="spacer"></td>
-            <LittleScoreLine />
+            <LittleScoreLine
+              scores={props.scores}
+              setScores={props.setScores}
+              version="upperBonus"
+            />
             <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Upper Scores w/ Bonus</td>
             <td colSpan="1" id="spacer"></td>
-            <LittleScoreLine />
+            <LittleScoreLine
+              scores={props.scores}
+              setScores={props.setScores}
+              version="upperTotal"
+            />
           </tr>
         </tbody>
       </table>
@@ -111,13 +153,15 @@ const ScoreCard = (props) => {
               {lowerScores[0]}
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={6} />
+            <ScoreLine value={6} scores={props.scores}
+              setScores={props.setScores} version="3ofAKind"/>
             <td id="spacer"> </td>
             <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[3]}
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={8} />
+            <ScoreLine value={8} scores={props.scores}
+              setScores={props.setScores} version="smStraight"/>
           </tr>
 
           <tr>
@@ -125,13 +169,15 @@ const ScoreCard = (props) => {
               {lowerScores[1]}
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={6} />
+            <ScoreLine value={6} scores={props.scores}
+              setScores={props.setScores} version="4ofAKind"/>
             <td id="spacer"> </td>
             <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[4]}
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={9} />
+            <ScoreLine value={9} scores={props.scores}
+              setScores={props.setScores} version="lgStraight"/>
           </tr>
 
           <tr>
@@ -139,7 +185,8 @@ const ScoreCard = (props) => {
               {lowerScores[2]}
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={7} />
+            <ScoreLine value={7} scores={props.scores}
+              setScores={props.setScores} version="fullHouse"/>
             <td id="spacer"> </td>
             <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[5]} <span id="dice-icon-yahtzee">&#x2685;</span>
@@ -149,7 +196,8 @@ const ScoreCard = (props) => {
               <span id="dice-icon-yahtzee">&#x2685;</span>
             </td>
             <td id="spacer"></td>
-            <ScoreLine value={10} />
+            <ScoreLine value={10} scores={props.scores}
+              setScores={props.setScores} version="yahtzee"/>
           </tr>
         </tbody>
       </table>
@@ -195,15 +243,18 @@ const ScoreCard = (props) => {
             {/* <td id="big-spacer"></td> */}
             <td id="upper-total-desc">Upper Scores Total</td>
             <td colSpan="1" id="spacer"></td>
-            <LittleScoreLine />
+            <LittleScoreLine scores={props.scores}
+              setScores={props.setScores} version="upperTotal"/>
             <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Lower Scores Total</td>
             <td colSpan="1" id="spacer"></td>
-            <LittleScoreLine />
+            <LittleScoreLine scores={props.scores}
+              setScores={props.setScores} version="lowerTotal"/>
             <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Grand Total</td>
             <td colSpan="1" id="spacer"></td>
-            <LittleScoreLine />
+            <LittleScoreLine scores={props.scores}
+              setScores={props.setScores} version="grandTotal"/>
           </tr>
         </tbody>
       </table>

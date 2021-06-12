@@ -104,7 +104,7 @@ const GameBoard = (props) => {
         />
       </div>
       <Chat version={0} value={0} credentials={props.credentials} />
-      <ScoreCard />
+      <ScoreCard scores={scores} setScore={setScores} />
     </div>
   );
 };

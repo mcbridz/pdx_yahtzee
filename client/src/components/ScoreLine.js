@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "../styles/ScoreLine.css";
 
 const ScoreLine = (props) => {
-  const [score, setScore] = useState(undefined);
-
+  
+  const {scores, setScores, version} = props;
   const upperScoresDescriptions = [
     "Sum of all aces",
     "Sum of all twos",
@@ -20,11 +20,11 @@ const ScoreLine = (props) => {
 
   return (
     <div>
-      <td colspan="3" className="score-line-description">
-        {score === undefined ? upperScoresDescriptions[props.value] : ""}
+      <td colSpan="3" className="score-line-description">
+        {scores.version === undefined ? upperScoresDescriptions[props.value] : ""}
       </td>
-      <td colspan="1" className="score-line-score">
-        {score === undefined ? "" : score}
+      <td colSpan="1" className="score-line-score">
+        {scores.version === undefined ? "" : scores.version}
       </td>
     </div>
   );
