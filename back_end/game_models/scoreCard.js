@@ -214,7 +214,7 @@ scoreCardSchema.methods.markYahtzee = async function (pass) {
         let newNumYahtzees = this.yahtzeeBonus.numYahtzees + 1
         this.yahtzeeBonus.score = newBonus
         this.yahtzeeBonus.numYahtzees = newNumYahtzees
-        this.markModified('lowerSection')
+        this.markModified('yahtzeeBonus')
     } else {
         this.lowerSection[5].yahtzee = this.lowerSection[5].value
         this.lowerSection[5].marked = true
