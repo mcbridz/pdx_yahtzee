@@ -118,6 +118,8 @@ module.exports = function (deps) {
             console.log(taskObj)
             let game = await Game.findOne({ _id: taskObj.game })
             await game.performTasks(taskObj)
+            console.log('//////////////////Sending Back ////////////')
+            console.log(game)
             io.emit('markScore', JSON.stringify(game))
         })
 

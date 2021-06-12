@@ -37,6 +37,10 @@ const gameSchema = new Schema({
     },
     currentPlayer: {
         type: Object
+    },
+    turnNum: {
+        type: Number,
+        default: 0
     }
 })
 
@@ -53,11 +57,11 @@ gameSchema.statics.createGame = async function (playerList, public) {
                 // console.log('/////////////////created card/////////////')
                 game.scoreCards.push(card.packCard())
             })
-    })    
+    })
     return game.save()
     // console.log(game)
     // return game
-    
+
 }
 
 
@@ -125,26 +129,19 @@ gameSchema.methods.endGame = function () {
     this.started = false
     return this.save()
 }
-
 gameSchema.methods.performTasks = async function (taskObj) {
     console.log(taskObj)
     const scoreCard = await ScoreCard.findOne({ _id: taskObj.scoreCard })
-    // console.log(scoreCard)
-    // console.log(Object.getOwnPropertyNames(scoreCard))
-    // for (key in scoreCard) {
-    //     console.log(key)
-    // }
-    // console.log(ScoreCard.prototype)
-    // console.log(scoreCard.$__schema.methods['markAces'])
-    taskObj.tasks.map(async (taskObj) => {
-        // console.log(taskObj.task)
-        // console.log(taskObj.data)
-        // console.log(ScoreCard.prototype.$__schema.methods[taskObj.task])
+    await mapAwaiter(taskObj.tasks, async (taskObj) => {
         await ScoreCard.prototype.$__schema.methods[taskObj.task].call(scoreCard, taskObj.data)
     })
-    let index = this.scoreCards.find(scorecard => scorecard.id === scoreCard._id)
+    let index = this.scoreCards.findIndex(scorecard => scoreCard._id.equals(scorecard.id))
+    // console.log('Working on updating packed game scoreCards')
+    // console.log('Index of desired scoreCard: ')
+    // console.log(index)
     this.scoreCards[index] = scoreCard.packCard()
-    return this.save()    
+    this.turnNum = this.turnNum + taskObj.tasks.length
+    return this.save()
 }
 
 const Game = mongoose.model('Game', gameSchema)
