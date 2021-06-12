@@ -1,58 +1,95 @@
-import React, { useState } from 'react'
-
+import React, { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
+import { FaUserCircle, FaLock } from "react-icons/fa";
+import "../styles/Login.css";
 
 const Login = (props) => {
-    const [usernameText, setUsernameText] = useState('')
-    const [passwordText, setPasswordText] = useState('')
+  const [user, setUser] = useState({ username: "", password: "" });
 
-    function handleUsernameChange(event) {
-        setUsernameText(event.target.value)
-    }
+  const history = useHistory();
 
-    function handlePasswordChange(event) {
-        setPasswordText(event.target.value)
-    }
+  const handleChange = (evt) => {
+    setUser({ ...user, [evt.target.name]: evt.target.value });
+  };
 
-    function handleSubmit(event) {
-        event.preventDefault()
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: usernameText, password: passwordText })
-        }
-        fetch('/login', options)//response shuold send back token and stored in state
-        .then(res=> res.json())
-        .then(data => {
-            props.setCredentials({ username: usernameText, token: data.token })
+  async function loginUser(user) {
+    await fetch("http://localhost:8000/login/", {
+      method: "POST",
+      body: JSON.stringify({
+        username: user.username,
+        password: user.password,
+      }),
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (res) => await res.json())
+      .then(async (data) => {
+        await props.setCredentials({
+          username: user.username,
 
-        })
-    }
+          token: data.token,
+        });
+        // history.push("/");
+      });
+    // .then(history.push("/"));
+  }
 
-    return (
-        <div>
-            <div class="container mt-4">
-                <div class="row justify-content-md-center">
-                    <div class="col col-lg-3 mt-2">
-                        <div class="text-center">
-                            <h1>login</h1>
-                        </div>
-                        <form onSubmit={handleSubmit}>
-                            <div class="form-group">
-                                <input value={usernameText} onChange={handleUsernameChange} class="form-control" placeholder="Enter username" />
-                            </div>
-                            <div class="form-group">
-                                <input value={passwordText} onChange={handlePasswordChange} class="form-control" placeholder="Enter pword" />
-                            </div>
-                            <div class='form group text-center mb-2'>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    await loginUser(user).then(() => {
+      history.push("/");
+    });
+  };
+
+  return (
+    <div className="div-wrapper">
+      <div className="login-container">
+        <div className="login-logo">
+          <h1>Log in to play!</h1>
         </div>
-    );
-
-}
+        <form onSubmit={handleSubmit}>
+          <div className="login-username">
+            <span id="user-icon">
+              <FaUserCircle size={26} />
+            </span>
+            <input
+              type="text"
+              name="username"
+              value={user.username}
+              id="username"
+              placeholder="Enter your username"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="login-pass">
+            <span id="pass-icon">
+              <FaLock size={26} />
+            </span>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={user.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+            />
+          </div>
+          <div id="login-btn-container">
+            <button>Log In</button>
+            <p>
+              or{" "}
+              <Link to="/register" id="login-link">
+                Sign Up
+              </Link>{" "}
+              here.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default Login;

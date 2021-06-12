@@ -1,0 +1,109 @@
+@import url(//db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue);
+.div-wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.login-container {
+  /* position: absolute;
+  left: 50%;
+  top: 50%; */
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid black;
+  border-radius: 15px;
+  min-width: 500px;
+  max-width: 500px;
+  min-height: 250px;
+  max-height: 250px;
+  justify-content: center;
+  align-items: center;
+  background-color: lightblue;
+  box-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+}
+
+.login-logo h1 {
+  font-family: Revue;
+  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+  font-size: 40px;
+}
+
+.login-username {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid black;
+  width: 400px;
+  justify-content: center;
+  background-color: lightblue;
+}
+
+.login-pass {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid black;
+  width: 400px;
+  background-color: lightblue;
+}
+
+#user-icon {
+  flex: 20%;
+  margin-top: 12px;
+  margin-right: 5px;
+}
+
+#pass-icon {
+  flex: 20%;
+  margin-top: 12px;
+  margin-right: 2px;
+  margin-right: 5px;
+}
+
+.login-username input {
+  flex: 80%;
+  margin-top: 5px;
+  height: 36px;
+  font-size: 28px;
+  border: none;
+  /* margin-right: 20px; */
+  outline: none;
+  background-color: lightblue;
+}
+
+.login-pass input {
+  flex: 80%;
+  margin-top: 5px;
+  height: 36px;
+  font-size: 28px;
+  border: none;
+  /* margin-right: 20px; */
+  outline: none;
+  background-color: lightblue;
+}
+
+#login-btn-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+#login-btn-container button {
+  flex: 40%;
+  background-color: slateblue;
+  border-radius: 15px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+#login-btn-container p {
+  flex: 40%;
+  font-weight: 700;
+  margin-top: 25px;
+  font-size: 18px;
+}
+
+#login-link {
+  font-weight: bold;
+}

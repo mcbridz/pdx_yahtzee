@@ -22,7 +22,7 @@ const Chat = (props) => {
     let msg = {
       room: rooms[props.value],
       content: {
-        author: props.username,
+        author: props.credentials.username,
         message: message,
       },
     };
@@ -53,7 +53,8 @@ const Chat = (props) => {
             return (
               <div
                 className={
-                  msg.author === props.credentials.username
+                  props.credentials.username !== "" ||
+                  msg.author !== props.credentials.username
                     ? "chat-message-you"
                     : "chat-message-other"
                 }

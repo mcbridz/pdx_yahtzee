@@ -11,7 +11,7 @@ function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
 
   const token = credentials.token;
-  // const history = useHistory();
+  const history = useHistory();
 
   // const checkLoginStatus = useCallback(() => {
   //   if (!!credentials) {
@@ -35,7 +35,7 @@ function App() {
           <Landing />
         </Route>
         <Route path="/login">
-          <Login setCredentials={setCredentials} />
+          <Login credentials={credentials} setCredentials={setCredentials} />
         </Route>
         <Route path="/register">
           <Signup />

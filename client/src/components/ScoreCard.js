@@ -20,18 +20,18 @@ const ScoreCard = (props) => {
       <table id="upper-scores-table">
         <thead>
           <tr>
-            <th colspan="12">Upper Scores</th>
+            <th colSpan="12">Upper Scores</th>
           </tr>
         </thead>
         <tbody>
           <tr id="aces-row">
-            <td colspan="2" className="upper-scores-category-title rounded-top">
+            <td colSpan="2" className="upper-scores-category-title rounded-top">
               {upperScores[0]} <span id="dice-icon">&#x2680;</span>
             </td>
             <td id="spacer"></td>
             <ScoreLine value={0} />
             <td id="spacer"> </td>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {upperScores[3]}
               <span id="dice-icon"> &#x2683;</span>
             </td>
@@ -40,32 +40,32 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {upperScores[1]} <span id="dice-icon">&#x2681;</span>
             </td>
             <td id="spacer"></td>
             <ScoreLine value={1} />
             <td id="spacer">{/* {" "} */}</td>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {upperScores[4]} <span id="dice-icon">&#x2684;</span>
             </td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <ScoreLine value={4} />
           </tr>
 
           <tr>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {upperScores[2]} <span id="dice-icon">&#x2682;</span>
             </td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <ScoreLine value={2} />
-            <td colspan="1" id="spacer">
+            <td colSpan="1" id="spacer">
               {/* {" "} */}
             </td>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {upperScores[5]} <span id="dice-icon">&#x2685;</span>
             </td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <ScoreLine value={5} />
           </tr>
           <br />
@@ -75,7 +75,7 @@ const ScoreCard = (props) => {
       <table id="upper-totals-table">
         <thead>
           <tr>
-            <th colspan="12" id="upper-totals-table-header">
+            <th colSpan="12" id="upper-totals-table-header">
               Upper Scores Totals
             </th>
           </tr>
@@ -84,15 +84,15 @@ const ScoreCard = (props) => {
           <tr>
             {/* <td id="big-spacer"></td> */}
             <td id="upper-total-desc">Upper Scores Total</td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <LittleScoreLine />
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Bonus</td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <LittleScoreLine />
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Upper Scores w/ Bonus</td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <LittleScoreLine />
           </tr>
         </tbody>
@@ -102,18 +102,18 @@ const ScoreCard = (props) => {
       <table id="lower-scores-table">
         <thead>
           <tr>
-            <th colspan="12">Lower Scores</th>
+            <th colSpan="12">Lower Scores</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[0]}
             </td>
             <td id="spacer"></td>
             <ScoreLine value={6} />
             <td id="spacer"> </td>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[3]}
             </td>
             <td id="spacer"></td>
@@ -121,13 +121,13 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[1]}
             </td>
             <td id="spacer"></td>
             <ScoreLine value={6} />
             <td id="spacer"> </td>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[4]}
             </td>
             <td id="spacer"></td>
@@ -135,13 +135,13 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[2]}
             </td>
             <td id="spacer"></td>
             <ScoreLine value={7} />
             <td id="spacer"> </td>
-            <td colspan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title">
               {lowerScores[5]} <span id="dice-icon-yahtzee">&#x2685;</span>
               <span id="dice-icon-yahtzee">&#x2685;</span>
               <span id="dice-icon-yahtzee">&#x2685;</span>
@@ -157,24 +157,24 @@ const ScoreCard = (props) => {
       <table id="yahtzee-bonus-table">
         <thead>
           <tr>
-            <th colspan="12">Yahtzee Bonus</th>
+            <th colSpan="12">Yahtzee Bonus</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colspan="12">
+            <td colSpan="12">
               Each check mark for a Yahtzee after the first scores 100 points
             </td>
           </tr>
           <tr id="bonus-yahtzee-row">
             <td id="bonus-spacer"></td>
-            <td colspan="1" id="bonus-yahtzee-checkbox">
+            <td colSpan="1" id="bonus-yahtzee-checkbox">
               <input id="bonus-checkbox" type="checkbox" />
             </td>
-            <td colspan="1" id="bonus-yahtzee-checkbox">
+            <td colSpan="1" id="bonus-yahtzee-checkbox">
               <input id="bonus-checkbox" type="checkbox" />
             </td>
-            <td colspan="1" id="bonus-yahtzee-checkbox">
+            <td colSpan="1" id="bonus-yahtzee-checkbox">
               <input id="bonus-checkbox" type="checkbox" />
             </td>
             <td id="bonus-spacer"></td>
@@ -185,7 +185,7 @@ const ScoreCard = (props) => {
       <table id="totals-table">
         <thead>
           <tr>
-            <th colspan="12" id="upper-totals-table-header">
+            <th colSpan="12" id="upper-totals-table-header">
               Score Totals
             </th>
           </tr>
@@ -194,15 +194,15 @@ const ScoreCard = (props) => {
           <tr>
             {/* <td id="big-spacer"></td> */}
             <td id="upper-total-desc">Upper Scores Total</td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <LittleScoreLine />
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Lower Scores Total</td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <LittleScoreLine />
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Grand Total</td>
-            <td colspan="1" id="spacer"></td>
+            <td colSpan="1" id="spacer"></td>
             <LittleScoreLine />
           </tr>
         </tbody>

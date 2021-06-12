@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Chat from "../components/Chat";
+import { useHistory } from "react-router-dom";
 
 import Dice from "../components/Dice";
 import RollButton from "../components/RollButton";
@@ -36,11 +37,23 @@ const GameBoard = (props) => {
     totalScore: undefined,
   });
 
+  const history = useHistory();
+
   const initiateRoll = () => {
     setRolling(true);
 
     setTimeout(rollDice, 1000);
   };
+
+  const checkLoginStatus = useCallback(() => {
+    if (props.credentials === "") {
+      history.push("/login");
+    }
+  }, [props.credentials, history]);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
 
   const rollDice = (evt) => {
     console.log(dice);
