@@ -1,0 +1,19 @@
+/* @font-face {
+  font-family: Revue;
+  src: url("./fonts/Revue\ Regular.ttf");
+} */
+
+@import url(//db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue);
+.landing-logo {
+  font-family: Revue;
+  font-size: 85px;
+  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+}
+
+.landing-link {
+  font-weight: bold;
+}
+
+.landing p {
+  font-size: 24px;
+}

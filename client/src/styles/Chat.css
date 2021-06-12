@@ -32,7 +32,7 @@
   height: calc(100% -5px);
   border: none;
   border-top: 3px solid black;
-  padding-left: 20px;
+  padding-left:          20px;
   font-size: 20px;
   outline: none;
 }

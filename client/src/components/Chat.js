@@ -76,7 +76,7 @@ const Chat = (props) => {
           value={message}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={sendMessage}>
+        <button onClick={sendMessage} disabled={message === ""}>
           <IoIosSend color="white" size={44} id="send" />
         </button>
       </div>
