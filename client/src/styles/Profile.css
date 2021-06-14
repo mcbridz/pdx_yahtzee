@@ -1,0 +1,11 @@
+#avatar-preview {
+  height: 100px;
+  width: 100px;
+}
+
+#avatar-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 50px;
+}

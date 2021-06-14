@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import io from "socket.io-client";
 import { IoIosSend } from "react-icons/io";
-import ScrollableFeed from "react-scrollable-feed";
+// import ScrollableFeed from "react-scrollable-feed";
 
 import "../styles/Chat.css";
 
@@ -48,7 +48,7 @@ const Chat = (props) => {
 
   return (
     <div className={"chat-container-" + version[props.version]}>
-      <ScrollableFeed>
+      {/* <ScrollableFeed> */}
         <div className={"chat-messages-" + version[props.version]}>
           {messageList.map((msg, index) => {
             return (
@@ -67,7 +67,7 @@ const Chat = (props) => {
             );
           })}
         </div>
-      </ScrollableFeed>
+      {/* </ScrollableFeed> */}
       <div className={"chat-inputs-" + version[props.version]}>
         <input
           type="text"

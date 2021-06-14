@@ -113,7 +113,8 @@
   color: antiquewhite;
   cursor: pointer;
   margin-bottom: 20px;
-  font-family: Revue
+  font-family: Revue;
+  margin-left: 10px;
 }
 
 #login-btn-container p {
@@ -128,4 +129,8 @@
 #login-link {
   font-weight: bold;
   color: darkred;
+}
+
+#signinp {
+  margin-top: 20px;
 }

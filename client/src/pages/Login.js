@@ -95,7 +95,7 @@ const Login = (props) => {
           </div>
           <div id="login-btn-container">
             <button>Sign In</button>
-            <p>
+            <p id="signinp">
               or{" "}
               <Link to="/register" id="login-link">
                 Sign Up

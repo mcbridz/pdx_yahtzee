@@ -33,9 +33,14 @@ const NavBar = (props) => {
             </Link>{" "}
           </div>
         ) : (
-          <Link to="/" id="navbar-link-right" onClick={logout}>
-            Logout
-          </Link>
+          <div>
+            <Link to={"/" + props.credentials.username} id="navbar-link-right">
+              Profile
+            </Link>
+            <Link to="/" id="navbar-link-right" onClick={logout}>
+              Logout
+            </Link>
+          </div>
         )}
       </div>
     </div>

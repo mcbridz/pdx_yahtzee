@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import MainLobby from "./pages/MainLobby";
+import Profile from "./pages/Profile";
 
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
@@ -48,6 +49,10 @@ function App() {
         <Route path="/mainlobby">
           <MainLobby credentials={credentials} />
         </Route>
+
+        {/* <Route path={"/" + credentials.username}>
+          <Profile credentials={credentials} setCredentials={setCredentials} />
+        </Route> */}
       </Switch>
     </div>
   );
