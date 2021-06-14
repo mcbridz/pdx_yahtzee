@@ -4,16 +4,32 @@
 } */
 
 @import url(//db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue);
-.landing-logo {
+.landing-logo1 {
   font-family: Revue;
   font-size: 85px;
-  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red;
+  color: white;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+  margin-top: 4px;
 }
 
 .landing-link {
   font-weight: bold;
+  color: white;
+  text-decoration: none;
 }
 
 .landing p {
-  font-size: 24px;
+  font-size: 28px;
+}
+
+#landing-logo-img img {
+  max-height: 300px;
+  min-height: 300px;
+}
+
+.landing {
+  /* background-color: yellow; */
+  background: radial-gradient(yellow 1%, orange 10%, red 90%, darkred 100%);
+  min-height: 100vh;
+  /* margin-top: -58px; */
 }

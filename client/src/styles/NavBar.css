@@ -1,3 +1,5 @@
+@import url(//db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue);
+
 #nav-bar-right {
   display: flex;
   flex-direction: row;
@@ -6,9 +8,13 @@
 }
 
 #navbar-link-right {
-  margin-right: 15px;
-  font-size: 22px;
+  margin-right: 45px;
+  font-size: 28px;
   font-weight: bold;
+  color: white;
+  text-decoration: none;
+  font-family: Revue;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
 }
 
 #nav-bar-left {
@@ -16,16 +22,24 @@
   flex-direction: row;
   justify-content: flex-start;
   flex: 50%;
+
 }
 
 #navbar-link-left {
-  margin-left: 15px;
-  font-size: 22px;
+  margin-left: 45px;
+  font-size: 28px;
   font-weight: bold;
+  color: white;
+  text-decoration: none;
+  font-family: Revue;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
 }
 
-.navbar {
+#navbar {
   display: flex;
   align-content: center;
   flex-direction: row;
+  background-color: darkred;
+  height: 50px;
+  padding-top: 10px;
 }

@@ -5,6 +5,7 @@ import "../styles/Login.css";
 
 const Login = (props) => {
   const [user, setUser] = useState({ username: "", password: "" });
+  const [loginError, setLoginError] = useState("");
 
   const history = useHistory();
 
@@ -32,8 +33,12 @@ const Login = (props) => {
           token: data.token,
         });
         // history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoginError("Invalid login info");
+        console.log(loginError);
       });
-    // .then(history.push("/"));
   }
 
   const handleSubmit = async (evt) => {
@@ -45,6 +50,7 @@ const Login = (props) => {
 
   return (
     <div className="div-wrapper">
+      <p>{loginError}</p>
       <div className="login-container">
         <div className="login-logo">
           <h1>Log in to play!</h1>

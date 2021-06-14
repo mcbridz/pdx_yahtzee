@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   font-size: 18px;
-  border: 1px solid black;
+  border: 3px solid black;
   border-radius: 13px;
   max-width: 1050px;
   position: absolute;
@@ -67,11 +67,9 @@ td {
   cursor: pointer;
 }
 
-/* #upper-totals-table {
-  min-width: 1000px;
-  max-width: 1000px;
-  border-collapse: collapse;
-} */
+#upper-totals-table {
+  margin-top: -20px;
+}
 
 #upper-totals-table-header {
   margin-bottom: 10px;
@@ -79,6 +77,7 @@ td {
 
 #lower-scores-table {
   border-collapse: collapse;
+  margin-top: -20px;
 }
 
 #bonus-yahtzee-checkbox {
