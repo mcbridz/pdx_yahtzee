@@ -3,6 +3,15 @@ import { useHistory, Link } from "react-router-dom";
 import { FaUserCircle, FaLock } from "react-icons/fa";
 import "../styles/Login.css";
 
+const handleErrors = async (response) => {
+  if (!response.ok) {
+    const { message } = await response.json();
+    throw Error(message);
+  }
+  console.log(response.json());
+  return response.json();
+};
+
 const Login = (props) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [loginError, setLoginError] = useState("");
@@ -25,6 +34,7 @@ const Login = (props) => {
         "Content-Type": "application/json",
       },
     })
+      //   .then(handleErrors)
       .then(async (res) => await res.json())
       .then(async (data) => {
         await props.setCredentials({
@@ -35,8 +45,8 @@ const Login = (props) => {
         // history.push("/");
       })
       .catch((err) => {
-        console.log(err);
-        setLoginError("Invalid login info");
+        console.log(err.message);
+        setLoginError(err.message);
         console.log(loginError);
       });
   }
@@ -50,6 +60,7 @@ const Login = (props) => {
 
   return (
     <div className="div-wrapper">
+      {loginError && <span style={{ color: "white" }}>{loginError}</span>}
       <p>{loginError}</p>
       <div className="login-container">
         <div className="login-logo">
@@ -83,7 +94,7 @@ const Login = (props) => {
             />
           </div>
           <div id="login-btn-container">
-            <button>Log In</button>
+            <button>Sign In</button>
             <p>
               or{" "}
               <Link to="/register" id="login-link">

@@ -4,10 +4,14 @@
   border-bottom: 2px solid black;
   cursor: pointer;
   height: 50px;
-
+  background-color: white;
   /* border-right: 1px solid black;
   border-top: 1px solid black; */
 }
+
+/* .score-line-score:hover {
+  background-color: #f8f8f8;
+} */
 
 .score-line-description {
   border-bottom: 2px solid black;
@@ -17,5 +21,13 @@
   cursor: pointer;
   vertical-align: bottom;
   height: 50px;
+  background-color: white;
 }
 
+/* .score-line-description:hover {
+  background-color: #f8f8f8;
+} */
+
+.score-line-comp:hover {
+  background-color: #f8f8f8;
+}

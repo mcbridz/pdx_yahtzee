@@ -12,6 +12,7 @@
   position: absolute;
   bottom: 0;
   margin-bottom: 10px;
+  /* background-color: antiquewhite; */
 }
 
 #game-table {
@@ -25,7 +26,8 @@
   border: 1px solid black;
   min-width: 120px;
   max-width: 120px;
-  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
   font-weight: bold;
   line-height: 0.8;
 }
@@ -82,13 +84,14 @@ td {
 
 #bonus-yahtzee-checkbox {
   border: 1px solid black;
-  max-width: 20px;
-  min-width: 20px;
+  max-width: 30px;
+  min-width: 30px;
+  margin-left: 50px;
+  padding-top: 2px;
 }
 
 #bonus-yahtzee-row {
-  max-width: 100px;
-  min-width: 100px;
+  margin-left: 50px;
 }
 
 #bonus-spacer {
@@ -110,4 +113,57 @@ td {
   font-weight: 100;
 }
 
+#chance-row {
+  border-collapse: collapse;
+  max-height: 50px;
+  min-height: 50px;
+  display: flex;
+  width: 1000px;
+  margin-right: 17px;
+}
 
+#yahtzee-bonus-table {
+  min-width: 1005px;
+  max-width: 1005px;
+}
+
+#chance-row-right-side {
+  /* display: inline-block; */
+  /* justify-content: flex-end */
+  flex: 50%;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  margin-left: 75px;
+  display: flex;
+  flex-direction: row;
+}
+
+#chance-row-left-side {
+  flex: 50%;
+  display: flex;
+  flex-direction: row;
+  margin-top: -30px;
+  margin-left: -1px;
+}
+
+#yahtzee-bonus-header {
+  padding-left: 580px;
+}
+
+#yahtzee-bonus-desc {
+  font-size: 14px;
+  padding-right: 5px;
+  padding-top: 8px;
+}
+
+#chance {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: none;
+}
+
+#checkboxes {
+  margin-top: 8px;
+  margin-left: 40px;
+}

@@ -10,10 +10,10 @@
   /* position: absolute;
   left: 50%;
   top: 50%; */
-  margin-bottom: 230px;
+  margin-bottom: 270px;
   display: flex;
   flex-direction: column;
-  border: 3px solid black;
+  /* border: 3px solid black; */
   border-radius: 15px;
   min-width: 500px;
   max-width: 500px;
@@ -21,14 +21,14 @@
   max-height: 250px;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  background-color: transparent;
 }
 
 .login-logo h1 {
   font-family: Revue;
-  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-  font-size: 40px;
-  color: white;
+  text-shadow: -3px 0 darkred, 0 3px darkred, 3px 0 darkred, 0 -3px darkred;
+  font-size: 50px;
+  color: antiquewhite;
 }
 
 .login-username {
@@ -110,9 +110,10 @@
   background-color: darkred;
   border-radius: 15px;
   font-size: 30px;
-  color: white;
+  color: antiquewhite;
   cursor: pointer;
   margin-bottom: 20px;
+  font-family: Revue
 }
 
 #login-btn-container p {
@@ -120,11 +121,11 @@
   font-weight: 700;
   margin-top: 25px;
   font-size: 18px;
-  color: white;
+  color: black;
   margin-left: 30px;
 }
 
 #login-link {
   font-weight: bold;
-  color: antiquewhite;
+  color: darkred;
 }
