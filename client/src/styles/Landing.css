@@ -3,7 +3,7 @@
   src: url("./fonts/Revue\ Regular.ttf");
 } */
 
-@import url(//db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue);
+/* @import url(https://db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue); */
 .landing-logo1 {
   font-family: Revue;
   font-size: 85px;

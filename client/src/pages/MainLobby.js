@@ -17,7 +17,7 @@ const MainLobby = (props) => {
   }, [checkLoginStatus]);
 
   return (
-    <div>
+    <div id="main-lobby">
       <div className="main-lobby-header">
         <button>
           <Link to="/ingame">In Game Page</Link>

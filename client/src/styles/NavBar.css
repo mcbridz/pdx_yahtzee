@@ -1,4 +1,10 @@
-@import url(//db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue);
+@import url(https://db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue);
+/* @font-face {
+  font-family: Revue;
+  font-style: normal;
+  src: local("Revue"), local("Revue"),
+    url("../styles/fonts/reve.ttf") format ("truetype");
+} */
 
 #nav-bar-right {
   display: flex;
@@ -22,7 +28,6 @@
   flex-direction: row;
   justify-content: flex-start;
   flex: 50%;
-
 }
 
 #navbar-link-left {
