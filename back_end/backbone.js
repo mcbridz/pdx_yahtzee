@@ -57,7 +57,6 @@ module.exports = function (deps) {
 
     io.on('connection', (socket) => {
         console.log('a user has connected')
-
         socket.on('getUnstartedGames', async function (pass) {
             let games = await Game.getUnstartedGames()
             io.emit(JSON.stringify(games))
@@ -81,7 +80,16 @@ module.exports = function (deps) {
             Game.createGame(usernameList, order.public)
                 .then((game) => {
                     // console.log(JSON.stringify(game))
-                    io.emit('createGame', JSON.stringify(game))
+                    const newMessage = new Message()
+                    newMessage.text = "GAME CREATED"
+                    newMessage.room = game.room
+                    newMessage.username = "SYSTEM"
+                    newMessage.private = true
+                    newMessage.save()
+                        .then(message => {
+                            io.emit('get messages', JSON.stringify(message))
+                            io.emit('createGame', JSON.stringify(game))                        
+                    })
                 })
         })
 
@@ -115,6 +123,10 @@ module.exports = function (deps) {
         // data inside taskObj:
         // data = {'markOnes', <number of ones dice>, 'markSixes', <number of sixes dice>}
         socket.on('markScore', async function (taskObj) {
+            taskObj.io = io
+            taskObj.ioEmit = function (message) {
+                this.io.emit('get messages', JSON.stringify(message))
+            }
             console.log(taskObj)
             let game = await Game.findOne({ _id: taskObj.game })
             // console.log('//////////////////Sending In //////////////')

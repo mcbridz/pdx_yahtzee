@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const ScoreCard = require('./scoreCard')
+const Room = require('../chatroom/chatModels').Room
+const Message = require('../chatroom/chatModels').Message
 const User = require('../protected_routes/userModel')
 
 const upperSectionRef = ['aces', 'twos', 'threes', 'fours', 'fives', 'sixes']
@@ -44,12 +46,14 @@ const gameSchema = new Schema({
     },
     room: {
         type: String,
-        
+        required: true
     }
 })
 
 gameSchema.statics.createGame = async function (playerList, public) {
     const game = new this()
+    const newRoom = Room.newRoom({ name: game._id, private: true })    
+    game.room = newRoom._id
     game.public = public
     // console.log('game.js playerList')
     // console.log(playerList)
@@ -138,7 +142,7 @@ gameSchema.methods.performTasks = async function (taskObj) {
     // console.log('scoreCard to be bound: ')
     // console.log(scoreCard)
     taskObj.tasks.forEach(async (taskObj) => {
-        await ScoreCard.prototype.$__schema.methods[taskObj.task].call(scoreCard, taskObj.data)
+        await ScoreCard.prototype.$__schema.methods[taskObj.task].call(scoreCard, taskObj.data, taskObj)
     })
     // scoreCard = scoreCard.markSixes(taskObj.tasks[0].data)
     // console.log(scoreCard)

@@ -112,13 +112,25 @@ scoreCardSchema.methods.updateScore = function () {
     return this
 }
 
-scoreCardSchema.methods.markAces = async function (numAces) {
+const systemMessageBuilder = async function (text, room) {
+    const message = new Message()
+    message.text = text
+    message.room = room
+    message.private = true
+    message.username = "SYSTEM"
+    await message.save()
+    return message
+}
+
+scoreCardSchema.methods.markAces = async function (numAces, taskObj) {
     // console.log('IN SCORECARD')
     // console.log(this.upperSection)
     if (!this.upperSection[0].marked) {
         let subtotal = this.upperSection[0].value * numAces
         this.upperSection[0].aces = subtotal
         this.upperSection[0].marked = true
+        const newMessage = systemMessageBuilder(`${subtotal} marked in Aces`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         // console.log('LEAVING SCOREBOARD')
         this.markModified('upperSection')
         return this.updateScore()
@@ -126,53 +138,63 @@ scoreCardSchema.methods.markAces = async function (numAces) {
     // console.log('SAVING BETTER THAN I THOUGHT')
 }
 
-scoreCardSchema.methods.markTwos = async function (numTwos) {
+scoreCardSchema.methods.markTwos = async function (numTwos, taskObj) {
     if (!this.upperSection[1].marked) {
         let subtotal = this.upperSection[1].value * numTwos
         this.upperSection[1].twos = subtotal
         this.upperSection[1].marked = true
+        const newMessage = systemMessageBuilder(`${subtotal} marked in Twos`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('upperSection')
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markThrees = async function (numThrees) {
+scoreCardSchema.methods.markThrees = async function (numThrees, taskObj) {
     if (!this.upperSection[2].marked) {
         let subtotal = this.upperSection[2].value * numThrees
         this.upperSection[2].threes = subtotal
         this.upperSection[2].marked = true
+        const newMessage = systemMessageBuilder(`${subtotal} marked in Threes`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('upperSection')
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markFours = async function (numFours) {
+scoreCardSchema.methods.markFours = async function (numFours, taskObj) {
     if (!this.upperSection[3].marked) {
         let subtotal = this.upperSection[3].value * numFours
         this.upperSection[3].fours = subtotal
         this.upperSection[3].marked = true
+        const newMessage = systemMessageBuilder(`${subtotal} marked in Fours`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('upperSection')
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markFives = async function (numFives) {
+scoreCardSchema.methods.markFives = async function (numFives, taskObj) {
     if (!this.upperSection[4].marked) {
         let subtotal = this.upperSection[4].value * numFives
         this.upperSection[4].fives = subtotal
         this.upperSection[4].marked = true
+        const newMessage = systemMessageBuilder(`${subtotal} marked in Fives`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('upperSection')
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markSixes = function (numSixes) {
+scoreCardSchema.methods.markSixes = function (numSixes, taskObj) {
     console.log('ENTERING SCORECARD')
     if (!this.upperSection[5].marked) {
         let subtotal = this.upperSection[5].value * numSixes
         // console.log(subtotal)
         this.upperSection[5].sixes = subtotal
         this.upperSection[5].marked = true
+        const newMessage = systemMessageBuilder(`${subtotal} marked in Sixes`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         // console.log(this)
         // console.log('LEAVING SCOREBOARD')
         this.markModified('upperSection')
@@ -181,68 +203,84 @@ scoreCardSchema.methods.markSixes = function (numSixes) {
     // console.log('SAVING BETTER THAN EXPECTED')
 }
 
-scoreCardSchema.methods.markThreeOfAKind = function (data) {
+scoreCardSchema.methods.markThreeOfAKind = function (data, taskObj) {
     if (!this.lowerSection[0].marked) {
         this.lowerSection[0].threeOfAKind = data
         this.lowerSection[0].marked = true
+        const newMessage = systemMessageBuilder(`Three of a kind marked`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markFourOfAKind = function (data) {
+scoreCardSchema.methods.markFourOfAKind = function (data, taskObj) {
     if (!this.lowerSection[1].marked) {
         this.lowerSection[1].fourOfAKind = data
         this.lowerSection[1].marked = true
+        const newMessage = systemMessageBuilder(`Four of a kind marked`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markFullHouse = async function (pass) {
+scoreCardSchema.methods.markFullHouse = async function (pass, taskObj) {
     if (!this.lowerSection[2].marked) {
         this.lowerSection[2].fullHouse = this.lowerSection[2].value
         this.lowerSection[2].marked = true
+        const newMessage = systemMessageBuilder(`Full House marked`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('lowerSection')
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markSmStraight = async function (pass) {
+scoreCardSchema.methods.markSmStraight = async function (pass, taskObj) {
     if (!this.lowerSection[3].marked) {
         this.lowerSection[3].smStraight = this.lowerSection[3].value
         this.lowerSection[3].marked = true
+        const newMessage = systemMessageBuilder(`Small straight marked`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('lowerSection')
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markLgStraight = async function (pass) {
+scoreCardSchema.methods.markLgStraight = async function (pass, taskObj) {
     if (!this.lowerSection[4].marked) {
         this.lowerSection[4].lgStraight = this.lowerSection[4].value
         this.lowerSection[4].marked = true
+        const newMessage = systemMessageBuilder(`Large straight marked`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('lowerSection')
         return this.updateScore()
     }
 }
 
-scoreCardSchema.methods.markYahtzee = async function (pass) {
+scoreCardSchema.methods.markYahtzee = async function (pass, taskObj) {
     if (this.lowerSection[5].marked) {
         let newBonus = this.yahtzeeBonus.score + 100
         let newNumYahtzees = this.yahtzeeBonus.numYahtzees + 1
         this.yahtzeeBonus.score = newBonus
         this.yahtzeeBonus.numYahtzees = newNumYahtzees
+        const newMessage = systemMessageBuilder(`${numYahtzees} Bonus Yahtzees for a total of ${newBonus}`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('yahtzeeBonus')
     } else {
         this.lowerSection[5].yahtzee = this.lowerSection[5].value
         this.lowerSection[5].marked = true
+        const newMessage = systemMessageBuilder(`First Yahtzee marked`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         this.markModified('lowerSection')
     }
     return this.updateScore()
 }
 
-scoreCardSchema.methods.markChance = async function (data) {
+scoreCardSchema.methods.markChance = async function (data, taskObj) {
     if (!this.chance.marked) {
         this.chance.score = data
         this.chance.marked = true
+        const newMessage = systemMessageBuilder(`${data} marked in Chance`, taskObj.room)
+        taskObj.ioEmit(newMessage)
         return this.updateScore()
     }
 }
