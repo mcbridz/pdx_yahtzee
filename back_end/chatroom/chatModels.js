@@ -1,3 +1,6 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
 // Chatroom schema, methods and statics
 const messageSchema = new Schema({
     text: {
