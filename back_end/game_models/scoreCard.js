@@ -181,6 +181,22 @@ scoreCardSchema.methods.markSixes = function (numSixes) {
     // console.log('SAVING BETTER THAN EXPECTED')
 }
 
+scoreCardSchema.methods.markThreeOfAKind = function (data) {
+    if (!this.lowerSection[0].marked) {
+        this.lowerSection[0].threeOfAKind = data
+        this.lowerSection[0].marked = true
+        return this.updateScore()
+    }
+}
+
+scoreCardSchema.methods.markFourOfAKind = function (data) {
+    if (!this.lowerSection[1].marked) {
+        this.lowerSection[1].fourOfAKind = data
+        this.lowerSection[1].marked = true
+        return this.updateScore()
+    }
+}
+
 scoreCardSchema.methods.markFullHouse = async function (pass) {
     if (!this.lowerSection[2].marked) {
         this.lowerSection[2].fullHouse = this.lowerSection[2].value
@@ -221,6 +237,14 @@ scoreCardSchema.methods.markYahtzee = async function (pass) {
         this.markModified('lowerSection')
     }
     return this.updateScore()
+}
+
+scoreCardSchema.methods.markChance = async function (data) {
+    if (!this.chance.marked) {
+        this.chance.score = data
+        this.chance.marked = true
+        return this.updateScore()
+    }
 }
 
 scoreCardSchema.methods.packCard = function () {

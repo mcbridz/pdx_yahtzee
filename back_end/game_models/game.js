@@ -147,9 +147,11 @@ gameSchema.methods.performTasks = async function (taskObj) {
     // console.log('///////////////////')
     // console.log('This game\'s scorecards: ')
     // console.log(this.scoreCards[index])
+    this.currentPlayer = this.users[(index + 1) % this.users.length]
     this.turnNum = this.turnNum + taskObj.tasks.length
     return this.save()
 }
+
 
 const Game = mongoose.model('Game', gameSchema)
 
