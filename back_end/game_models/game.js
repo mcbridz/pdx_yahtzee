@@ -41,6 +41,10 @@ const gameSchema = new Schema({
     turnNum: {
         type: Number,
         default: 0
+    },
+    room: {
+        type: String,
+        
     }
 })
 

@@ -168,8 +168,8 @@ module.exports = function (deps) {
         socket.on('get messages', async (filter) => {
             io.emit('get messages', await Message.getMessages(filter))
         })
-        socket.on('get rooms', async (filter) => {
-            io.emit('get rooms', await Room.getRooms(filter))
+        socket.on('get rooms', (filter) => {
+            io.emit('get rooms', Room.getRooms(filter))
         })
     })
 
