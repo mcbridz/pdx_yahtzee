@@ -12,9 +12,9 @@ const key = process.env.KEY || require("../secrets").key;
 const app = express();
 
 if (process.env.PORT) {
-  app.use(express.static(path.join(__dirname, "..", "client", "build")));
+    app.use(express.static(path.join(__dirname, "..", "client", "build")));
 } else {
-  app.use(express.static("static"));
+    app.use(express.static("static"));
 }
 app.use(express.json());
 app.use(cors());
@@ -81,10 +81,10 @@ module.exports = function (deps) {
             Game.createGame(usernameList, order.public)
                 .then((game) => {
                     // console.log(JSON.stringify(game))
-                    io.emit('createGame', JSON.stringify(game))                
-            })
+                    io.emit('createGame', JSON.stringify(game))
+                })
         })
-    
+
 
         // order is an object, with the structure of:
         // { game: <game._id>, player: <playerIDTOKEN> }
@@ -100,7 +100,7 @@ module.exports = function (deps) {
             // console.log(game)
             io.emit('addPlayer', JSON.stringify(game))
         })
-        
+
         // order is an object, with the structure of:
         // { game: <game._id>, player: <playerIDTOKEN> }
         socket.on('removePlayer', async function (order) {
@@ -127,8 +127,8 @@ module.exports = function (deps) {
 
         socket.on('diceRoll', (numRolls) => {
             let rolls = []
-            for (let i = 0; i < numRolls; i++){
-                rolls.push(Math.floor(Math.random()*6))
+            for (let i = 0; i < numRolls; i++) {
+                rolls.push(Math.floor(Math.random() * 6))
             }
             io.emit('diceRoll', JSON.stringify(rolls))
         })
@@ -153,7 +153,24 @@ module.exports = function (deps) {
             console.log(msg);
             socket.to(msg.room).emit("get-message", msg.content);
         });
-        
+        socket.on('chat message', (msg) => {
+            console.log('message: ' + msg)
+            Message.newMessage(JSON.parse(msg))
+
+            io.emit('chat message', msg)
+        })
+        socket.on('new room', (room) => {
+            Room.newRoom(room)
+            if (!Room.private) {
+                io.emit('new room', room)
+            }
+        })
+        socket.on('get messages', async (filter) => {
+            io.emit('get messages', await Message.getMessages(filter))
+        })
+        socket.on('get rooms', async (filter) => {
+            io.emit('get rooms', await Room.getRooms(filter))
+        })
     })
 
 
