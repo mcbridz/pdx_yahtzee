@@ -15,27 +15,6 @@ const GameBoard = (props) => {
   const [dice, setDice] = useState(Array.from({ length: numOfDice }));
   const [rolling, setRolling] = useState(false);
   const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
-  const [scores, setScores] = useState({
-    ones: undefined,
-    twos: undefined,
-    threes: undefined,
-    fours: undefined,
-    fives: undefined,
-    sixes: undefined,
-    upperScore: undefined,
-    bonus: false,
-    totalUpperScore: undefined,
-    threeOfAKind: undefined,
-    fourOfAKind: undefined,
-    fullHouse: undefined,
-    smallStraight: undefined,
-    largeStraight: undefined,
-    yahtzee: undefined,
-    chance: undefined,
-    yahtzeeBonus: 0,
-    totalLowerScore: undefined,
-    totalScore: undefined,
-  });
 
   const history = useHistory();
 
@@ -104,7 +83,11 @@ const GameBoard = (props) => {
         />
       </div>
       <Chat version={0} value={0} credentials={props.credentials} />
-      <ScoreCard scores={scores} setScore={setScores} />
+      <ScoreCard
+        scoreCard={props.scoreCard}
+        setScoreCard={props.setScoreCard}
+        dice={dice}
+      />
     </div>
   );
 };

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import "../styles/ScoreLine.css";
-import { UpperScores } from "./ScoreCard";
+
 const ScoreLine = (props) => {
-  const { scores, setScores, version } = props;
   const upperScoresDescriptions = [
     "Sum of all aces",
     "Sum of all twos",
@@ -35,24 +34,34 @@ const ScoreLine = (props) => {
     "upperBonus",
     "upperWithBonus",
     "lowerTotal",
-    "grandTotal"
+    "grandTotal",
   ];
 
-  const testArr = ["aces", "twos"];
+  const handleScore = async () => {
+    let newScore = props.scoreFunction();
+    console.log(allScores[props.version]);
+    await props.setScores({
+      ...props.scores,
+      chance: newScore,
+    });
+    console.log(props.scores);
+  };
 
   return (
     <div>
       <td
         colSpan="3"
         className="score-line-description"
-        onClick={() => console.log(allScores[version])}
+        onClick={
+          props.scoreFunction
+            ? handleScore
+            : () => console.log(allScores[props.version])
+        }
       >
-        {scores.version === undefined
-          ? upperScoresDescriptions[props.value]
-          : ""}
+        {props.score === undefined ? upperScoresDescriptions[props.value] : ""}
       </td>
       <td colSpan="1" className="score-line-score">
-        {scores.version === undefined ? "" : scores.version}
+        {props.scores === "" ? "" : props.scores}
       </td>
     </div>
   );

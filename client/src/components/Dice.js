@@ -6,8 +6,6 @@ const Dice = (props) => {
   const lockedStyle = { color: "red" };
   return (
     <div id="dice-container">
-      {console.log(props.dice)}
-
       {props.dice.map((die, index) => (
         <Die
           val={die}

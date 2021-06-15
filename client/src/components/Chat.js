@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import io from "socket.io-client";
 import { IoIosSend } from "react-icons/io";
 // import ScrollableFeed from "react-scrollable-feed";
@@ -11,6 +11,8 @@ const CONNECTION_PORT = "localhost:8000/";
 const Chat = (props) => {
   const [message, setMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+
+  const scrollRef = React.createRef()
 
   const rooms = ["mainLobby", "preGameLobby/" + props.gameID, props.gameID];
   const version = ["inGame", "mainLobby", "preGameLobby"];
@@ -49,24 +51,25 @@ const Chat = (props) => {
   return (
     <div className={"chat-container-" + version[props.version]}>
       {/* <ScrollableFeed> */}
-        <div className={"chat-messages-" + version[props.version]}>
-          {messageList.map((msg, index) => {
-            return (
-              <div
-                className={
-                  props.credentials.username !== "" ||
-                  msg.author !== props.credentials.username
-                    ? "chat-message-you-" + version[props.version]
-                    : "chat-message-other-" + version[props.version]
-                }
-              >
-                <h2 key={index}>
-                  {msg.author}: {msg.message}
-                </h2>
-              </div>
-            );
-          })}
-        </div>
+      <div className={"chat-messages-" + version[props.version]} ref={scrollRef}>
+        {messageList.map((msg, index) => {
+          return (
+            <div
+              className={
+                props.credentials.username !== "" ||
+                msg.author !== props.credentials.username
+                  ? "chat-message-you-" + version[props.version]
+                  : "chat-message-other-" + version[props.version]
+              }
+            >
+              <h2 key={index}>
+                {msg.author}: {msg.message}
+              </h2>
+            </div>
+          );
+        })}
+        <div id="scrollable"></div>
+      </div>
       {/* </ScrollableFeed> */}
       <div className={"chat-inputs-" + version[props.version]}>
         <input
