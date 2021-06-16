@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/ScoreLine.css";
 
 const ScoreLine = (props) => {
-  const upperScoresDescriptions = [
+  const scoresDescriptions = [
     "Sum of all aces",
     "Sum of all twos",
     "Sum of all threes",
@@ -16,33 +16,10 @@ const ScoreLine = (props) => {
     "Score 50",
   ];
 
-  const allScores = [
-    "aces",
-    "twos",
-    "threes",
-    "fours",
-    "fives",
-    "sixes",
-    "3ofAKind",
-    "4ofAKind",
-    "fullHouse",
-    "smStraight",
-    "lgStraight",
-    "yahtzee",
-    "chance",
-    "upperPreBonus",
-    "upperBonus",
-    "upperWithBonus",
-    "lowerTotal",
-    "grandTotal",
-  ];
-
   return (
     <div>
       <td colSpan="3" className="score-line-description">
-        {!props.disabled
-          ? upperScoresDescriptions[props.description]
-          : props.scores}
+        {!props.marked ? scoresDescriptions[props.description] : props.scores}
       </td>
     </div>
   );

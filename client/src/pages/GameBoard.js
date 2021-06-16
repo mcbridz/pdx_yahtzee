@@ -55,8 +55,8 @@ const GameBoard = (props) => {
   };
 
   const scoreMove = (section, ruleFn) => {
+    console.log("getting through?");
     props.setScoreCard({ ...props.scoreCard, [section]: ruleFn(dice) });
-    
   };
 
   const toggleLocked = (i) => {
@@ -93,6 +93,7 @@ const GameBoard = (props) => {
         setScoreCard={props.setScoreCard}
         dice={dice}
         scoreMove={scoreMove}
+        // markScore={props.markScore}
       />
     </div>
   );

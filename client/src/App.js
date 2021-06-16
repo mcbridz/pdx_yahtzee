@@ -12,12 +12,10 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:8000", { transports: ["websocket"] });
 
-
-
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
-  const [room, setRoom] = useState('');
+  const [room, setRoom] = useState("");
 
   const [game, setGame] = useState({
     _id: null,
@@ -28,14 +26,13 @@ function App() {
     currentPlayer: { id: "", username: "" },
   });
 
-
   const [scoreCard, setScoreCard] = useState({
     id: "",
     game: "",
     gameNum: "",
     player: "",
     upperSection: [
-      { aces: 13, marked: false, value: 1 },
+      { aces: 0, marked: false, value: 1 },
       { twos: 0, marked: false, value: 2 },
       { threes: 0, marked: false, value: 3 },
       { fours: 0, marked: false, value: 4 },
@@ -69,7 +66,7 @@ function App() {
       console.log(JSON.parse(game));
       setGame(JSON.parse(game));
       //setting in-game flags for user (transition page)
-      history.push('/ingame')
+      history.push("/ingame");
     });
     socket.on("getUnstartedGames", (list) => {
       setGamesList(JSON.parse(list));
@@ -107,10 +104,10 @@ function App() {
       setGame(JSON.parse(game));
     });
     socket.on("get rooms", (rooms) => {
-      setGamesList(rooms)
-    })
+      setGamesList(rooms);
+    });
     socket.on("get messages", (msgObj) => {
-      console.log(msgObj)
+      console.log(msgObj);
       if (msgObj.private === true && msgObj.room === game._id) {
         //message meant for user in game
       } else if (msgObj.private === false && game._id === null) {
@@ -118,24 +115,30 @@ function App() {
       } else if (msgObj.private === true && msgObj.room === room) {
         //message meant for user -private room
       }
-    } )
+    });
     //emitters stay at the bottom
-    socket.emit("get rooms", { private: false })
+    socket.emit("get rooms", { private: false });
   }, []);
 
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////
-  
+
   //the below will need to be updated as we develop the invite system
   //and options for public or private games
   const createGame = function (playerList, isPrivate) {
     socket.emit("createGame", {
       public: true,
-      playerList: [credentials.token]
-    })
-  }
+      playerList: [credentials.token],
+    });
+  };
 
+  // const markScore = function (amount, task) {
+  //   socket.emit("markScore", {
+  //     amount: amount,
+  //     task: task,
+  //   });
+  // };
 
   return (
     <div className="App">
@@ -159,6 +162,7 @@ function App() {
             credentials={credentials}
             scoreCard={scoreCard}
             setScoreCard={setScoreCard}
+            // markScore={markScore}
           />
         </Route>
 
