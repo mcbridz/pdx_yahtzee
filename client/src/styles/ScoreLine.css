@@ -18,7 +18,7 @@
   /* border-top: 1px solid black; */
   min-width: 370px;
   max-width: 370px;
-  cursor: pointer;
+  /* cursor: pointer; */
   vertical-align: bottom;
   height: 50px;
   background-color: white;
@@ -30,4 +30,12 @@
 
 .score-line-comp:hover {
   background-color: #f8f8f8;
+}
+
+.upper-scores-category-title {
+  cursor: pointer;
+}
+
+#yahtzee-bonus-header {
+  cursor: pointer;
 }

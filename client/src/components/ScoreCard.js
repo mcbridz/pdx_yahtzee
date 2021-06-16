@@ -215,7 +215,7 @@ const ScoreCard = (props) => {
         </thead>
         <tbody>
           <tr id="aces-row">
-            <td colSpan="2" className="upper-scores-category-title rounded-top">
+            <td colSpan="2" className="upper-scores-category-title rounded-top" onClick={scoreAces()}>
               {upperScores[0]} <span id="dice-icon">&#x2680;</span>
             </td>
             <td id="spacer"></td>
@@ -229,7 +229,7 @@ const ScoreCard = (props) => {
               marked={props.scoreCard.upperSection[0].marked}
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFours()}>
               {upperScores[3]}
               <span id="dice-icon"> &#x2683;</span>
             </td>
@@ -247,7 +247,7 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreTwos()}>
               {upperScores[1]} <span id="dice-icon">&#x2681;</span>
             </td>
             <td id="spacer"></td>
@@ -261,7 +261,7 @@ const ScoreCard = (props) => {
               name="twos"
             />
             <td id="spacer">{/* {" "} */}</td>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFives()}>
               {upperScores[4]} <span id="dice-icon">&#x2684;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
@@ -277,7 +277,7 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreThrees()}>
               {upperScores[2]} <span id="dice-icon">&#x2682;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
@@ -293,7 +293,7 @@ const ScoreCard = (props) => {
             <td colSpan="1" id="spacer">
               {/* {" "} */}
             </td>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreSixes()}>
               {upperScores[5]} <span id="dice-icon">&#x2685;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
@@ -369,7 +369,7 @@ const ScoreCard = (props) => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreThreeOfAKind()}>
               {lowerScores[0]}
             </td>
             <td id="spacer"></td>
@@ -381,15 +381,15 @@ const ScoreCard = (props) => {
               dice={props.dice}
               disabled={props.scoreCard.lowerSection[0].marked}
               name="threeOfAKind"
-              scoreMove={() =>
-                props.scoreMove(
-                  props.scoreCard.lowerSection[0].score,
-                  threeOfAKind
-                )
-              }
+              // scoreMove={() =>
+              //   props.scoreMove(
+              //     props.scoreCard.lowerSection[0].score,
+              //     threeOfAKind
+              //   )
+              // }
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreSmStraight()}>
               {lowerScores[3]}
             </td>
             <td id="spacer"></td>
@@ -405,7 +405,7 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFourOfAKind()}>
               {lowerScores[1]}
             </td>
             <td id="spacer"></td>
@@ -419,7 +419,7 @@ const ScoreCard = (props) => {
               name="fourOfAKind"
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreLgStraight()}>
               {lowerScores[4]}
             </td>
             <td id="spacer"></td>
@@ -435,7 +435,7 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFullHouse()}>
               {lowerScores[2]}
             </td>
             <td id="spacer"></td>
@@ -449,7 +449,7 @@ const ScoreCard = (props) => {
               name="fullHouse"
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title">
+            <td colSpan="2" className="upper-scores-category-title" onClick={scoreYahtzee()}>
               {lowerScores[5]} <span id="dice-icon-yahtzee">&#x2685;</span>
               <span id="dice-icon-yahtzee">&#x2685;</span>
               <span id="dice-icon-yahtzee">&#x2685;</span>
@@ -474,7 +474,7 @@ const ScoreCard = (props) => {
         <thead>
           <tr>
             {/* <th colSpan="5"></th> */}
-            <th colSpan="12" id="yahtzee-bonus-header">
+            <th colSpan="12" id="yahtzee-bonus-header" onClick={scoreYahtzee()}>
               Yahtzee Bonus
             </th>
           </tr>
@@ -486,6 +486,7 @@ const ScoreCard = (props) => {
                 colSpan="2"
                 id="chance"
                 className="upper-scores-category-title"
+                onClick={scoreChance()}
               >
                 {lowerScores[6]}
               </td>
