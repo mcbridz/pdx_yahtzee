@@ -42,129 +42,165 @@ const ScoreCard = (props) => {
     }
   };
 
-  const scoreTwos = (dice) => {
-    let twosAmount = count(dice, 2);
-    const twosTask = [{ task: "markTwos", data: twosAmount }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [twosTask],
+  const scoreTwos = () => {
+    return () => {
+      const dice = props.dice
+      let twosAmount = count(dice, 2);
+      const twosTask = [{ task: "markTwos", data: twosAmount }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [twosTask],
+      };
     };
-  };
+  }
 
-  const scoreThrees = (dice) => {
-    let threesAmount = count(dice, 3);
-    const threesTask = [{ task: "markThrees", data: threesAmount }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [threesTask],
+  const scoreThrees = () => {
+    return () => {
+      const dice = props.dice
+      let threesAmount = count(dice, 3);
+      const threesTask = [{ task: "markThrees", data: threesAmount }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [threesTask],
+      };
     };
-  };
+  }
 
-  const scoreFours = (dice) => {
-    let foursAmount = count(dice, 4);
-    const foursTask = [{ task: "markFours", data: foursAmount }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [foursTask],
+  const scoreFours = () => {
+    return () => {
+      const dice = props.dice
+      let foursAmount = count(dice, 4);
+      const foursTask = [{ task: "markFours", data: foursAmount }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [foursTask],
+      };
     };
-  };
+  }
 
-  const scoreFives = (dice) => {
-    let fivesAmount = count(dice, 5);
-    const fivesTask = [{ task: "markFives", data: fivesAmount }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [fivesTask],
+  const scoreFives = () => {
+    return () => {
+      const dice = props.dice
+      let fivesAmount = count(dice, 5);
+      const fivesTask = [{ task: "markFives", data: fivesAmount }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [fivesTask],
+      };
     };
-  };
+  }
 
-  const scoreSixes = (dice) => {
-    let sixesAmount = count(dice, 6);
-    const sixesTask = [{ task: "markSixes", data: sixesAmount }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [sixesTask],
+  const scoreSixes = () => {
+    return () => {
+      const dice = props.dice
+      let sixesAmount = count(dice, 6);
+      const sixesTask = [{ task: "markSixes", data: sixesAmount }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [sixesTask],
+      };
     };
-  };
+  }
 
-  const scoreThreeOfAKind = (dice) => {
-    let threeOfAKindScore = threeOfAKind(dice);
-    const threeOfAKindTask = [
-      { task: "markThreeOfAKind", data: threeOfAKindScore },
-    ];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [threeOfAKindTask],
+  const scoreThreeOfAKind = () => {
+    return () => {
+      const dice = props.dice
+      let threeOfAKindScore = threeOfAKind(dice);
+      const threeOfAKindTask = [
+        { task: "markThreeOfAKind", data: threeOfAKindScore },
+      ];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [threeOfAKindTask],
+      };
     };
-  };
+  }
 
-  const scoreFourOfAKind = (dice) => {
-    let fourOfAKindScore = fourOfAKind(dice);
-    const fourOfAKindTask = [
-      { task: "markFourOfAKind", data: fourOfAKindScore },
-    ];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [fourOfAKindTask],
+  const scoreFourOfAKind = () => {
+    return () => {
+      const dice = props.dice
+      let fourOfAKindScore = fourOfAKind(dice);
+      const fourOfAKindTask = [
+        { task: "markFourOfAKind", data: fourOfAKindScore },
+      ];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [fourOfAKindTask],
+      };
     };
-  };
+  }
 
-  const scoreFullHouse = (dice) => {
-    let fullHouseScore = fullHouse(dice);
-    const fullHouseTask = [{ task: "markFullHouse", data: fullHouseScore }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [fullHouseTask],
+  const scoreFullHouse = () => {
+    return () => {
+      const dice = props.dice
+      let fullHouseScore = fullHouse(dice);
+      const fullHouseTask = [{ task: "markFullHouse", data: fullHouseScore }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [fullHouseTask],
+      };
     };
-  };
+  }
 
-  const scoreSmStraight = (dice) => {
-    let smStraightScore = smStraight(dice);
-    const smStraightTask = [{ task: "markSmStraight", data: smStraightScore }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [smStraightTask],
+  const scoreSmStraight = () => {
+    return () => {
+      const dice = props.dice
+      let smStraightScore = smStraight(dice);
+      const smStraightTask = [{ task: "markSmStraight", data: smStraightScore }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [smStraightTask],
+      };
     };
-  };
+  }
 
-  const scoreLgStraight = (dice) => {
-    let lgStraightScore = lgStraight(dice);
-    const lgStraightTask = [{ task: "markLgStraight", data: lgStraightScore }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [lgStraightTask],
+  const scoreLgStraight = () => {
+    return () => {
+      const dice = props.dice
+      let lgStraightScore = lgStraight(dice);
+      const lgStraightTask = [{ task: "markLgStraight", data: lgStraightScore }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [lgStraightTask],
+      };
     };
-  };
+  }
 
-  const scoreYahtzee = (dice) => {
-    let yahtzeeScore = yahtzee(dice);
-    const yahtzeeTask = [{ task: "markYahtzee", data: yahtzeeScore }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [yahtzeeTask],
+  const scoreYahtzee = () => {
+    return () => {
+      const dice = props.dice
+      let yahtzeeScore = yahtzee(dice);
+      const yahtzeeTask = [{ task: "markYahtzee", data: yahtzeeScore }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [yahtzeeTask],
+      };
     };
-  };
+  }
 
-  const scoreChance = (dice) => {
-    let chanceScore = sum(dice);
-    const chanceTask = [{ task: "markChance", data: chanceScore }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [chanceTask],
+  const scoreChance = () => {
+    return () => {
+      const dice = props.dice
+      let chanceScore = sum(dice);
+      const chanceTask = [{ task: "markChance", data: chanceScore }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [chanceTask],
+      };
     };
-  };
+  }
 
   return (
     <div className="score-card">
