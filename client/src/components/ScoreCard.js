@@ -17,10 +17,29 @@ const ScoreCard = (props) => {
   ];
 
   const sameDice = (dice) => {
+    console.log("test");
     const freqs = new Map();
     for (let d of dice) freqs.set(d, (freqs.get(d) || 0) + 1);
+    console.log(Array.from(freqs.values()));
     return Array.from(freqs.values());
   };
+
+  const threeOfAKind = () => {
+    console.log("test1");
+
+    const diceTotal = props.dice.reduce((prev, curr) => prev + curr);
+
+    if (sameDice(props.dice).includes(3)) {
+      return diceTotal;
+    } else {
+      return 0;
+    }
+  };
+
+  const fourOfAKind = () => {};
+  // const handleScore = () => {
+  //   props.setScoreCard({ ...props.scoreCard, marked: true });
+  // };
 
   return (
     <div className="score-card">
@@ -39,26 +58,22 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={0}
-              score={props.scoreCard.upperSection[0].aces}
-              setScoreCard={props.setScoreCard}
+              name="aces"
+              description={0}
               version={0}
+              scores={props.scoreCard.upperSection[0].aces}
+              setScoreCard={props.setScoreCard}
               dice={props.dice}
               disabled={props.scoreCard.upperSection[0].marked}
-              name="aces"
             />
             <td id="spacer"> </td>
-            <td
-              colSpan="2"
-              className="upper-scores-category-title"
-              onClick={() => sameDice(props.dice)}
-            >
+            <td colSpan="2" className="upper-scores-category-title">
               {upperScores[3]}
               <span id="dice-icon"> &#x2683;</span>
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={3}
+              description={3}
               scores={props.scoreCard.upperSection[3].fours}
               setScoreCard={props.setScoreCard}
               version={3}
@@ -66,6 +81,7 @@ const ScoreCard = (props) => {
               dice={props.dice}
               disabled={props.scoreCard.upperSection[3].marked}
               name="fours"
+              onClick={sameDice(props.dice)}
             />
           </tr>
 
@@ -75,7 +91,7 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={1}
+              description={1}
               scores={props.scoreCard.upperSection[1].twos}
               setScoreCard={props.setScoreCard}
               version={1}
@@ -89,7 +105,7 @@ const ScoreCard = (props) => {
             </td>
             <td colSpan="1" id="spacer"></td>
             <ScoreLine
-              value={4}
+              description={4}
               scores={props.scoreCard.upperSection[4].fives}
               setScoreCard={props.setScoreCard}
               version={4}
@@ -105,7 +121,7 @@ const ScoreCard = (props) => {
             </td>
             <td colSpan="1" id="spacer"></td>
             <ScoreLine
-              value={2}
+              description={2}
               scores={props.scoreCard.upperSection[2].threes}
               setScoreCard={props.setScoreCard}
               version={2}
@@ -121,7 +137,7 @@ const ScoreCard = (props) => {
             </td>
             <td colSpan="1" id="spacer"></td>
             <ScoreLine
-              value={5}
+              description={5}
               scores={props.scoreCard.upperSection[5].sixes}
               setScoreCard={props.setScoreCard}
               version={5}
@@ -197,13 +213,19 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={6}
-              scores={props.scoreCard.lowerSection[0].threeOfAKind}
+              description={6}
+              scores={props.scoreCard.lowerSection[0].score}
               setScoreCard={props.setScoreCard}
               version={6}
               dice={props.dice}
               disabled={props.scoreCard.lowerSection[0].marked}
               name="threeOfAKind"
+              scoreMove={(evt) =>
+                props.scoreMove(
+                  props.scoreCard.lowerSection[0].score,
+                  threeOfAKind
+                )
+              }
             />
             <td id="spacer"> </td>
             <td colSpan="2" className="upper-scores-category-title">
@@ -211,7 +233,7 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={8}
+              description={8}
               scores={props.scoreCard.lowerSection[3].smStraight}
               setScoreCard={props.setScoreCard}
               version={9}
@@ -227,7 +249,7 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={6}
+              description={6}
               scores={props.scoreCard.lowerSection[1].fourOfAKind}
               setScoreCard={props.setScoreCard}
               version={7}
@@ -241,7 +263,7 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={9}
+              description={9}
               scores={props.scoreCard.lowerSection[4].lgStraight}
               setScoreCard={props.setScoreCard}
               version={10}
@@ -257,7 +279,7 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={7}
+              description={7}
               scores={props.scoreCard.lowerSection[2].fullHouse}
               setScoreCard={props.setScoreCard}
               version={8}
@@ -275,7 +297,7 @@ const ScoreCard = (props) => {
             </td>
             <td id="spacer"></td>
             <ScoreLine
-              value={10}
+              description={10}
               scores={props.scoreCard.lowerSection[5].yahtzee}
               setScoreCard={props.setScoreCard}
               version={11}
@@ -308,7 +330,7 @@ const ScoreCard = (props) => {
               </td>
               <td id="spacer"></td>
               <ScoreLine
-                value={6}
+                description={6}
                 scores={props.scoreCard.lowerSection[6].score}
                 setScoreCard={props.setScoreCard}
                 version={12}

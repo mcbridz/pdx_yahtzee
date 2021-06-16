@@ -37,31 +37,12 @@ const ScoreLine = (props) => {
     "grandTotal",
   ];
 
-  const handleScore = async () => {
-    let newScore = props.scoreFunction();
-    console.log(allScores[props.version]);
-    await props.setScores({
-      ...props.scores,
-      chance: newScore,
-    });
-    console.log(props.scores);
-  };
-
   return (
     <div>
-      <td
-        colSpan="3"
-        className="score-line-description"
-        onClick={
-          props.scoreFunction
-            ? handleScore
-            : () => console.log(allScores[props.version])
-        }
-      >
-        {props.score === undefined ? upperScoresDescriptions[props.value] : ""}
-      </td>
-      <td colSpan="1" className="score-line-score">
-        {props.scores === "" ? "" : props.scores}
+      <td colSpan="3" className="score-line-description">
+        {!props.disabled
+          ? upperScoresDescriptions[props.description]
+          : props.scores}
       </td>
     </div>
   );
