@@ -24,6 +24,15 @@ function App() {
     currentPlayer: { id: "", username: "" },
   });
 
+  //the below will need to be updated as we develop the invite system
+  //and options for public or private games
+  const createGame = function (playerList, isPrivate) {
+    socket.emit("createGame", {
+      public: true,
+      playerList: [credentials.token]
+    })
+  }
+
   const [scoreCard, setScoreCard] = useState({
     id: "",
     game: "",
@@ -133,6 +142,7 @@ function App() {
             setInPreGameLobby={setInPreGameLobby}
             gamesList={gamesList}
             setGamesList={setGamesList}
+            createGame={createGame}
           />
         </Route>
 
