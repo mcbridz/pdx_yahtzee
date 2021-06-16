@@ -10,7 +10,7 @@ import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:8000", { transports: ['websocket'] });
+const socket = io("http://localhost:8000", { transports: ["websocket"] });
 
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
@@ -39,7 +39,7 @@ function App() {
     gameNum: "",
     player: "",
     upperSection: [
-      { aces: 0, marked: false, value: 1 },
+      { aces: 13, marked: false, value: 1 },
       { twos: 0, marked: false, value: 2 },
       { threes: 0, marked: false, value: 3 },
       { fours: 0, marked: false, value: 4 },
