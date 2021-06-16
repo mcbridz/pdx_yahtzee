@@ -162,7 +162,7 @@ function App() {
             credentials={credentials}
             scoreCard={scoreCard}
             setScoreCard={setScoreCard}
-            // markScore={markScore}
+            // markScore={markScore} 
           />
         </Route>
 
