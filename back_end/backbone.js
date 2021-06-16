@@ -8,6 +8,8 @@ const Game = require("./game_models/game");
 const User = require("./protected_routes/userModel");
 const jwt = require("jsonwebtoken");
 const key = process.env.KEY || require("../secrets").key;
+const Room = require('./chatroom/chatModels').Room
+const Message = require('./chatroom/chatModels').Message
 
 const app = express();
 
@@ -87,8 +89,8 @@ module.exports = function (deps) {
                     newMessage.private = true
                     newMessage.save()
                         .then(message => {
-                            io.emit('get messages', JSON.stringify(message))
                             io.emit('createGame', JSON.stringify(game))                        
+                            io.emit('get messages', JSON.stringify(message))
                     })
                 })
         })

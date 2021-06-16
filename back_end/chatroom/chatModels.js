@@ -58,12 +58,11 @@ const roomSchema = new Schema({
     }
 })
 
-roomSchema.statics.newRoom = async function (roomObj) {
+roomSchema.statics.newRoom = function (roomObj) {
     const room = new this()
     room.name = roomObj.name
     room.private = roomObj.private
-    await room.save()
-    return room
+    return room.save()
 }
 
 roomSchema.statics.getRooms = async function (filter) {

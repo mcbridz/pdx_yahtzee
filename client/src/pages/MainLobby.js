@@ -6,6 +6,8 @@ import "../styles/MainLobby.css";
 const MainLobby = (props) => {
   const history = useHistory();
 
+  const createGame = props.createGame
+
   const checkLoginStatus = useCallback(() => {
     if (props.credentials.username === "") {
       history.push("/login");
@@ -23,7 +25,7 @@ const MainLobby = (props) => {
           <Link to="/ingame">In Game Page</Link>
         </button>
         <h1 id="main-lobby-logo">Main Lobby</h1>
-        <button className="host-game-button">Host a Game</button>
+        <button onClick={createGame} className="host-game-button">Host a Game</button>
       </div>
       <div className="main-lobby-body">
         <div className="list-of-games-container">

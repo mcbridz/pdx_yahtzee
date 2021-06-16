@@ -12,11 +12,15 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:8000", { transports: ["websocket"] });
 
+
+
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
+  const [room, setRoom] = useState('');
 
   const [game, setGame] = useState({
+    _id: null,
     users: [],
     scoreCards: [],
     public: true,
@@ -24,14 +28,6 @@ function App() {
     currentPlayer: { id: "", username: "" },
   });
 
-  //the below will need to be updated as we develop the invite system
-  //and options for public or private games
-  const createGame = function (playerList, isPrivate) {
-    socket.emit("createGame", {
-      public: true,
-      playerList: [credentials.token]
-    })
-  }
 
   const [scoreCard, setScoreCard] = useState({
     id: "",
@@ -72,6 +68,8 @@ function App() {
     socket.on("createGame", (game) => {
       console.log(JSON.parse(game));
       setGame(JSON.parse(game));
+      //setting in-game flags for user (transition page)
+      history.push('/ingame')
     });
     socket.on("getUnstartedGames", (list) => {
       setGamesList(JSON.parse(list));
@@ -108,7 +106,36 @@ function App() {
       console.log(JSON.parse(game));
       setGame(JSON.parse(game));
     });
+    socket.on("get rooms", (rooms) => {
+      setGamesList(rooms)
+    })
+    socket.on("get messages", (msgObj) => {
+      console.log(msgObj)
+      if (msgObj.private === true && msgObj.room === game._id) {
+        //message meant for user in game
+      } else if (msgObj.private === false && game._id === null) {
+        //message meant for user -main lobby/public room
+      } else if (msgObj.private === true && msgObj.room === room) {
+        //message meant for user -private room
+      }
+    } )
+    //emitters stay at the bottom
+    socket.emit("get rooms", { private: false })
   }, []);
+
+  ///////////////////////////////////////
+  //         Prop Functions
+  //////////////////////////////////////
+  
+  //the below will need to be updated as we develop the invite system
+  //and options for public or private games
+  const createGame = function (playerList, isPrivate) {
+    socket.emit("createGame", {
+      public: true,
+      playerList: [credentials.token]
+    })
+  }
+
 
   return (
     <div className="App">
