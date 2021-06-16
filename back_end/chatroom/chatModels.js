@@ -41,6 +41,17 @@ messageSchema.statics.newMessage = async function (messageData) {
 messageSchema.statics.getMessages = function (filter) {
     return this.find((!filter) ? { private: false } : filter)
 }
+
+messageSchema.statics.systemMessage = async function (text, room) {
+    const message = new this()
+    message.username = 'SYSTEM'
+    message.private = true
+    message.text = text
+    message.room = room
+    await message.save()
+    return message
+}
+
 const Message = mongoose.model('Message', messageSchema)
 
 // Room schema, methods and statics
@@ -58,11 +69,12 @@ const roomSchema = new Schema({
     }
 })
 
-roomSchema.statics.newRoom = function (roomObj) {
+roomSchema.statics.newRoom = async function (roomObj) {
     const room = new this()
     room.name = roomObj.name
     room.private = roomObj.private
-    return room.save()
+    await room.save()
+    return room
 }
 
 roomSchema.statics.getRooms = async function (filter) {

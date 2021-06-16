@@ -54,7 +54,7 @@ const gameSchema = new Schema({
 // Figure out how second, third, etc game cards are created
 gameSchema.statics.createGame = async function (playerList, public) {
     const game = new this()
-    const newRoom = await Room.newRoom({ name: game._id, private: true })
+    const newRoom = Room.newRoom({ name: game._id, private: true })
     game.room = newRoom._id
     game.public = public
     console.log(newRoom)
@@ -161,6 +161,14 @@ gameSchema.methods.performTasks = async function (taskObj) {
     // console.log(this.scoreCards[index])
     this.currentPlayer = this.users[(index + 1) % this.users.length]
     this.turnNum = this.turnNum + taskObj.tasks.length
+
+
+    ////////////////////////////////////////
+    // System Messages
+    ///////////////////////////////////////
+    const messageText = `${this.currentPlayer.username} scores ${taskObj.tasks[0].task}`
+    const newMessage = Message.systemMessage(messageText, this.room)
+    taskObj.ioEmit(newMessage)
     return this.save()
 }
 

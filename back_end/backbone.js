@@ -82,16 +82,9 @@ module.exports = function (deps) {
             Game.createGame(usernameList, order.public)
                 .then((game) => {
                     // console.log(JSON.stringify(game))
-                    const newMessage = new Message()
-                    newMessage.text = "GAME CREATED"
-                    newMessage.room = game.room
-                    newMessage.username = "SYSTEM"
-                    newMessage.private = true
-                    newMessage.save()
-                        .then(message => {
-                            io.emit('createGame', JSON.stringify(game))                        
-                            io.emit('get messages', JSON.stringify(message))
-                    })
+                    newMessage = Message.systemMessage('Game Created', game.room)                    
+                    io.emit('createGame', JSON.stringify(game))                        
+                    io.emit('get messages', JSON.stringify(newMessage))                  
                 })
         })
 
@@ -125,18 +118,24 @@ module.exports = function (deps) {
         // data inside taskObj:
         // data = {'markOnes', <number of ones dice>, 'markSixes', <number of sixes dice>}
         socket.on('markScore', async function (taskObj) {
+            // these are for emitting SYSTEM messages higher in the call stack
             taskObj.io = io
             taskObj.ioEmit = function (message) {
+                console.log('Emitting off of taskObj in markScore from backbone.js')
                 this.io.emit('get messages', JSON.stringify(message))
             }
             console.log(taskObj)
-            let game = await Game.findOne({ _id: taskObj.game })
-            // console.log('//////////////////Sending In //////////////')
-            // console.log(game.scoreCards[0])
-            game = await game.performTasks(taskObj)
-            // console.log('//////////////////Sending Back ////////////')
-            console.log(game.scoreCards[0])
-            io.emit('markScore', JSON.stringify(game))
+            if (taskObj.game && taskObj.scoreCard) {
+                let game = await Game.findOne({ _id: taskObj.game })
+                // console.log('//////////////////Sending In //////////////')
+                // console.log(game.scoreCards[0])
+                game = await game.performTasks(taskObj)
+                // console.log('//////////////////Sending Back ////////////')
+                console.log(game.scoreCards[0])
+                io.emit('markScore', JSON.stringify(game))                
+            } else {
+                console.log('NO DATA FOUND, NO WAY TO SEND MESSAGE BACK')
+            }
         })
 
         socket.on('diceRoll', (numRolls) => {
