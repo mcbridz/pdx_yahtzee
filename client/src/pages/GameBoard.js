@@ -93,7 +93,7 @@ const GameBoard = (props) => {
         setScoreCard={props.setScoreCard}
         dice={dice}
         scoreMove={scoreMove}
-        // markScore={props.markScore}
+        markScore={props.markScore}
       />
     </div>
   );

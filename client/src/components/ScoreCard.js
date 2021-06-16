@@ -28,15 +28,18 @@ const ScoreCard = (props) => {
     "Chance",
   ];
 
-  const scoreAces = (dice) => {
-    let acesAmount = count(dice, 1);
-    const acesTask = [{ task: "markAces", data: acesAmount }];
-    const taskObj = {
-      game: props.scoreCard.game,
-      scoreCard: props.scoreCard.id,
-      tasks: [acesTask],
-    };
-    // props.markScore(acesAmount, acesTask);
+  const scoreAces = () => {
+    return () => {
+      const dice = props.dice
+      let acesAmount = count(dice, 1);
+      const acesTask = [{ task: "markAces", data: acesAmount }];
+      const taskObj = {
+        game: props.scoreCard.game,
+        scoreCard: props.scoreCard.id,
+        tasks: [acesTask],
+      };
+      props.markScore(taskObj);
+    }
   };
 
   const scoreTwos = (dice) => {
@@ -165,7 +168,7 @@ const ScoreCard = (props) => {
 
   return (
     <div className="score-card">
-      <button onClick={scoreAces(props.dice)}>test</button>
+      <button onClick={scoreAces()}>test</button>
       <table id="upper-scores-table">
         <thead>
           <tr>

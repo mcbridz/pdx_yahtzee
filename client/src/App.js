@@ -133,12 +133,11 @@ function App() {
     });
   };
 
-  // const markScore = function (amount, task) {
-  //   socket.emit("markScore", {
-  //     amount: amount,
-  //     task: task,
-  //   });
-  // };
+  const markScore = function (taskObj) {
+    console.log("Sending the following task: ")
+    console.log(taskObj)
+    socket.emit("markScore", taskObj);
+  };
 
   return (
     <div className="App">
@@ -162,7 +161,7 @@ function App() {
             credentials={credentials}
             scoreCard={scoreCard}
             setScoreCard={setScoreCard}
-            // markScore={markScore} 
+            markScore={markScore} 
           />
         </Route>
 

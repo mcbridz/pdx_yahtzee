@@ -14,6 +14,8 @@ export const sameDice = (dice) => {
 
 // number of times a val appears in dice
 export const count = (dice, val) => {
+  console.log('////////////////////////////////')
+  console.log(dice)
   return dice.filter((d) => d === val).length;
 };
 
