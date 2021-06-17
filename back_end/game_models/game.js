@@ -54,11 +54,13 @@ const gameSchema = new Schema({
 // Figure out how second, third, etc game cards are created
 gameSchema.statics.createGame = async function (playerList, public) {
     const game = new this()
-    const newRoom = Room.newRoom({ name: game._id, private: true })
+    // console.log('///////////////////////////////////')
+    // console.log(public)
+    newRoom = await Room.newRoom({ name: game._id, private: true })
     game.room = newRoom._id
     game.public = public
-    console.log(newRoom)
-    console.log(game.room)
+    // console.log(newRoom)
+    // console.log(game.room)
     // console.log('game.js playerList')
     // console.log(playerList)
     await mapAwaiter(playerList, async (playerObj, index) => {
@@ -68,6 +70,8 @@ gameSchema.statics.createGame = async function (playerList, public) {
         // console.log('/////////////////created card/////////////')
         game.scoreCards.push(card.packCard())
     })
+    console.log('game.js')
+    console.log(game)
     return game.save()
     // console.log(game)
     // return game
