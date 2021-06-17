@@ -26,23 +26,27 @@ const Signup = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: newUser.username,
-        password: newUser.password,
-        firstName: newUser.firstName,
-        lastName: newUser.lastName,
-        email: newUser.email,
-      }),
-    };
-    fetch("/register", options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        history.push("/login"); //possibly update if receive signup error type message
-      });
+    if (newUser.password !== passwordVerify) {
+      alert("Passwords do not match.");
+    } else {
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: newUser.username,
+          password: newUser.password,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          email: newUser.email,
+        }),
+      };
+      fetch("/register", options)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          history.push("/login"); //possibly update if receive signup error type message
+        });
+    }
   }
 
   return (
