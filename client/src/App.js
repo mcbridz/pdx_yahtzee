@@ -61,6 +61,9 @@ function App() {
   const token = credentials.token;
   const history = useHistory();
 
+
+
+
   useEffect(() => {
     socket.on("createGame", (game) => {
       console.log(JSON.parse(game));
@@ -86,9 +89,37 @@ function App() {
     // socket.on("diceRoll", (dice) => {
     //   setDice(JSON.parse(dice));
     // });
+    // const findMyScoreCard = (input, creds) => {
+    //   console.log('INSIDE findmyscorecard')
+    //   console.log(input)
+    //   let scorecard = input.scoreCards.filter(scorecard => scorecard.player === creds.username)
+    //   console.log('scorecard')
+    //   console.log(scorecard)
+    //   console.log('creds')
+    //   console.log(creds)
+    //   console.log('credentials')
+    //   console.log(credentials)
+    //   console.log(scoreCard.player === credentials.username)
+    //   if (!scoreCard) {
+    //     console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAScorecard!')
+    //   }
+    // }
     socket.on("startGame", (game) => {
-      // console.log(JSON.parse(game))
-      setGame(JSON.parse(game));
+      console.log('STARTED GAME')
+      const newGame = JSON.parse(game)
+      console.log('newGame')
+      console.log(newGame)
+      let scorecard = newGame.scoreCards.filter(scorecard => scorecard.player === credentials.username)
+      console.log('scorecard')
+      console.log(scorecard)
+      console.log('credentials')
+      console.log(credentials)
+      console.log(scoreCard.player === credentials.username)
+      if (!scoreCard) {
+        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAScorecard!')
+        setGame(newGame);
+        // findMyScoreCard(newGame, credentials);
+      }
     });
     socket.on("endGame", (game) => {
       setGame(JSON.parse(game));
@@ -138,6 +169,22 @@ function App() {
     console.log(taskObj);
     socket.emit("markScore", taskObj);
   };
+  
+  const startGame = (id) => {
+    return () => {
+      socket.emit("startGame", id)
+    }
+  }
+
+  const setMyCredentials = () => {
+    return (inputObj) => {
+      console.log('setMyCredentials triggered')
+      console.log(inputObj)
+      setCredentials(inputObj)
+    }
+  }
+
+
 
   return (
     <div className="App">
@@ -149,7 +196,7 @@ function App() {
         </Route>
 
         <Route path="/login">
-          <Login credentials={credentials} setCredentials={setCredentials} />
+          <Login credentials={credentials} setCredentials={setMyCredentials()} />
         </Route>
 
         <Route path="/register">
@@ -163,6 +210,7 @@ function App() {
             setScoreCard={setScoreCard}
             markScore={markScore}
             gameState={game}
+            startGame={startGame}
           />
         </Route>
 

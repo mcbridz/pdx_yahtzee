@@ -68,7 +68,8 @@ const GameBoard = (props) => {
   return (
     <div id="game-table">
       <div id="dice-btn-container">
-        <div id="dice-div">
+        {(props.gameState.started) ? <div>
+          <div id="dice-div">
           <Dice
             dice={dice}
             setDice={setDice}
@@ -81,11 +82,13 @@ const GameBoard = (props) => {
             rollsRemaining={rollsRemaining}
             disabled={rollsRemaining === 0}
           />
-        </div>
-        <RollButton
+          </div>
+          <RollButton
           initiateRoll={initiateRoll}
           rollsRemaining={rollsRemaining}
         />
+        </div>:<button onClick={props.startGame(props.gameState._id)}>Start Game</button>}
+        
       </div>
       <Chat version={0} value={0} credentials={props.credentials} />
       <ScoreCard

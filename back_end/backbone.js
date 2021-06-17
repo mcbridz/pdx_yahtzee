@@ -150,7 +150,7 @@ module.exports = function (deps) {
 
         socket.on('startGame', async function (gameID) {
             let game = await Game.findOne({ _id: gameID })
-            await game.startGame()
+            game = await game.startGame()
             io.emit('startGame', JSON.stringify(game))
         })
 

@@ -39,7 +39,6 @@ const Login = (props) => {
       .then(async (data) => {
         await props.setCredentials({
           username: user.username,
-
           token: data.token,
         });
         // history.push("/");
