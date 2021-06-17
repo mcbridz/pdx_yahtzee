@@ -141,6 +141,7 @@ scoreCardSchema.methods.markAces = async function (numAces, taskObj, room) {
 
 scoreCardSchema.methods.markTwos = async function (numTwos, taskObj, room) {
     if (!this.upperSection[1].marked) {
+        console.log(`${this.upperSection[1].value} * ${numTwos} = ${this.upperSection[1].value * numTwos}`)
         let subtotal = this.upperSection[1].value * numTwos
         this.upperSection[1].twos = subtotal
         this.upperSection[1].marked = true

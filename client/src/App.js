@@ -87,26 +87,11 @@ function App() {
       )[0];
       console.log(currentPlayerScoreCard);
       setGame(gameJSON);
-      // setScoreCard(currentPlayerScoreCard);
+      setScoreCard(currentPlayerScoreCard);
     });
     // socket.on("diceRoll", (dice) => {
     //   setDice(JSON.parse(dice));
     // });
-    // const findMyScoreCard = (input, creds) => {
-    //   console.log('INSIDE findmyscorecard')
-    //   console.log(input)
-    //   let scorecard = input.scoreCards.filter(scorecard => scorecard.player === creds.username)
-    //   console.log('scorecard')
-    //   console.log(scorecard)
-    //   console.log('creds')
-    //   console.log(creds)
-    //   console.log('credentials')
-    //   console.log(credentials)
-    //   console.log(scoreCard.player === credentials.username)
-    //   if (!scoreCard) {
-    //     console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAScorecard!')
-    //   }
-    // }
     socket.on("startGame", (game) => {
       console.log('STARTED GAME')
       const newGame = JSON.parse(game)

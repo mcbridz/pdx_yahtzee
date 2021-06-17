@@ -152,7 +152,7 @@ gameSchema.methods.performTasks = async function (taskObj) {
     console.log('taskObj.task')
     console.log(taskObj.tasks[0])
     taskObj.tasks.forEach(async (subTaskObj) => {
-        await ScoreCard.prototype.$__schema.methods[subTaskObj.task].call(scoreCard, taskObj.data, taskObj, this.room)
+        await ScoreCard.prototype.$__schema.methods[subTaskObj.task].call(scoreCard, subTaskObj.data, taskObj, this.room)
     })
     // scoreCard = scoreCard.markSixes(taskObj.tasks[0].data)
     // console.log(scoreCard)

@@ -28,17 +28,21 @@ const ScoreCard = (props) => {
     "Chance",
   ];
 
+  const sendOrder = (task) => {
+    const taskObj = {
+      game: props.gameState._id,
+      scoreCard: props.scoreCard.id,
+      tasks: task,
+    };
+    props.markScore(taskObj);
+  }
+
   const scoreAces = () => {
     return () => {
       const dice = props.dice
       let acesAmount = count(dice, 1);
       const acesTask = [{ task: "markAces", data: acesAmount }];
-      const taskObj = {
-        game: props.gameState._id,
-        scoreCard: props.scoreCard.id,
-        tasks: acesTask,
-      };
-      props.markScore(taskObj);
+      sendOrder(acesTask)
     }
   };
 
@@ -47,11 +51,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let twosAmount = count(dice, 2);
       const twosTask = [{ task: "markTwos", data: twosAmount }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: twosTask,
-      };
+      sendOrder(twosTask)
     };
   }
 
@@ -60,11 +60,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let threesAmount = count(dice, 3);
       const threesTask = [{ task: "markThrees", data: threesAmount }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: threesTask,
-      };
+      sendOrder(threesTask)
     };
   }
 
@@ -73,11 +69,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let foursAmount = count(dice, 4);
       const foursTask = [{ task: "markFours", data: foursAmount }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: foursTask,
-      };
+      sendOrder(foursTask)
     };
   }
 
@@ -86,11 +78,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let fivesAmount = count(dice, 5);
       const fivesTask = [{ task: "markFives", data: fivesAmount }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: fivesTask,
-      };
+      sendOrder(fivesTask)
     };
   }
 
@@ -99,11 +87,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let sixesAmount = count(dice, 6);
       const sixesTask = [{ task: "markSixes", data: sixesAmount }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: sixesTask,
-      };
+      sendOrder(sixesTask)
     };
   }
 
@@ -114,11 +98,7 @@ const ScoreCard = (props) => {
       const threeOfAKindTask = [
         { task: "markThreeOfAKind", data: threeOfAKindScore },
       ];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: threeOfAKindTask,
-      };
+      sendOrder(threeOfAKindTask)
     };
   }
 
@@ -129,11 +109,7 @@ const ScoreCard = (props) => {
       const fourOfAKindTask = [
         { task: "markFourOfAKind", data: fourOfAKindScore },
       ];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: fourOfAKindTask,
-      };
+      sendOrder(fourOfAKindTask)
     };
   }
 
@@ -142,11 +118,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let fullHouseScore = fullHouse(dice);
       const fullHouseTask = [{ task: "markFullHouse", data: fullHouseScore }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: fullHouseTask,
-      };
+      sendOrder(fullHouseTask)
     };
   }
 
@@ -155,11 +127,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let smStraightScore = smStraight(dice);
       const smStraightTask = [{ task: "markSmStraight", data: smStraightScore }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: smStraightTask,
-      };
+      sendOrder(smStraightTask)
     };
   }
 
@@ -168,11 +136,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let lgStraightScore = lgStraight(dice);
       const lgStraightTask = [{ task: "markLgStraight", data: lgStraightScore }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: lgStraightTask,
-      };
+      sendOrder(lgStraightTask)
     };
   }
 
@@ -181,11 +145,7 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let yahtzeeScore = yahtzee(dice);
       const yahtzeeTask = [{ task: "markYahtzee", data: yahtzeeScore }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: yahtzeeTask,
-      };
+      sendOrder(yahtzeeTask)
     };
   }
 
@@ -194,17 +154,12 @@ const ScoreCard = (props) => {
       const dice = props.dice
       let chanceScore = sum(dice);
       const chanceTask = [{ task: "markChance", data: chanceScore }];
-      const taskObj = {
-        game: props.scoreCard.game,
-        scoreCard: props.scoreCard.id,
-        tasks: chanceTask,
-      };
+      sendOrder(chanceTask)
     };
   }
 
   return (
     <div className="score-card">
-      <button onClick={scoreAces()}>test</button>
       <table id="upper-scores-table">
         <thead>
           <tr>
