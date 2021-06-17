@@ -17,7 +17,7 @@ const Signup = () => {
   const history = useHistory();
 
   const handleChange = (evt) => {
-    setNewUser({ [evt.target.name]: evt.target.value });
+    setNewUser({ ...newUser, [evt.target.name]: evt.target.value });
   };
 
   const handleVerifyPassChange = (evt) => {
@@ -26,6 +26,8 @@ const Signup = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    console.log(newUser.password);
+    console.log(passwordVerify);
     if (newUser.password !== passwordVerify) {
       alert("Passwords do not match.");
     } else {
