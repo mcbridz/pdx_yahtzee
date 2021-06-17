@@ -65,6 +65,9 @@ function App() {
 
 
   useEffect(() => {
+    if (!credentials.username) {
+      return
+    }      
     socket.on("createGame", (game) => {
       console.log(JSON.parse(game));
       setGame(JSON.parse(game));
@@ -107,17 +110,20 @@ function App() {
     socket.on("startGame", (game) => {
       console.log('STARTED GAME')
       const newGame = JSON.parse(game)
+      setGame(newGame);
       console.log('newGame')
       console.log(newGame)
-      let scorecard = newGame.scoreCards.filter(scorecard => scorecard.player === credentials.username)
-      console.log('scorecard')
-      console.log(scorecard)
-      console.log('credentials')
-      console.log(credentials)
-      console.log(scoreCard.player === credentials.username)
+      let scorecard = newGame.scoreCards.filter(scorecard => scorecard.player === credentials.username)[0]
+      // console.log('scorecard')
+      // console.log(scorecard.player)
+      // console.log('credentials')
+      // console.log(credentials.username)
+      // console.log(scorecard.player.trim() === credentials.username.trim())
+      setScoreCard(scorecard)
+      // console.log('scoreCard')
+      // console.log(scoreCard)
       if (!scoreCard) {
         console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAScorecard!')
-        setGame(newGame);
         // findMyScoreCard(newGame, credentials);
       }
     });
@@ -149,7 +155,7 @@ function App() {
     });
     //emitters stay at the bottom
     socket.emit("get rooms", { private: false });
-  }, []);
+  }, [credentials]);
 
   ///////////////////////////////////////
   //         Prop Functions

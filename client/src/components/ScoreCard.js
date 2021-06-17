@@ -36,7 +36,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.gameState._id,
         scoreCard: props.scoreCard.id,
-        tasks: [acesTask],
+        tasks: acesTask,
       };
       props.markScore(taskObj);
     }
@@ -50,7 +50,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [twosTask],
+        tasks: twosTask,
       };
     };
   }
@@ -63,7 +63,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [threesTask],
+        tasks: threesTask,
       };
     };
   }
@@ -76,7 +76,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [foursTask],
+        tasks: foursTask,
       };
     };
   }
@@ -89,7 +89,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [fivesTask],
+        tasks: fivesTask,
       };
     };
   }
@@ -102,7 +102,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [sixesTask],
+        tasks: sixesTask,
       };
     };
   }
@@ -117,7 +117,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [threeOfAKindTask],
+        tasks: threeOfAKindTask,
       };
     };
   }
@@ -132,7 +132,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [fourOfAKindTask],
+        tasks: fourOfAKindTask,
       };
     };
   }
@@ -145,7 +145,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [fullHouseTask],
+        tasks: fullHouseTask,
       };
     };
   }
@@ -158,7 +158,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [smStraightTask],
+        tasks: smStraightTask,
       };
     };
   }
@@ -171,7 +171,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [lgStraightTask],
+        tasks: lgStraightTask,
       };
     };
   }
@@ -184,7 +184,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [yahtzeeTask],
+        tasks: yahtzeeTask,
       };
     };
   }
@@ -197,7 +197,7 @@ const ScoreCard = (props) => {
       const taskObj = {
         game: props.scoreCard.game,
         scoreCard: props.scoreCard.id,
-        tasks: [chanceTask],
+        tasks: chanceTask,
       };
     };
   }

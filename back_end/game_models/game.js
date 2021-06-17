@@ -144,17 +144,19 @@ gameSchema.methods.endGame = function () {
     return this.save()
 }
 gameSchema.methods.performTasks = async function (taskObj) {
-    // console.log(taskObj)
+    console.log(taskObj)
     let scoreCard = await ScoreCard.findById(taskObj.scoreCard)
-    // console.log('////////////////////////')
-    // console.log('scoreCard to be bound: ')
-    // console.log(scoreCard)
-    taskObj.tasks.forEach(async (taskObj) => {
-        await ScoreCard.prototype.$__schema.methods[taskObj.task].call(scoreCard, taskObj.data, taskObj)
+    console.log('////////////////////////')
+    console.log('scoreCard to be bound: ')
+    console.log(scoreCard)
+    console.log('taskObj.task')
+    console.log(taskObj.tasks[0])
+    taskObj.tasks.forEach(async (subTaskObj) => {
+        await ScoreCard.prototype.$__schema.methods[subTaskObj.task].call(scoreCard, taskObj.data, taskObj, this.room)
     })
     // scoreCard = scoreCard.markSixes(taskObj.tasks[0].data)
     // console.log(scoreCard)
-    await scoreCard.save()
+    // await scoreCard.save()
     let index = this.scoreCards.findIndex(scorecard => scoreCard._id.equals(scorecard.id))
     // console.log('Working on updating packed game scoreCards')
     // console.log('Index of desired scoreCard: ')
