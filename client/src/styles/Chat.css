@@ -1,7 +1,7 @@
 /*  IN GAME LOBBY CSS */
 
 .chat-container-inGame {
-  width: 400px;
+  width: 0px;
   height: 350px;
   border: 3px solid black;
   border-radius: 10px;
@@ -198,6 +198,10 @@
 
 #send-mainLobby {
   margin-top: 5px;
+}
+
+#sendButton {
+  display: none;
 }
 
 /*   PREGAME LOBBY CSS   */
