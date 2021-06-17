@@ -16,6 +16,7 @@ const Chat = (props) => {
 
   const rooms = ["mainLobby", "preGameLobby/" + props.gameID, props.gameID];
   const version = ["inGame", "mainLobby", "preGameLobby"];
+  const [chatBoxOpen, setChatBoxOpen] = useState(false)
 
   const connectToRoom = useCallback(() => {
     socket.emit("connect-to-room", rooms[props.value]);
@@ -40,6 +41,27 @@ const Chat = (props) => {
     }
   };
 
+  
+  const openChat = function () {
+    document.getElementById("chatbox").style.width = "400px"
+    document.getElementById("sendButton").style.display = "inline"
+    setChatBoxOpen(true)
+  }
+  
+  const closeChat = function () {
+    document.getElementById("chatbox").style.width = "0px"
+    document.getElementById("sendButton").style.display = "none"
+    setChatBoxOpen(false)
+  }
+  
+  const openChatManager = function () {
+    if (chatBoxOpen) {
+      closeChat()
+    } else {
+      openChat()
+    }
+  }
+
   useEffect(() => {
     socket = io(CONNECTION_PORT);
     connectToRoom();
@@ -49,7 +71,7 @@ const Chat = (props) => {
   }, []);
 
   return (
-    <div className={"chat-container-" + version[props.version]}>
+    <div id="chatbox" className={"chat-container-" + version[props.version]}>
       {/* <ScrollableFeed> */}
       <div className={"chat-messages-" + version[props.version]} ref={scrollRef}>
         {messageList.map((msg, index) => {
@@ -57,7 +79,7 @@ const Chat = (props) => {
             <div
               className={
                 props.credentials.username !== "" ||
-                msg.author !== props.credentials.username
+                  msg.author !== props.credentials.username
                   ? "chat-message-you-" + version[props.version]
                   : "chat-message-other-" + version[props.version]
               }
@@ -81,7 +103,7 @@ const Chat = (props) => {
           value={message}
           onKeyDown={handleKeyDown}
         />
-        <button onClick={sendMessage} disabled={message === ""}>
+        <button id="sendButton" onClick={sendMessage} disabled={message === ""}>
           <IoIosSend
             color="white"
             size={44}
@@ -89,6 +111,12 @@ const Chat = (props) => {
           />
         </button>
       </div>
+      <button id="openChatBtn" onClick={openChatManager} >
+        <IoIosSend
+          color="white"
+          size={44}
+          id={"send" + version[props.version]}
+        /></button>
     </div>
   );
 };
