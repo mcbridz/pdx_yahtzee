@@ -1,40 +1,41 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { FaUserCircle, FaLock } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import "../styles/Signup.css";
 
 const Signup = () => {
-  const [firstnameText, setFirstnameText] = useState("");
-  const [lastnameText, setlastnameText] = useState("");
-  const [emailText, setEmailText] = useState("");
-  const [usernameText, setUsernameText] = useState("");
-  const [passwordText, setPasswordText] = useState("");
+  const [newUser, setNewUser] = useState({
+    username: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    email: "",
+  });
+  const [passwordVerify, setPasswordVerify] = useState("");
+
   const history = useHistory();
 
-  function handleFirstnameChange(event) {
-    setFirstnameText(event.target.value);
-  }
+  const handleChange = (evt) => {
+    setNewUser({ [evt.target.name]: evt.target.value });
+  };
 
-  function handleLastnameChange(event) {
-    setlastnameText(event.target.value);
-  }
-
-  function handleEmailChange(event) {
-    setEmailText(event.target.value);
-  }
-
-  function handleUsernameChange(event) {
-    setUsernameText(event.target.value);
-  }
-
-  function handlePasswordChange(event) {
-    setPasswordText(event.target.value);
-  }
+  const handleVerifyPassChange = (evt) => {
+    setPasswordVerify(evt.target.value);
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: usernameText, password: passwordText }),
+      body: JSON.stringify({
+        username: newUser.username,
+        password: newUser.password,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+      }),
     };
     fetch("/register", options)
       .then((res) => res.json())
@@ -42,70 +43,96 @@ const Signup = () => {
         console.log(data);
         history.push("/login"); //possibly update if receive signup error type message
       });
-
-    alert(`usernameis ${usernameText} and pword be ${passwordText}`);
   }
 
   return (
-    <div>
-      <div class="container mt-4">
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-3 mt-2">
-            <div class="text-center">
-              <h1>SIGNUP</h1>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div class="form-group mt-4">
-                <input
-                  value={firstnameText}
-                  onChange={handleFirstnameChange}
-                  class="form-control"
-                  placeholder="Enter First Name"
-                  type="text"
-                />
-              </div>
-              <div class="form-group mt-4">
-                <input
-                  value={lastnameText}
-                  onChange={handleLastnameChange}
-                  class="form-control"
-                  placeholder="Enter Last Name"
-                  type="text"
-                />
-              </div>
-              <div class="form-group mt-4">
-                <input
-                  value={emailText}
-                  onChange={handleEmailChange}
-                  class="form-control"
-                  placeholder="Enter Email"
-                  type="email"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  value={usernameText}
-                  onChange={handleUsernameChange}
-                  class="form-control"
-                  placeholder="Enter username"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  value={passwordText}
-                  onChange={handlePasswordChange}
-                  class="form-control"
-                  placeholder="Enter pword"
-                />
-              </div>
-              <div class="form group text-center mb-2">
-                <button type="submit" class="btn btn-primary">
-                  Submit
-                </button>
-              </div>
-            </form>
+    <div className="signup-container">
+      <div class="signup-header">
+        <h1>Sign Up Now!</h1>
+      </div>
+      <div className="signup-inputs-div">
+        <form onSubmit={handleSubmit}>
+          <div className="signup-input">
+            <span className="signup-icon">
+              <FaUserCircle size={26} />
+            </span>
+            <input
+              value={newUser.username}
+              onChange={handleChange}
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+            />
           </div>
-        </div>
+
+          <div className="signup-input">
+            <span className="signup-icon">
+              <FaLock size={26} />
+            </span>
+            <input
+              value={newUser.password}
+              onChange={handleChange}
+              name="password"
+              id="password"
+              placeholder="Password"
+              type="password"
+            />
+          </div>
+          <div className="signup-input">
+            <span className="signup-icon">
+              <FaLock size={26} />
+            </span>
+            <input
+              value={passwordVerify}
+              onChange={handleVerifyPassChange}
+              name="passwordVerify"
+              placeholder="Re-type Password"
+              type="password"
+            />
+          </div>
+
+          <div className="firstLast">
+            <span className="signup-icon">
+              <FaUserCircle size={26} />
+            </span>
+            <input
+              value={newUser.firstName}
+              onChange={handleChange}
+              name="firstName"
+              id="firstName"
+              placeholder="First Name"
+            />
+            <span className="signup-icon">
+              <FaUserCircle size={26} />
+            </span>
+            <input
+              value={newUser.lastName}
+              onChange={handleChange}
+              name="lastName"
+              id="lastName"
+              placeholder="Last Name"
+            />
+          </div>
+
+          <div className="signup-input">
+            <span className="signup-icon">
+              <MdEmail size={26} />
+            </span>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={newUser.email}
+              onChange={handleChange}
+              placeholder="Email"
+            />
+          </div>
+
+          <div className="signup-btn-container">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   );
