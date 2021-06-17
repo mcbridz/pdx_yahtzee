@@ -34,7 +34,7 @@ const ScoreCard = (props) => {
       let acesAmount = count(dice, 1);
       const acesTask = [{ task: "markAces", data: acesAmount }];
       const taskObj = {
-        game: props.scoreCard.game,
+        game: props.gameState._id,
         scoreCard: props.scoreCard.id,
         tasks: [acesTask],
       };

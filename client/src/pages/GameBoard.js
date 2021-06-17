@@ -94,6 +94,7 @@ const GameBoard = (props) => {
         dice={dice}
         scoreMove={scoreMove}
         markScore={props.markScore}
+        gameState={props.gameState}
       />
     </div>
   );

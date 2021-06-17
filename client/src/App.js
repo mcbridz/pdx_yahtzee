@@ -134,8 +134,8 @@ function App() {
   };
 
   const markScore = function (taskObj) {
-    console.log("Sending the following task: ")
-    console.log(taskObj)
+    console.log("Sending the following task: ");
+    console.log(taskObj);
     socket.emit("markScore", taskObj);
   };
 
@@ -161,7 +161,8 @@ function App() {
             credentials={credentials}
             scoreCard={scoreCard}
             setScoreCard={setScoreCard}
-            markScore={markScore} 
+            markScore={markScore}
+            gameState={game}
           />
         </Route>
 
