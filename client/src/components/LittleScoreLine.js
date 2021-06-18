@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 const LittleScoreLine = (props) => {
-  const [score, setScore] = useState(undefined);
-  return <td id="upper-total-score">{score}</td>;
+  
+  return <td id="upper-total-score">{props.scores}</td>;
 };
 
 export default LittleScoreLine;

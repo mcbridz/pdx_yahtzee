@@ -12,6 +12,7 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:8000", { transports: ["websocket"] });
 
+
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
@@ -62,12 +63,20 @@ function App() {
   const history = useHistory();
 
 
+  const numOfDice = 5;
+  const numOfRolls = 3;
+  const [locked, setLocked] = useState(Array(numOfDice).fill(false));
+  const [dice, setDice] = useState(Array.from({ length: numOfDice }));
+  const [rolling, setRolling] = useState(false);
+  const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
+
+  const [ourTurn, setOurTurn] = useState(game.currentPlayer === credentials.username)
 
 
   useEffect(() => {
     if (!credentials.username) {
       return
-    }      
+    }
     socket.on("createGame", (game) => {
       console.log(JSON.parse(game));
       setGame(JSON.parse(game));
@@ -80,18 +89,33 @@ function App() {
     socket.on("markScore", (gameObj) => {
       let gameJSON = JSON.parse(gameObj);
       console.log(gameJSON);
-      console.log(game.currentPlayer.username);
+      console.log(gameJSON.currentPlayer);
       const currentPlayerScoreCard = gameJSON.scoreCards.filter(
         (scoreCard) =>
-          gameJSON.currentPlayer.username.trim() == scoreCard.player.trim()
+          credentials.username == scoreCard.player.trim()
       )[0];
+      if (gameJSON.currentPlayer.username === credentials.username) {
+        setLocked(Array(numOfDice).fill(false))
+        setDice(Array.from({ length: numOfDice }))
+        setRolling(false)
+        setRollsRemaining(numOfRolls)
+        if (!ourTurn) {
+          setOurTurn(true)          
+        }
+      } else {
+        setRollsRemaining(0)
+        setLocked(Array(numOfDice).fill(true))
+        setOurTurn(false)
+      }
       console.log(currentPlayerScoreCard);
       setGame(gameJSON);
       setScoreCard(currentPlayerScoreCard);
     });
-    // socket.on("diceRoll", (dice) => {
-    //   setDice(JSON.parse(dice));
-    // });
+    socket.on("diceRoll", (dice) => {
+      if (!ourTurn) {
+        setDice(JSON.parse(dice));
+      }
+    });
     socket.on("startGame", (game) => {
       console.log('STARTED GAME')
       const newGame = JSON.parse(game)
@@ -160,7 +184,7 @@ function App() {
     console.log(taskObj);
     socket.emit("markScore", taskObj);
   };
-  
+
   const startGame = (id) => {
     return () => {
       socket.emit("startGame", id)
@@ -175,7 +199,9 @@ function App() {
     }
   }
 
-
+  const emitDice = (newDice) => {
+    socket.emit("diceRoll", JSON.stringify(newDice))
+  }
 
   return (
     <div className="App">
@@ -202,6 +228,16 @@ function App() {
             markScore={markScore}
             gameState={game}
             startGame={startGame}
+            locked={locked}
+            setLocked={setLocked}
+            dice={dice}
+            setDice={setDice}
+            rolling={rolling}
+            setRolling={setRolling}
+            rollsRemaining={rollsRemaining}
+            setRollsRemaining={setRollsRemaining}
+            emitDice={emitDice}            
+            ourTurn={ourTurn}
           />
         </Route>
 

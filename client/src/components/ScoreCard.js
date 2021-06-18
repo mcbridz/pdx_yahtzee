@@ -212,7 +212,7 @@ const ScoreCard = (props) => {
               dice={props.dice}
               disabled={props.scoreCard.upperSection[1].marked}
               name="twos"
-              marked={props.scoreCard.upperSection[2].marked}
+              marked={props.scoreCard.upperSection[1].marked}
             />
             <td id="spacer">{/* {" "} */}</td>
             <td colSpan="2" className="upper-scores-category-title" onClick={scoreFives()}>

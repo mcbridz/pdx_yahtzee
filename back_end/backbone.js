@@ -140,12 +140,8 @@ module.exports = function (deps) {
             }
         })
 
-        socket.on('diceRoll', (numRolls) => {
-            let rolls = []
-            for (let i = 0; i < numRolls; i++) {
-                rolls.push(Math.floor(Math.random() * 6))
-            }
-            io.emit('diceRoll', JSON.stringify(rolls))
+        socket.on('diceRoll', (diceArr) => {
+            io.emit('diceRoll', diceArr)
         })
 
         socket.on('startGame', async function (gameID) {

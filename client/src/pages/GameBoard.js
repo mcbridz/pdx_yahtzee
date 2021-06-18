@@ -7,14 +7,20 @@ import RollButton from "../components/RollButton";
 import ScoreCard from "../components/ScoreCard";
 import "../styles/GameTable.css";
 
+
 const numOfDice = 5;
 const numOfRolls = 3;
 
 const GameBoard = (props) => {
-  const [locked, setLocked] = useState(Array(numOfDice).fill(false));
-  const [dice, setDice] = useState(Array.from({ length: numOfDice }));
-  const [rolling, setRolling] = useState(false);
-  const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
+
+  const locked = props.locked
+  const setLocked = props.setLocked
+  const dice = props.dice
+  const setDice = props.setDice
+  const rolling = props.rolling
+  const setRolling = props.setRolling
+  const rollsRemaining = props.rollsRemaining
+  const setRollsRemaining = props.setRollsRemaining
 
   const history = useHistory();
 
@@ -35,7 +41,7 @@ const GameBoard = (props) => {
   }, [checkLoginStatus]);
 
   const rollDice = (evt) => {
-    console.log(dice);
+    // console.log(dice);
     const rolls = [];
     for (let i = 0; i < numOfDice; i++) {
       if (locked[i]) {
@@ -44,7 +50,12 @@ const GameBoard = (props) => {
         dice[i] = Math.ceil(Math.random() * 6);
         rolls.push(dice[i]);
       }
+      console.log(rolls)
       setDice(rolls);
+      if (props.ourTurn) {
+        console.log('EMITTING DICE')
+        props.emitDice(rolls)
+      }
     }
 
     // setLocked({
@@ -67,20 +78,21 @@ const GameBoard = (props) => {
 
   return (
     <div id="game-table">
+      <div>{props.gameState.turnNum }</div>
       <div id="dice-btn-container">
         {(props.gameState.started) ? <div>
           <div id="dice-div">
           <Dice
-            dice={dice}
-            setDice={setDice}
-            locked={locked}
-            setLocked={setLocked}
-            rolling={rolling}
-            setRolling={setRolling}
-            rollDice={rollDice}
+            dice={props.dice}
+            setDice={props.setDice}
+            locked={props.locked}
+            setLocked={props.setLocked}
+            rolling={props.rolling}
+            setRolling={props.setRolling}
+            rollDice={props.rollDice}
             toggleLocked={toggleLocked}
-            rollsRemaining={rollsRemaining}
-            disabled={rollsRemaining === 0}
+            rollsRemaining={props.rollsRemaining}
+            disabled={props.rollsRemaining === 0}
           />
           </div>
           <RollButton

@@ -10,13 +10,15 @@ const Die = (props) => {
   const diceSides = ["One", "Two", "Three", "Four", "Five", "Six"];
   const numDie = diceSides[props.val - 1];
   const lockedStyle = { color: "red" };
+  const disabled = !props.ourTurn || props.rollsRemaing === 0
+
   return (
     <div id="die">
       {numDie === "One" && (
         <FaDiceOne
           size={80}
           onClick={() => props.toggleLocked(props.index)}
-          disabled={props.rollsRemaining === 0}
+          disabled={disabled}
           style={props.locked ? lockedStyle : ""}
         />
       )}
@@ -24,7 +26,7 @@ const Die = (props) => {
         <FaDiceTwo
           size={80}
           onClick={() => props.toggleLocked(props.index)}
-          disabled={props.rollsRemaining === 0}
+          disabled={disabled}
           style={props.locked ? lockedStyle : ""}
         />
       )}
@@ -32,7 +34,7 @@ const Die = (props) => {
         <FaDiceThree
           size={80}
           onClick={() => props.toggleLocked(props.index)}
-          disabled={props.rollsRemaining === 0}
+          disabled={disabled}
           style={props.locked ? lockedStyle : ""}
         />
       )}
@@ -40,7 +42,7 @@ const Die = (props) => {
         <FaDiceFour
           size={80}
           onClick={() => props.toggleLocked(props.index)}
-          disabled={props.rollsRemaining === 0}
+          disabled={disabled}
           style={props.locked ? lockedStyle : ""}
         />
       )}
@@ -48,7 +50,7 @@ const Die = (props) => {
         <FaDiceFive
           size={80}
           onClick={() => props.toggleLocked(props.index)}
-          disabled={props.rollsRemaining === 0}
+          disabled={disabled}
           style={props.locked ? lockedStyle : ""}
         />
       )}
@@ -56,7 +58,7 @@ const Die = (props) => {
         <FaDiceSix
           size={80}
           onClick={() => props.toggleLocked(props.index)}
-          disabled={props.rollsRemaining === 0}
+          disabled={disabled}
           style={props.locked ? lockedStyle : ""}
         />
       )}
