@@ -99,26 +99,30 @@ const Signup = () => {
           </div>
 
           <div className="firstLast">
-            <span className="signup-icon">
-              <FaUserCircle size={26} />
-            </span>
-            <input
-              value={newUser.firstName}
-              onChange={handleChange}
-              name="firstName"
-              id="firstName"
-              placeholder="First Name"
-            />
-            <span className="signup-icon">
-              <FaUserCircle size={26} />
-            </span>
-            <input
-              value={newUser.lastName}
-              onChange={handleChange}
-              name="lastName"
-              id="lastName"
-              placeholder="Last Name"
-            />
+            <div className="first">
+              <span className="signup-icon1">
+                <FaUserCircle size={26} />
+              </span>
+              <input
+                value={newUser.firstName}
+                onChange={handleChange}
+                name="firstName"
+                id="firstName"
+                placeholder="First Name"
+              />
+            </div>
+            <div className="last">
+              <span className="signup-icon2">
+                <FaUserCircle size={26} id="icon" />
+              </span>
+              <input
+                value={newUser.lastName}
+                onChange={handleChange}
+                name="lastName"
+                id="lastName"
+                placeholder="Last Name"
+              />
+            </div>
           </div>
 
           <div className="signup-input">
@@ -136,7 +140,7 @@ const Signup = () => {
           </div>
 
           <div className="signup-btn-container">
-            <button type="submit">Submit</button>
+            <button type="submit">Sign Up</button>
           </div>
         </form>
       </div>
