@@ -13,10 +13,50 @@
   border-radius: 10px;
   margin-right: 85px;
   overflow: auto;
+  padding: 25px;
 }
 
 #main-lobby {
   background: radial-gradient(yellow 1%, orange 10%, red 90%, darkred 100%);
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: 120vh;
+  max-height: 120vh;
+  margin-top: -23px;
+}
+
+.games-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  min-height: 80px;
+  border-bottom: 1px solid black;
+  background-color: darkslategray;
+  align-items: center;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+#game-name {
+  flex: 40%;
+  font-size: 26px;
+  color: antiquewhite;
+  justify-content: flex-start;
+}
+
+#players-amount {
+  flex: 20%;
+  font-size: 26px;
+  color: antiquewhite;
+}
+
+#join-game-div {
+  flex: 20%;
+}
+
+#join-game-btn {
+  font-size: 22px;
+  margin-right: 20px;
+  margin-left: 10px;
+  background-color: antiquewhite;
+  padding: 5px;
+  border-radius: 5px;
 }

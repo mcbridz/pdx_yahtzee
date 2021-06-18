@@ -43,7 +43,6 @@ export const lgStraight = (dice) => {
 };
 
 export const yahtzee = (dice) => {
-  
   return sameDice(dice)[0] === 5  ? true : false;
 };
 

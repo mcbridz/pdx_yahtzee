@@ -117,7 +117,7 @@ scoreCardSchema.methods.updateScore = function () {
     lowerSectionTotal +
     parseInt(this.bonus) +
     parseInt(this.yahtzeeBonus.score) +
-    parseInt(this.chance.score);
+    parseInt(this.lowerSection[6].chance);
 
   return this.save();
 };

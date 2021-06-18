@@ -158,6 +158,7 @@ const ScoreCard = (props) => {
     return () => {
       const dice = props.dice;
       let chanceScore = sum(dice);
+      console.log(chanceScore);
       const chanceTask = [{ task: "markChance", data: chanceScore }];
       sendOrder(chanceTask);
     };
@@ -422,10 +423,7 @@ const ScoreCard = (props) => {
             <ScoreLine
               description={10}
               scores={props.scoreCard.lowerSection[5].yahtzee}
-              disabled={
-                props.scoreCard.lowerSection[5].marked ||
-                props.dice[0] === undefined
-              }
+              disabled={props.scoreCard.lowerSection[5].marked}
               marked={props.scoreCard.lowerSection[5].marked}
               name="yahtzee"
             />
