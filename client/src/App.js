@@ -12,7 +12,6 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:8000", { transports: ["websocket"] });
 
-
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
@@ -25,7 +24,7 @@ function App() {
     public: true,
     started: false,
     currentPlayer: { id: "", username: "" },
-    host: ""
+    host: "",
   });
 
   const [scoreCard, setScoreCard] = useState({
@@ -63,7 +62,6 @@ function App() {
   const token = credentials.token;
   const history = useHistory();
 
-
   const numOfDice = 5;
   const numOfRolls = 3;
   const [locked, setLocked] = useState(Array(numOfDice).fill(false));
@@ -71,12 +69,13 @@ function App() {
   const [rolling, setRolling] = useState(false);
   const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
 
-  const [ourTurn, setOurTurn] = useState(game.currentPlayer === credentials.username)
-
+  const [ourTurn, setOurTurn] = useState(
+    game.currentPlayer === credentials.username
+  );
 
   useEffect(() => {
     if (!credentials.username) {
-      return
+      return;
     }
     socket.on("createGame", (game) => {
       console.log(JSON.parse(game));
@@ -92,21 +91,20 @@ function App() {
       console.log(gameJSON);
       console.log(gameJSON.currentPlayer);
       const currentPlayerScoreCard = gameJSON.scoreCards.filter(
-        (scoreCard) =>
-          credentials.username == scoreCard.player.trim()
+        (scoreCard) => credentials.username == scoreCard.player.trim()
       )[0];
       if (gameJSON.currentPlayer.username === credentials.username) {
-        setLocked(Array(numOfDice).fill(false))
-        setDice(Array.from({ length: numOfDice }))
-        setRolling(false)
-        setRollsRemaining(numOfRolls)
+        setLocked(Array(numOfDice).fill(false));
+        setDice(Array.from({ length: numOfDice }));
+        setRolling(false);
+        setRollsRemaining(numOfRolls);
         if (!ourTurn) {
-          setOurTurn(true)          
+          setOurTurn(true);
         }
       } else {
-        setRollsRemaining(0)
-        setLocked(Array(numOfDice).fill(true))
-        setOurTurn(false)
+        setRollsRemaining(0);
+        setLocked(Array(numOfDice).fill(true));
+        setOurTurn(false);
       }
       console.log(currentPlayerScoreCard);
       setGame(gameJSON);
@@ -118,22 +116,24 @@ function App() {
       }
     });
     socket.on("startGame", (game) => {
-      console.log('STARTED GAME')
-      const newGame = JSON.parse(game)
+      console.log("STARTED GAME");
+      const newGame = JSON.parse(game);
       setGame(newGame);
-      console.log('newGame')
-      console.log(newGame)
-      let scorecard = newGame.scoreCards.filter(scorecard => scorecard.player === credentials.username)[0]
+      console.log("newGame");
+      console.log(newGame);
+      let scorecard = newGame.scoreCards.filter(
+        (scorecard) => scorecard.player === credentials.username
+      )[0];
       // console.log('scorecard')
       // console.log(scorecard.player)
       // console.log('credentials')
       // console.log(credentials.username)
       // console.log(scorecard.player.trim() === credentials.username.trim())
-      setScoreCard(scorecard)
+      setScoreCard(scorecard);
       // console.log('scoreCard')
       // console.log(scoreCard)
       if (!scoreCard) {
-        console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAScorecard!')
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAScorecard!");
         // findMyScoreCard(newGame, credentials);
       }
     });
@@ -164,16 +164,16 @@ function App() {
       }
     });
     socket.on("get games", (games) => {
-      console.log('THESE GAMES RECEIVED')
+      console.log("THESE GAMES RECEIVED");
       // if (typeof (games) === "object") {
       //   if (games._id) {
       //     setGamesList(games)
       //   }
       //   return
       // }
-      console.log(games)
-      setGamesList(games)
-    })
+      console.log(games);
+      setGamesList(games);
+    });
     //emitters stay at the bottom
     socket.emit("get games", { started: false });
   }, [credentials]);
@@ -185,8 +185,8 @@ function App() {
   //the below will need to be updated as we develop the invite system
   //and options for public or private games
   const createGame = function (playerList, isPrivate) {
-    console.log('PLAYER')
-    console.log(credentials)
+    console.log("PLAYER");
+    console.log(credentials);
     socket.emit("createGame", {
       public: true,
       playerList: [credentials.token],
@@ -201,25 +201,25 @@ function App() {
 
   const startGame = (id) => {
     return () => {
-      socket.emit("startGame", id)
-    }
-  }
+      socket.emit("startGame", id);
+    };
+  };
 
   const setMyCredentials = () => {
     return (inputObj) => {
-      console.log('setMyCredentials triggered')
-      console.log(inputObj)
-      setCredentials(inputObj)
-    }
-  }
+      console.log("setMyCredentials triggered");
+      console.log(inputObj);
+      setCredentials(inputObj);
+    };
+  };
 
   const emitDice = (newDice) => {
-    socket.emit("diceRoll", JSON.stringify(newDice))
-  }
+    socket.emit("diceRoll", JSON.stringify(newDice));
+  };
 
   const joinGame = (userToken, gameID) => {
-    socket.emit("join game", { token: userToken, game: gameID })
-  }
+    socket.emit("join game", { token: userToken, game: gameID });
+  };
 
   return (
     <div className="App">
@@ -231,7 +231,10 @@ function App() {
         </Route>
 
         <Route path="/login">
-          <Login credentials={credentials} setCredentials={setMyCredentials()} />
+          <Login
+            credentials={credentials}
+            setCredentials={setMyCredentials()}
+          />
         </Route>
 
         <Route path="/register">
@@ -254,7 +257,7 @@ function App() {
             setRolling={setRolling}
             rollsRemaining={rollsRemaining}
             setRollsRemaining={setRollsRemaining}
-            emitDice={emitDice}            
+            emitDice={emitDice}
             ourTurn={ourTurn}
           />
         </Route>
@@ -271,9 +274,9 @@ function App() {
           />
         </Route>
 
-        {/* <Route path={"/" + credentials.username}>
+        <Route path={"/" + credentials.username}>
           <Profile credentials={credentials} setCredentials={setCredentials} />
-        </Route> */}
+        </Route>
       </Switch>
     </div>
   );
