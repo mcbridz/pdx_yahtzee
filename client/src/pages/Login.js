@@ -37,6 +37,8 @@ const Login = (props) => {
       //   .then(handleErrors)
       .then(async (res) => await res.json())
       .then(async (data) => {
+        console.log('TOKEN RECEIVED')
+        console.log(data)
         await props.setCredentials({
           username: user.username,
           token: data.token,

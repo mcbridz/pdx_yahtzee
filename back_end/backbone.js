@@ -67,6 +67,8 @@ module.exports = function (deps) {
         // order is an object, with the structure of:
         // { public: <true/false>, playerList: [playerIDTOKEN, playerIDTOKEN, playerIDTOKEN] }
         socket.on('createGame', async function (order) {
+            console.log('CREATE GAME order')
+            console.log(order)
             let idList = order.playerList
             let usernameList = []
             await mapAwaiter(idList, async function (token) {
@@ -181,6 +183,12 @@ module.exports = function (deps) {
         })
         socket.on('get rooms', (filter) => {
             io.emit('get rooms', Room.getRooms(filter))
+        })
+        socket.on('get games', async (filter) => {
+            const games = await Game.getGames(filter)
+            console.log('inside get games')
+            console.log(games)
+            io.emit('get games', games)
         })
     })
 

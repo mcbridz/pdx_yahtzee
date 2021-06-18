@@ -25,6 +25,7 @@ function App() {
     public: true,
     started: false,
     currentPlayer: { id: "", username: "" },
+    host: ""
   });
 
   const [scoreCard, setScoreCard] = useState({
@@ -162,8 +163,19 @@ function App() {
         //message meant for user -private room
       }
     });
+    socket.on("get games", (games) => {
+      console.log('THESE GAMES RECEIVED')
+      // if (typeof (games) === "object") {
+      //   if (games._id) {
+      //     setGamesList(games)
+      //   }
+      //   return
+      // }
+      console.log(games)
+      setGamesList(games)
+    })
     //emitters stay at the bottom
-    socket.emit("get rooms", { private: false });
+    socket.emit("get games", { started: false });
   }, [credentials]);
 
   ///////////////////////////////////////
@@ -173,6 +185,8 @@ function App() {
   //the below will need to be updated as we develop the invite system
   //and options for public or private games
   const createGame = function (playerList, isPrivate) {
+    console.log('PLAYER')
+    console.log(credentials)
     socket.emit("createGame", {
       public: true,
       playerList: [credentials.token],
@@ -201,6 +215,10 @@ function App() {
 
   const emitDice = (newDice) => {
     socket.emit("diceRoll", JSON.stringify(newDice))
+  }
+
+  const joinGame = (userToken, gameID) => {
+    socket.emit("join game", { token: userToken, game: gameID })
   }
 
   return (
@@ -249,6 +267,7 @@ function App() {
             gamesList={gamesList}
             setGamesList={setGamesList}
             createGame={createGame}
+            joinGame={joinGame}
           />
         </Route>
 

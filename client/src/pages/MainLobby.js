@@ -29,7 +29,16 @@ const MainLobby = (props) => {
       </div>
       <div className="main-lobby-body">
         <div className="list-of-games-container">
-          Games looking for players placeholder
+          {props.gamesList.map(game => {
+            let joinThisGame = () => {
+              return () => {
+                props.joinGame(props.credentials.token, game._id)
+              }
+            }
+            return <div onClick={joinThisGame()}>
+              {game.host + "'s game"}
+            </div>
+          })}
         </div>
         <Chat value={0} version={1} credentials={props.credentials} />
       </div>

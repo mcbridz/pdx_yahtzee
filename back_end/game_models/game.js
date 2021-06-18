@@ -47,6 +47,10 @@ const gameSchema = new Schema({
     room: {
         type: String,
         required: true
+    },
+    host: {
+        type: String,
+        required: true
     }
 })
 
@@ -66,6 +70,9 @@ gameSchema.statics.createGame = async function (playerList, public) {
     await mapAwaiter(playerList, async (playerObj, index) => {
         game.users.push(playerObj)
         const card = await ScoreCard.create(game._id, 1, playerObj.username)
+        if (!index) {
+            game.host = playerObj.username
+        }
         // console.log(card)
         // console.log('/////////////////created card/////////////')
         game.scoreCards.push(card.packCard())
@@ -178,6 +185,12 @@ gameSchema.methods.performTasks = async function (taskObj) {
     return this.save()
 }
 
+gameSchema.statics.getGames = async (filter) => {
+    const games = await Game.find(filter)
+    console.log("inside getGames")
+    console.log(games)
+    return games
+}
 
 const Game = mongoose.model('Game', gameSchema)
 
