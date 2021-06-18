@@ -22,6 +22,7 @@ router.post('/login', (req, res) => {
             res.send({ token })
         })
     })
+    res.status(300).send(req.body)
 })
 
 module.exports = router
