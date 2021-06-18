@@ -58,6 +58,7 @@ const Profile = (props) => {
 
   return (
     <div>
+      
       <h1 className="profile-title">{props.credentials.username}'s Profile</h1>
       <div className="profile-edit-form">
         <h2>Upload an Avatar</h2>
@@ -83,25 +84,28 @@ const Profile = (props) => {
         </div>
         <form onSubmit={handleSubmit}>
           <div>
-            <label for="username">Username:</label>
+            <label htmlFor="username">Username: </label>
             <input
               type="text"
               value={updateUser.username}
               onChange={handleChange}
               name="username"
             />
+            <label htmlFor="firstName">First Name: </label>
             <input
               type="text"
               value={updateUser.firstName}
               onChange={handleChange}
               name="firstName"
             />
+            <label htmlFor="lastName">Last Name: </label>
             <input
               type="text"
               value={updateUser.lastName}
               onChange={handleChange}
               name="lastName"
             />
+            <label htmlFor="email">Email: </label>
             <input
               type="email"
               value={updateUser.email}

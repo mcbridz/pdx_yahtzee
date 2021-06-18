@@ -12,9 +12,11 @@
   max-height: 450px;
   border-radius: 10px;
   margin-right: 85px;
+  overflow: auto;
 }
 
 #main-lobby {
   background: radial-gradient(yellow 1%, orange 10%, red 90%, darkred 100%);
   min-height: 100vh;
+  max-height: 100vh;
 }

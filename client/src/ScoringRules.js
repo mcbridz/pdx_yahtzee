@@ -14,8 +14,8 @@ export const sameDice = (dice) => {
 
 // number of times a val appears in dice
 export const count = (dice, val) => {
-  console.log('////////////////////////////////')
-  console.log(dice)
+  console.log("////////////////////////////////");
+  console.log(dice);
   return dice.filter((d) => d === val).length;
 };
 
@@ -30,10 +30,9 @@ export const fullHouse = (dice) => {
 
 export const smStraight = (dice) => {
   const d = new Set(dice);
-  if (d.has(2) && d.has(3) && d.has(4) && (d.has(1) || d.has(5))) return 30;
-  else if (d.has(3) && d.has(4) && d.has(5) && (d.has(2) || d.has(6)))
-    return 30;
-  else return 0;
+  if (d.has(2) && d.has(3) && d.has(4) && (d.has(1) || d.has(5))) return true;
+  if (d.has(3) && d.has(4) && d.has(5) && (d.has(2) || d.has(6))) return true;
+  else return false;
 };
 
 export const lgStraight = (dice) => {

@@ -35,128 +35,133 @@ const ScoreCard = (props) => {
       tasks: task,
     };
     props.markScore(taskObj);
-  }
+  };
 
   const scoreAces = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let acesAmount = count(dice, 1);
       const acesTask = [{ task: "markAces", data: acesAmount }];
-      sendOrder(acesTask)
-    }
+      sendOrder(acesTask);
+    };
   };
 
   const scoreTwos = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let twosAmount = count(dice, 2);
       const twosTask = [{ task: "markTwos", data: twosAmount }];
-      sendOrder(twosTask)
+      sendOrder(twosTask);
     };
-  }
+  };
 
   const scoreThrees = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let threesAmount = count(dice, 3);
       const threesTask = [{ task: "markThrees", data: threesAmount }];
-      sendOrder(threesTask)
+      sendOrder(threesTask);
     };
-  }
+  };
 
   const scoreFours = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let foursAmount = count(dice, 4);
       const foursTask = [{ task: "markFours", data: foursAmount }];
-      sendOrder(foursTask)
+      sendOrder(foursTask);
     };
-  }
+  };
 
   const scoreFives = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let fivesAmount = count(dice, 5);
       const fivesTask = [{ task: "markFives", data: fivesAmount }];
-      sendOrder(fivesTask)
+      sendOrder(fivesTask);
     };
-  }
+  };
 
   const scoreSixes = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let sixesAmount = count(dice, 6);
       const sixesTask = [{ task: "markSixes", data: sixesAmount }];
-      sendOrder(sixesTask)
+      sendOrder(sixesTask);
     };
-  }
+  };
 
   const scoreThreeOfAKind = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let threeOfAKindScore = threeOfAKind(dice);
       const threeOfAKindTask = [
         { task: "markThreeOfAKind", data: threeOfAKindScore },
       ];
-      sendOrder(threeOfAKindTask)
+      sendOrder(threeOfAKindTask);
     };
-  }
+  };
 
   const scoreFourOfAKind = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let fourOfAKindScore = fourOfAKind(dice);
       const fourOfAKindTask = [
         { task: "markFourOfAKind", data: fourOfAKindScore },
       ];
-      sendOrder(fourOfAKindTask)
+      sendOrder(fourOfAKindTask);
     };
-  }
+  };
 
   const scoreFullHouse = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let fullHouseScore = fullHouse(dice);
       const fullHouseTask = [{ task: "markFullHouse", data: fullHouseScore }];
-      sendOrder(fullHouseTask)
+      sendOrder(fullHouseTask);
     };
-  }
+  };
 
   const scoreSmStraight = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let smStraightScore = smStraight(dice);
-      const smStraightTask = [{ task: "markSmStraight", data: smStraightScore }];
-      sendOrder(smStraightTask)
+      console.log(smStraightScore);
+      const smStraightTask = [
+        { task: "markSmStraight", data: smStraightScore },
+      ];
+      sendOrder(smStraightTask);
     };
-  }
+  };
 
   const scoreLgStraight = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let lgStraightScore = lgStraight(dice);
-      const lgStraightTask = [{ task: "markLgStraight", data: lgStraightScore }];
-      sendOrder(lgStraightTask)
+      const lgStraightTask = [
+        { task: "markLgStraight", data: lgStraightScore },
+      ];
+      sendOrder(lgStraightTask);
     };
-  }
+  };
 
   const scoreYahtzee = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let yahtzeeScore = yahtzee(dice);
       const yahtzeeTask = [{ task: "markYahtzee", data: yahtzeeScore }];
-      sendOrder(yahtzeeTask)
+      sendOrder(yahtzeeTask);
     };
-  }
+  };
 
   const scoreChance = () => {
     return () => {
-      const dice = props.dice
+      const dice = props.dice;
       let chanceScore = sum(dice);
       const chanceTask = [{ task: "markChance", data: chanceScore }];
-      sendOrder(chanceTask)
+      sendOrder(chanceTask);
     };
-  }
+  };
 
   return (
     <div className="score-card">
@@ -170,60 +175,68 @@ const ScoreCard = (props) => {
         </thead>
         <tbody>
           <tr id="aces-row">
-            <td colSpan="2" className="upper-scores-category-title rounded-top" onClick={scoreAces()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title rounded-top"
+              onClick={scoreAces()}
+            >
               {upperScores[0]} <span id="dice-icon">&#x2680;</span>
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={0}
-              dice={props.dice}
               disabled={props.scoreCard.upperSection[0].marked}
               marked={props.scoreCard.upperSection[0].marked}
               name="aces"
               scores={props.scoreCard.upperSection[0].aces}
-              setScoreCard={props.setScoreCard}
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFours()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreFours()}
+            >
               {upperScores[3]}
               <span id="dice-icon"> &#x2683;</span>
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={3}
-              dice={props.dice}
               disabled={props.scoreCard.upperSection[3].marked}
               name="fours"
               scores={props.scoreCard.upperSection[3].fours}
-              setScoreCard={props.setScoreCard}
               marked={props.scoreCard.upperSection[3].marked}
             />
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreTwos()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreTwos()}
+            >
               {upperScores[1]} <span id="dice-icon">&#x2681;</span>
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={1}
               scores={props.scoreCard.upperSection[1].twos}
-              setScoreCard={props.setScoreCard}              
-              dice={props.dice}
               disabled={props.scoreCard.upperSection[1].marked}
               name="twos"
               marked={props.scoreCard.upperSection[1].marked}
             />
             <td id="spacer">{/* {" "} */}</td>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFives()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreFives()}
+            >
               {upperScores[4]} <span id="dice-icon">&#x2684;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
             <ScoreLine
               description={4}
               scores={props.scoreCard.upperSection[4].fives}
-              setScoreCard={props.setScoreCard}              
-              dice={props.dice}
               disabled={props.scoreCard.upperSection[4].marked}
               name="fives"
               marked={props.scoreCard.upperSection[4].marked}
@@ -231,15 +244,17 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreThrees()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreThrees()}
+            >
               {upperScores[2]} <span id="dice-icon">&#x2682;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
             <ScoreLine
               description={2}
               scores={props.scoreCard.upperSection[2].threes}
-              setScoreCard={props.setScoreCard}              
-              dice={props.dice}
               disabled={props.scoreCard.upperSection[2].marked}
               name="threes"
               marked={props.scoreCard.upperSection[2].marked}
@@ -247,15 +262,17 @@ const ScoreCard = (props) => {
             <td colSpan="1" id="spacer">
               {/* {" "} */}
             </td>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreSixes()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreSixes()}
+            >
               {upperScores[5]} <span id="dice-icon">&#x2685;</span>
             </td>
             <td colSpan="1" id="spacer"></td>
             <ScoreLine
               description={5}
               scores={props.scoreCard.upperSection[5].sixes}
-              setScoreCard={props.setScoreCard}              
-              dice={props.dice}
               disabled={props.scoreCard.upperSection[5].marked}
               name="sixes"
               marked={props.scoreCard.upperSection[5].marked}
@@ -280,28 +297,17 @@ const ScoreCard = (props) => {
             <td colSpan="1" id="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.upperSectionTotal}
-              setScoreCard={props.setScoreCard}              
-              dice={props.dice}
               name="upperSectionTotalBonus"
             />
             <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Bonus</td>
             <td colSpan="1" id="spacer"></td>
-            <LittleScoreLine
-              scores={props.scoreCard.bonus}
-              name="upperBonus"
-              setScoreCard={props.setScoreCard}              
-              dice={props.dice}
-            />
+            <LittleScoreLine scores={props.scoreCard.bonus} name="upperBonus" />
             <td colSpan="1" id="spacer"></td>
             <td id="upper-total-desc">Upper Scores w/ Bonus</td>
             <td colSpan="1" id="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.upperSectionTotal}
-              setScoreCard={
-                props.scoreCard.bonus + props.scoreCard.upperSectionTotal
-              }              
-              dice={props.dice}
               name="upperSectionTotalBonus"
             />
           </tr>
@@ -317,37 +323,33 @@ const ScoreCard = (props) => {
         </thead>
         <tbody>
           <tr>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreThreeOfAKind()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreThreeOfAKind()}
+            >
               {lowerScores[0]}
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={6}
               scores={props.scoreCard.lowerSection[0].score}
-              setScoreCard={props.setScoreCard}
-              version={6}
-              dice={props.dice}
               disabled={props.scoreCard.lowerSection[0].marked}
               name="threeOfAKind"
               marked={props.scoreCard.lowerSection[0].marked}
-              // scoreMove={() =>
-              //   props.scoreMove(
-              //     props.scoreCard.lowerSection[0].score,
-              //     threeOfAKind
-              //   )
-              // }
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreSmStraight()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreSmStraight()}
+            >
               {lowerScores[3]}
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={8}
               scores={props.scoreCard.lowerSection[3].smStraight}
-              setScoreCard={props.setScoreCard}
-              version={9}
-              dice={props.dice}
               disabled={props.scoreCard.lowerSection[3].marked}
               name="smStraight"
               marked={props.scoreCard.lowerSection[3].marked}
@@ -355,31 +357,33 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFourOfAKind()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreFourOfAKind()}
+            >
               {lowerScores[1]}
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={6}
               scores={props.scoreCard.lowerSection[1].fourOfAKind}
-              setScoreCard={props.setScoreCard}
-              version={7}
-              dice={props.dice}
               disabled={props.scoreCard.lowerSection[1].marked}
               name="fourOfAKind"
               marked={props.scoreCard.lowerSection[1].marked}
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreLgStraight()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreLgStraight()}
+            >
               {lowerScores[4]}
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={9}
               scores={props.scoreCard.lowerSection[4].lgStraight}
-              setScoreCard={props.setScoreCard}
-              version={10}
-              dice={props.dice}
               disabled={props.scoreCard.lowerSection[4].marked}
               name="lgStraight"
               marked={props.scoreCard.lowerSection[4].marked}
@@ -387,22 +391,27 @@ const ScoreCard = (props) => {
           </tr>
 
           <tr>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreFullHouse()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreFullHouse()}
+            >
               {lowerScores[2]}
             </td>
             <td id="spacer"></td>
             <ScoreLine
               description={7}
               scores={props.scoreCard.lowerSection[2].fullHouse}
-              setScoreCard={props.setScoreCard}
-              version={8}
-              dice={props.dice}
               disabled={props.scoreCard.lowerSection[2].marked}
               name="fullHouse"
               marked={props.scoreCard.lowerSection[2].marked}
             />
             <td id="spacer"> </td>
-            <td colSpan="2" className="upper-scores-category-title" onClick={scoreYahtzee()}>
+            <td
+              colSpan="2"
+              className="upper-scores-category-title"
+              onClick={scoreYahtzee()}
+            >
               {lowerScores[5]} <span id="dice-icon-yahtzee">&#x2685;</span>
               <span id="dice-icon-yahtzee">&#x2685;</span>
               <span id="dice-icon-yahtzee">&#x2685;</span>
@@ -413,9 +422,8 @@ const ScoreCard = (props) => {
             <ScoreLine
               description={10}
               scores={props.scoreCard.lowerSection[5].yahtzee}
-              setScoreCard={props.setScoreCard}
-              version={11}
-              dice={props.dice}
+              disabled={props.scoreCard.lowerSection[5].marked}
+              marked={props.scoreCard.lowerSection[5].marked}
               name="yahtzee"
             />
           </tr>
@@ -446,9 +454,7 @@ const ScoreCard = (props) => {
               <ScoreLine
                 description={6}
                 scores={props.scoreCard.lowerSection[6].score}
-                setScoreCard={props.setScoreCard}
-                version={12}
-                dice={props.dice}
+                marked={props.scoreCard.lowerSection[6].marked}
                 disabled={props.scoreCard.lowerSection[6].marked}
                 name="chance"
               />
@@ -493,9 +499,6 @@ const ScoreCard = (props) => {
             <td colSpan="1" id="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.upperSectionTotal}
-              setScoreCard={props.setScoreCard}
-              version={15}
-              dice={props.dice}
               disabled
               name="upperSectionTotal"
             />
@@ -504,9 +507,6 @@ const ScoreCard = (props) => {
             <td colSpan="1" id="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.lowerSectionTotal}
-              setScoreCard={props.setScoreCard}
-              version={16}
-              dice={props.dice}
               disabled
               name="lowerSectionTotal"
             />
@@ -515,9 +515,6 @@ const ScoreCard = (props) => {
             <td colSpan="1" id="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.grandTotal}
-              setScoreCard={props.setScoreCard}
-              version={17}
-              dice={props.dice}
               disabled
               name="grandTotal"
             />
