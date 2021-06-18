@@ -58,6 +58,7 @@ const scoreCardSchema = new Schema({
       { smStraight: 0, value: 30, marked: false },
       { lgStraight: 0, value: 40, marked: false },
       { yahtzee: 0, value: 50, marked: false },
+      { chance: 0, marked: false },
     ],
     required: true,
   },
@@ -66,10 +67,10 @@ const scoreCardSchema = new Schema({
     default: { score: 0, numYahtzees: 0 },
     required: true,
   },
-  chance: {
-    type: Object,
-    default: { score: 0, marked: false },
-  },
+  //   chance: {
+  //     type: Object,
+  //     default: { score: 0, marked: false },
+  //   },
   lowerSectionTotal: {
     type: Number,
     default: 0,
@@ -231,6 +232,7 @@ scoreCardSchema.methods.markSixes = function (numSixes, taskObj, room) {
 
 scoreCardSchema.methods.markThreeOfAKind = function (data, taskObj, room) {
   if (!this.lowerSection[0].marked) {
+    console.log("this is data: ", data);
     this.lowerSection[0].threeOfAKind = data;
     this.lowerSection[0].marked = true;
     const newMessage = systemMessageBuilder(`Three of a kind marked`, room);
@@ -249,9 +251,13 @@ scoreCardSchema.methods.markFourOfAKind = function (data, taskObj, room) {
   }
 };
 
-scoreCardSchema.methods.markFullHouse = async function (pass, taskObj, room) {
+scoreCardSchema.methods.markFullHouse = async function (data, taskObj, room) {
   if (!this.lowerSection[2].marked) {
-    this.lowerSection[2].fullHouse = this.lowerSection[2].value;
+    if (data === true) {
+      this.lowerSection[2].fullHouse = this.lowerSection[2].value;
+    } else {
+      this.lowerSection[2].fullHouse = 0;
+    }
     this.lowerSection[2].marked = true;
     const newMessage = systemMessageBuilder(`Full House marked`, room);
     taskObj.ioEmit(newMessage);
@@ -277,7 +283,11 @@ scoreCardSchema.methods.markSmStraight = async function (data, taskObj, room) {
 
 scoreCardSchema.methods.markLgStraight = async function (data, taskObj, room) {
   if (!this.lowerSection[4].marked) {
-    this.lowerSection[4].lgStraight = this.lowerSection[4].value;
+    if (data === true) {
+      this.lowerSection[4].lgStraight = this.lowerSection[4].value;
+    } else {
+      this.lowerSection[4].lgStraight = 0;
+    }
     this.lowerSection[4].marked = true;
     const newMessage = systemMessageBuilder(`Large straight marked`, room);
     taskObj.ioEmit(newMessage);
@@ -286,7 +296,7 @@ scoreCardSchema.methods.markLgStraight = async function (data, taskObj, room) {
   }
 };
 
-scoreCardSchema.methods.markYahtzee = async function (pass, taskObj, room) {
+scoreCardSchema.methods.markYahtzee = async function (data, taskObj, room) {
   if (this.lowerSection[5].marked) {
     let newBonus = this.yahtzeeBonus.score + 100;
     let newNumYahtzees = this.yahtzeeBonus.numYahtzees + 1;
@@ -299,7 +309,11 @@ scoreCardSchema.methods.markYahtzee = async function (pass, taskObj, room) {
     taskObj.ioEmit(newMessage);
     this.markModified("yahtzeeBonus");
   } else {
-    this.lowerSection[5].yahtzee = this.lowerSection[5].value;
+    if (data === true) {
+      this.lowerSection[5].yahtzee = this.lowerSection[5].value;
+    } else {
+      this.lowerSection[5].yahtzee = 0;
+    }
     this.lowerSection[5].marked = true;
     const newMessage = systemMessageBuilder(`First Yahtzee marked`, room);
     taskObj.ioEmit(newMessage);
@@ -309,9 +323,9 @@ scoreCardSchema.methods.markYahtzee = async function (pass, taskObj, room) {
 };
 
 scoreCardSchema.methods.markChance = async function (data, taskObj, room) {
-  if (!this.chance.marked) {
-    this.chance.score = data;
-    this.chance.marked = true;
+  if (!this.lowerSection[6].marked) {
+    this.lowerSection[6].chance = data;
+    this.lowerSection[6].marked = true;
     const newMessage = systemMessageBuilder(`${data} marked in Chance`, room);
     taskObj.ioEmit(newMessage);
     return this.updateScore();
@@ -371,7 +385,10 @@ scoreCardSchema.methods.packCard = function () {
         yahtzee: this.lowerSection[5].yahtzee,
         marked: this.lowerSection[5].marked,
       },
-      { score: this.chance.score, marked: this.chance.marked },
+      {
+        chance: this.lowerSection[6].chance,
+        marked: this.lowerSection[6].marked,
+      },
     ],
     yahtzeeBonus: {
       score: this.yahtzeeBonus.score,

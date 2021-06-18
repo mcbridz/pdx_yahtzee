@@ -333,7 +333,7 @@ const ScoreCard = (props) => {
             <td id="spacer"></td>
             <ScoreLine
               description={6}
-              scores={props.scoreCard.lowerSection[0].score}
+              scores={props.scoreCard.lowerSection[0].threeOfAKind}
               disabled={props.scoreCard.lowerSection[0].marked}
               name="threeOfAKind"
               marked={props.scoreCard.lowerSection[0].marked}
@@ -422,7 +422,10 @@ const ScoreCard = (props) => {
             <ScoreLine
               description={10}
               scores={props.scoreCard.lowerSection[5].yahtzee}
-              disabled={props.scoreCard.lowerSection[5].marked}
+              disabled={
+                props.scoreCard.lowerSection[5].marked ||
+                props.dice[0] === undefined
+              }
               marked={props.scoreCard.lowerSection[5].marked}
               name="yahtzee"
             />
@@ -453,7 +456,7 @@ const ScoreCard = (props) => {
               <td id="spacer"></td>
               <ScoreLine
                 description={6}
-                scores={props.scoreCard.lowerSection[6].score}
+                scores={props.scoreCard.lowerSection[6].chance}
                 marked={props.scoreCard.lowerSection[6].marked}
                 disabled={props.scoreCard.lowerSection[6].marked}
                 name="chance"
