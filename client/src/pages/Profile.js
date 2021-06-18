@@ -90,6 +90,24 @@ const Profile = (props) => {
               onChange={handleChange}
               name="username"
             />
+            <input
+              type="text"
+              value={updateUser.firstName}
+              onChange={handleChange}
+              name="firstName"
+            />
+            <input
+              type="text"
+              value={updateUser.lastName}
+              onChange={handleChange}
+              name="lastName"
+            />
+            <input
+              type="email"
+              value={updateUser.email}
+              onChange={handleChange}
+              name="email"
+            />
           </div>
         </form>
       </div>
