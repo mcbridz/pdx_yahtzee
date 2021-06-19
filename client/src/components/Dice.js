@@ -16,7 +16,9 @@ const Dice = (props) => {
           rolling={props.rolling && !props.locked[index]}
           toggleLocked={props.toggleLocked}
           rollsRemaining={props.rollsRemaining}
-          disabled={props.rollsRemaining === 0}
+          disabled={props.rollsRemaining === 0 || !props.ourTurn}
+          ourTurn={props.ourTurn}
+
         />
       ))}
     </div>

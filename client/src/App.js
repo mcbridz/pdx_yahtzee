@@ -76,14 +76,15 @@ function App() {
       return;
     }
     socket.on("createGame", (game) => {
-      const gamePlayers = JSON.parse(game).users.map(user => {
-        return user.username
-      })
+      const gamePlayers = JSON.parse(game).users.map((user) => {
+        return user.username;
+      });
+
       if (gamePlayers.includes(credentials.username)) {
         console.log(JSON.parse(game));
         setGame(JSON.parse(game));
         //setting in-game flags for user (transition page)
-        history.push("/ingame");        
+        history.push("/ingame");
       }
     });
     socket.on("getUnstartedGames", (list) => {
@@ -96,6 +97,7 @@ function App() {
       const currentPlayerScoreCard = gameJSON.scoreCards.filter(
         (scoreCard) => credentials.username == scoreCard.player.trim()
       )[0];
+      console.log("currentPlayer.username", game.currentPlayer.username);
       if (gameJSON.currentPlayer.username === credentials.username) {
         setLocked(Array(numOfDice).fill(false));
         setDice(Array.from({ length: numOfDice }));
@@ -135,7 +137,10 @@ function App() {
       setScoreCard(scorecard);
       // console.log('scoreCard')
       // console.log(scoreCard)
-      setOurTurn(game.currentPlayer === credentials.username)
+      console.log("game host", game.host);
+      if (newGame.currentPlayer.username === credentials.username) {
+        setOurTurn(true);
+      }
     });
     socket.on("endGame", (game) => {
       setGame(JSON.parse(game));

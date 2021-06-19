@@ -7,20 +7,18 @@ import RollButton from "../components/RollButton";
 import ScoreCard from "../components/ScoreCard";
 import "../styles/GameTable.css";
 
-
 const numOfDice = 5;
 const numOfRolls = 3;
 
 const GameBoard = (props) => {
-
-  const locked = props.locked
-  const setLocked = props.setLocked
-  const dice = props.dice
-  const setDice = props.setDice
-  const rolling = props.rolling
-  const setRolling = props.setRolling
-  const rollsRemaining = props.rollsRemaining
-  const setRollsRemaining = props.setRollsRemaining
+  const locked = props.locked;
+  const setLocked = props.setLocked;
+  const dice = props.dice;
+  const setDice = props.setDice;
+  const rolling = props.rolling;
+  const setRolling = props.setRolling;
+  const rollsRemaining = props.rollsRemaining;
+  const setRollsRemaining = props.setRollsRemaining;
 
   const history = useHistory();
 
@@ -28,7 +26,7 @@ const GameBoard = (props) => {
     setRolling(true);
 
     // setTimeout(rollDice, 1000);
-    rollDice({})
+    rollDice({});
   };
 
   const checkLoginStatus = useCallback(() => {
@@ -51,10 +49,10 @@ const GameBoard = (props) => {
         dice[i] = Math.ceil(Math.random() * 6);
         rolls.push(dice[i]);
       }
-      console.log(rolls)
+      console.log(rolls);
       setDice(rolls);
-      console.log('EMITTING DICE')
-      props.emitDice(rolls)
+      console.log("EMITTING DICE");
+      props.emitDice(rolls);
     }
 
     // setLocked({
@@ -77,30 +75,37 @@ const GameBoard = (props) => {
 
   return (
     <div id="game-table">
-      <div>{props.gameState.turnNum }</div>
+      <div>{props.gameState.turnNum}</div>
       <div id="dice-btn-container">
-        {(props.gameState.started) ? <div>
-          <div id="dice-div">
-          <Dice
-            dice={props.dice}
-            setDice={props.setDice}
-            locked={props.locked}
-            setLocked={props.setLocked}
-            rolling={props.rolling}
-            setRolling={props.setRolling}
-            rollDice={props.rollDice}
-            toggleLocked={toggleLocked}
-            rollsRemaining={props.rollsRemaining}
-            disabled={props.rollsRemaining === 0}
-          />
+        {props.gameState.started ? (
+          <div>
+            <div id="dice-div">
+              <Dice
+                dice={props.dice}
+                setDice={props.setDice}
+                locked={props.locked}
+                setLocked={props.setLocked}
+                rolling={props.rolling}
+                setRolling={props.setRolling}
+                rollDice={props.rollDice}
+                toggleLocked={toggleLocked}
+                rollsRemaining={props.rollsRemaining}
+                disabled={props.rollsRemaining === 0}
+                ourTurn={props.ourTurn}
+              />
+            </div>
+            <RollButton
+              initiateRoll={initiateRoll}
+              rollsRemaining={rollsRemaining}
+              rollDice={rollDice}
+              ourTurn={props.ourTurn}
+            />
           </div>
-          <RollButton
-          initiateRoll={initiateRoll}
-            rollsRemaining={rollsRemaining}
-            rollDice={rollDice}
-        />
-        </div>:<button onClick={props.startGame(props.gameState._id)}>Start Game</button>}
-        
+        ) : (
+          <button onClick={props.startGame(props.gameState._id)}>
+            Start Game
+          </button>
+        )}
       </div>
       <Chat version={0} value={0} credentials={props.credentials} />
       <ScoreCard

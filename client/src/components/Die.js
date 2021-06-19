@@ -10,7 +10,7 @@ const Die = (props) => {
   const diceSides = ["One", "Two", "Three", "Four", "Five", "Six"];
   const numDie = diceSides[props.val - 1];
   const lockedStyle = { color: "red" };
-  const disabled = !props.ourTurn || props.rollsRemaing === 0
+  const disabled = !props.ourTurn || props.rollsRemaing === 0;
 
   return (
     <div id="die">
@@ -19,7 +19,7 @@ const Die = (props) => {
           size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={disabled}
-          style={props.locked ? lockedStyle : ""}
+          style={props.locked || !props.ourTurn ? lockedStyle : ""}
         />
       )}
       {numDie === "Two" && (
@@ -27,7 +27,7 @@ const Die = (props) => {
           size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={disabled}
-          style={props.locked ? lockedStyle : ""}
+          style={props.locked || !props.ourTurn ? lockedStyle : ""}
         />
       )}
       {numDie === "Three" && (
@@ -35,7 +35,7 @@ const Die = (props) => {
           size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={disabled}
-          style={props.locked ? lockedStyle : ""}
+          style={props.locked || !props.ourTurn ? lockedStyle : ""}
         />
       )}
       {numDie === "Four" && (
@@ -43,7 +43,7 @@ const Die = (props) => {
           size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={disabled}
-          style={props.locked ? lockedStyle : ""}
+          style={props.locked || !props.ourTurn ? lockedStyle : ""}
         />
       )}
       {numDie === "Five" && (
@@ -51,7 +51,7 @@ const Die = (props) => {
           size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={disabled}
-          style={props.locked ? lockedStyle : ""}
+          style={props.locked || !props.ourTurn ? lockedStyle : ""}
         />
       )}
       {numDie === "Six" && (
@@ -59,7 +59,7 @@ const Die = (props) => {
           size={80}
           onClick={() => props.toggleLocked(props.index)}
           disabled={disabled}
-          style={props.locked ? lockedStyle : ""}
+          style={props.locked || !props.ourTurn ? lockedStyle : ""}
         />
       )}
     </div>

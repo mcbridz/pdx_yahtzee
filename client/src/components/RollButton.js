@@ -9,14 +9,18 @@ const RollButton = (props) => {
       "Two rolls remaining",
       "Start your turn!",
     ];
-    return messages[props.rollsRemaining];
+    if (props.ourTurn) {
+      return messages[props.rollsRemaining];
+    } else {
+      return "Not your turn";
+    }
   };
 
   return (
     <div id="roll-btn-div">
       <button
         onClick={props.rollDice}
-        disabled={props.rollsRemaining === 0}
+        disabled={props.rollsRemaining === 0 || !props.ourTurn}
         id="roll-btn"
       >
         {rollMessage()}
