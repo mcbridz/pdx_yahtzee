@@ -164,6 +164,9 @@ const ScoreCard = (props) => {
     };
   };
 
+  const disabled =
+    props.rollsRemaining === 0 || props.dice[0] === undefined || !props.ourTurn;
+
   return (
     <div className="score-card">
       <table id="upper-scores-table">
@@ -180,7 +183,9 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title rounded-top"
-              onClick={scoreAces()}
+              // disabled={!props.ourTurn || props.dice[0] === undefined}
+              onClick={!disabled ? scoreAces() : ""}
+              // disabled={disabled}
             >
               {upperScores[0]} <span id="dice-icon">&#x2680;</span>
             </td>
@@ -196,7 +201,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreFours()}
+              onClick={!disabled ? scoreFours() : ""}
             >
               {upperScores[3]}
               <span id="dice-icon"> &#x2683;</span>
@@ -215,7 +220,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreTwos()}
+              onClick={!disabled ? scoreTwos() : ""}
             >
               {upperScores[1]} <span id="dice-icon">&#x2681;</span>
             </td>
@@ -231,7 +236,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreFives()}
+              onClick={!disabled ? scoreFives() : ""}
             >
               {upperScores[4]} <span id="dice-icon">&#x2684;</span>
             </td>
@@ -249,7 +254,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreThrees()}
+              onClick={!disabled ? scoreThrees() : ""}
             >
               {upperScores[2]} <span id="dice-icon">&#x2682;</span>
             </td>
@@ -267,7 +272,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreSixes()}
+              onClick={!disabled ? scoreSixes() : ""}
             >
               {upperScores[5]} <span id="dice-icon">&#x2685;</span>
             </td>
@@ -328,7 +333,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreThreeOfAKind()}
+              onClick={!disabled ? scoreThreeOfAKind() : ""}
             >
               {lowerScores[0]}
             </td>
@@ -344,7 +349,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreSmStraight()}
+              onClick={!disabled ? scoreSmStraight() : ""}
             >
               {lowerScores[3]}
             </td>
@@ -362,7 +367,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreFourOfAKind()}
+              onClick={!disabled ? scoreFourOfAKind() : ""}
             >
               {lowerScores[1]}
             </td>
@@ -378,7 +383,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreLgStraight()}
+              onClick={!disabled ? scoreLgStraight() : ""}
             >
               {lowerScores[4]}
             </td>
@@ -396,7 +401,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreFullHouse()}
+              onClick={!disabled ? scoreFullHouse() : ""}
             >
               {lowerScores[2]}
             </td>
@@ -412,7 +417,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className="upper-scores-category-title"
-              onClick={scoreYahtzee()}
+              onClick={!disabled ? scoreYahtzee() : ""}
             >
               {lowerScores[5]} <span id="dice-icon-yahtzee">&#x2685;</span>
               <span id="dice-icon-yahtzee">&#x2685;</span>
@@ -451,7 +456,7 @@ const ScoreCard = (props) => {
                 colSpan="2"
                 id="chance"
                 className="upper-scores-category-title"
-                onClick={scoreChance()}
+                onClick={!disabled ? scoreChance() : ""}
               >
                 {lowerScores[6]}
               </td>

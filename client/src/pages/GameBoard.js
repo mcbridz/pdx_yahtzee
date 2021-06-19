@@ -25,7 +25,6 @@ const GameBoard = (props) => {
   const initiateRoll = () => {
     setRolling(true);
 
-    // setTimeout(rollDice, 1000);
     rollDice({});
   };
 
@@ -40,7 +39,6 @@ const GameBoard = (props) => {
   }, [checkLoginStatus]);
 
   const rollDice = (evt) => {
-    // console.log(dice);
     const rolls = [];
     for (let i = 0; i < numOfDice; i++) {
       if (locked[i]) {
@@ -60,11 +58,6 @@ const GameBoard = (props) => {
     // });
     setRollsRemaining(rollsRemaining - 1);
     setRolling(false);
-  };
-
-  const scoreMove = (section, ruleFn) => {
-    console.log("getting through?");
-    props.setScoreCard({ ...props.scoreCard, [section]: ruleFn(dice) });
   };
 
   const toggleLocked = (i) => {
@@ -116,9 +109,9 @@ const GameBoard = (props) => {
         scoreCard={props.scoreCard}
         setScoreCard={props.setScoreCard}
         dice={dice}
-        scoreMove={scoreMove}
         markScore={props.markScore}
         gameState={props.gameState}
+        ourTurn={props.ourTurn}
       />
     </div>
   );
