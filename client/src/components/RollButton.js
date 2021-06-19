@@ -15,7 +15,7 @@ const RollButton = (props) => {
   return (
     <div id="roll-btn-div">
       <button
-        onClick={props.initiateRoll}
+        onClick={props.rollDice}
         disabled={props.rollsRemaining === 0}
         id="roll-btn"
       >

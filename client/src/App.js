@@ -69,9 +69,7 @@ function App() {
   const [rolling, setRolling] = useState(false);
   const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
 
-  const [ourTurn, setOurTurn] = useState(
-    game.currentPlayer === credentials.username
-  );
+  const [ourTurn, setOurTurn] = useState(false);
 
   useEffect(() => {
     if (!credentials.username) {
@@ -137,10 +135,7 @@ function App() {
       setScoreCard(scorecard);
       // console.log('scoreCard')
       // console.log(scoreCard)
-      if (!scoreCard) {
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAScorecard!");
-        // findMyScoreCard(newGame, credentials);
-      }
+      setOurTurn(game.currentPlayer === credentials.username)
     });
     socket.on("endGame", (game) => {
       setGame(JSON.parse(game));

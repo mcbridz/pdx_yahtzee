@@ -27,7 +27,8 @@ const GameBoard = (props) => {
   const initiateRoll = () => {
     setRolling(true);
 
-    setTimeout(rollDice, 1000);
+    // setTimeout(rollDice, 1000);
+    rollDice({})
   };
 
   const checkLoginStatus = useCallback(() => {
@@ -52,10 +53,8 @@ const GameBoard = (props) => {
       }
       console.log(rolls)
       setDice(rolls);
-      if (props.ourTurn) {
-        console.log('EMITTING DICE')
-        props.emitDice(rolls)
-      }
+      console.log('EMITTING DICE')
+      props.emitDice(rolls)
     }
 
     // setLocked({
@@ -97,7 +96,8 @@ const GameBoard = (props) => {
           </div>
           <RollButton
           initiateRoll={initiateRoll}
-          rollsRemaining={rollsRemaining}
+            rollsRemaining={rollsRemaining}
+            rollDice={rollDice}
         />
         </div>:<button onClick={props.startGame(props.gameState._id)}>Start Game</button>}
         

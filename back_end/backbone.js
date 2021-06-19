@@ -83,13 +83,15 @@ module.exports = function (deps) {
         // console.log(usernameList)
       });
       // console.log(usernameList)
-      Game.createGame(usernameList, order.public).then((game) => {
+      Game.createGame(usernameList, order.public).then(async (game) => {
         // console.log(JSON.stringify(game))
         console.log("backbone.js");
         console.log(game);
         newMessage = Message.systemMessage("Game Created", game.room);
         io.emit("createGame", JSON.stringify(game));
         io.emit("get messages", JSON.stringify(newMessage));
+        const games = await Game.getGames({ public: true, started: false });
+        io.emit("get games", games);
       });
     });
 
