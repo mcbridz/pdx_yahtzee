@@ -75,10 +75,14 @@ const GameBoard = (props) => {
 
   return (
     <div id="game-table">
-      <div>{props.gameState.turnNum}</div>
       <div id="dice-btn-container">
         {props.gameState.started ? (
           <div>
+            {!props.ourTurn ? (
+              <p>{props.gameState.currentPlayer.username}'s turn</p>
+            ) : (
+              ""
+            )}
             <div id="dice-div">
               <Dice
                 dice={props.dice}
