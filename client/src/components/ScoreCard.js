@@ -165,8 +165,9 @@ const ScoreCard = (props) => {
   };
 
   return (
-    <div className="score-card">
+    <div className="score-card" >
       <table id="upper-scores-table">
+        <button onClick={() => console.log(props.dice[0])}>test</button>
         <thead>
           <tr>
             <th colSpan="12" className="section-header">
@@ -203,6 +204,7 @@ const ScoreCard = (props) => {
             <td id="spacer"></td>
             <ScoreLine
               description={3}
+              
               disabled={props.scoreCard.upperSection[3].marked}
               name="fours"
               scores={props.scoreCard.upperSection[3].fours}
