@@ -91,28 +91,6 @@ const ScoreCard = (props) => {
     };
   };
 
-  const scoreThreeOfAKind = () => {
-    return () => {
-      const dice = props.dice;
-      let threeOfAKindScore = threeOfAKind(dice);
-      const threeOfAKindTask = [
-        { task: "markThreeOfAKind", data: threeOfAKindScore },
-      ];
-      sendOrder(threeOfAKindTask);
-    };
-  };
-
-  const scoreFourOfAKind = () => {
-    return () => {
-      const dice = props.dice;
-      let fourOfAKindScore = fourOfAKind(dice);
-      const fourOfAKindTask = [
-        { task: "markFourOfAKind", data: fourOfAKindScore },
-      ];
-      sendOrder(fourOfAKindTask);
-    };
-  };
-
   const scoreFullHouse = () => {
     return () => {
       const dice = props.dice;
@@ -151,6 +129,28 @@ const ScoreCard = (props) => {
       let yahtzeeScore = yahtzee(dice);
       const yahtzeeTask = [{ task: "markYahtzee", data: yahtzeeScore }];
       sendOrder(yahtzeeTask);
+    };
+  };
+
+  const scoreThreeOfAKind = () => {
+    return () => {
+      const dice = props.dice;
+      let threeOfAKindScore = threeOfAKind(dice);
+      const threeOfAKindTask = [
+        { task: "markThreeOfAKind", data: threeOfAKindScore },
+      ];
+      sendOrder(threeOfAKindTask);
+    };
+  };
+
+  const scoreFourOfAKind = () => {
+    return () => {
+      const dice = props.dice;
+      let fourOfAKindScore = fourOfAKind(dice);
+      const fourOfAKindTask = [
+        { task: "markFourOfAKind", data: fourOfAKindScore },
+      ];
+      sendOrder(fourOfAKindTask);
     };
   };
 
