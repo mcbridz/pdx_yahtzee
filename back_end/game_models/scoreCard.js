@@ -230,26 +230,6 @@ scoreCardSchema.methods.markSixes = function (numSixes, taskObj, room) {
   // console.log('SAVING BETTER THAN EXPECTED')
 };
 
-scoreCardSchema.methods.markThreeOfAKind = function (data, taskObj, room) {
-  if (!this.lowerSection[0].marked) {
-    console.log("this is data: ", data);
-    this.lowerSection[0].threeOfAKind = data;
-    this.lowerSection[0].marked = true;
-    const newMessage = systemMessageBuilder(`Three of a kind marked`, room);
-    taskObj.ioEmit(newMessage);
-    return this.updateScore();
-  }
-};
-
-scoreCardSchema.methods.markFourOfAKind = function (data, taskObj, room) {
-  if (!this.lowerSection[1].marked) {
-    this.lowerSection[1].fourOfAKind = data;
-    this.lowerSection[1].marked = true;
-    const newMessage = systemMessageBuilder(`Four of a kind marked`, room);
-    taskObj.ioEmit(newMessage);
-    return this.updateScore();
-  }
-};
 
 scoreCardSchema.methods.markFullHouse = async function (data, taskObj, room) {
   if (!this.lowerSection[2].marked) {
@@ -322,12 +302,36 @@ scoreCardSchema.methods.markYahtzee = async function (data, taskObj, room) {
   return this.updateScore();
 };
 
-scoreCardSchema.methods.markChance = async function (data, taskObj, room) {
+scoreCardSchema.methods.markThreeOfAKind = function (data, taskObj, room) {
+    if (!this.lowerSection[0].marked) {
+      console.log("this is data: ", data);
+      this.lowerSection[0].threeOfAKind = data;
+      this.lowerSection[0].marked = true;
+      const newMessage = systemMessageBuilder(`Three of a kind marked`, room);
+      taskObj.ioEmit(newMessage);
+      this.markModified("lowerSection");
+      return this.updateScore();
+    }
+  };
+  
+  scoreCardSchema.methods.markFourOfAKind = function (data, taskObj, room) {
+    if (!this.lowerSection[1].marked) {
+      this.lowerSection[1].fourOfAKind = data;
+      this.lowerSection[1].marked = true;
+      const newMessage = systemMessageBuilder(`Four of a kind marked`, room);
+      taskObj.ioEmit(newMessage);
+      this.markModified("lowerSection");
+      return this.updateScore();
+    }
+};
+  
+scoreCardSchema.methods.markChance = function (data, taskObj, room) {
   if (!this.lowerSection[6].marked) {
     this.lowerSection[6].chance = data;
     this.lowerSection[6].marked = true;
     const newMessage = systemMessageBuilder(`${data} marked in Chance`, room);
     taskObj.ioEmit(newMessage);
+    this.markModified("lowerSection");
     return this.updateScore();
   }
 };
