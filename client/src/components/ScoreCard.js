@@ -165,7 +165,7 @@ const ScoreCard = (props) => {
   };
 
   return (
-    <div className="score-card" >
+    <div className="score-card">
       <table id="upper-scores-table">
         <button onClick={() => console.log(props.dice[0])}>test</button>
         <thead>
@@ -204,7 +204,6 @@ const ScoreCard = (props) => {
             <td id="spacer"></td>
             <ScoreLine
               description={3}
-              
               disabled={props.scoreCard.upperSection[3].marked}
               name="fours"
               scores={props.scoreCard.upperSection[3].fours}
@@ -425,7 +424,10 @@ const ScoreCard = (props) => {
             <ScoreLine
               description={10}
               scores={props.scoreCard.lowerSection[5].yahtzee}
-              disabled={props.scoreCard.lowerSection[5].marked}
+              disabled={
+                props.scoreCard.lowerSection[5].marked ||
+                props.dice[0] === undefined
+              }
               marked={props.scoreCard.lowerSection[5].marked}
               name="yahtzee"
             />
@@ -472,13 +474,28 @@ const ScoreCard = (props) => {
               {/* <td colSpan="6"></td> */}
               <div id="checkboxes">
                 <td colSpan="1" id="bonus-yahtzee-checkbox">
-                  <input id="bonus-checkbox" type="checkbox" disabled />
+                  <input
+                    id="bonus-checkbox"
+                    type="checkbox"
+                    checked={props.scoreCard.numYahtzees >= 1}
+                    disabled
+                  />
                 </td>
                 <td colSpan="1" id="bonus-yahtzee-checkbox">
-                  <input id="bonus-checkbox" type="checkbox" disabled />
+                  <input
+                    id="bonus-checkbox"
+                    type="checkbox"
+                    checked={props.scoreCard.numYahtzees >= 2}
+                    disabled
+                  />
                 </td>
                 <td colSpan="1" id="bonus-yahtzee-checkbox">
-                  <input id="bonus-checkbox" type="checkbox" disabled />
+                  <input
+                    id="bonus-checkbox"
+                    type="checkbox"
+                    checked={props.scoreCard.numYahtzees >= 3}
+                    disabled
+                  />
                 </td>
               </div>
             </div>

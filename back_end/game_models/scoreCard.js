@@ -230,7 +230,6 @@ scoreCardSchema.methods.markSixes = function (numSixes, taskObj, room) {
   // console.log('SAVING BETTER THAN EXPECTED')
 };
 
-
 scoreCardSchema.methods.markFullHouse = async function (data, taskObj, room) {
   if (!this.lowerSection[2].marked) {
     if (data === true) {
@@ -282,11 +281,11 @@ scoreCardSchema.methods.markYahtzee = async function (data, taskObj, room) {
     let newNumYahtzees = this.yahtzeeBonus.numYahtzees + 1;
     this.yahtzeeBonus.score = newBonus;
     this.yahtzeeBonus.numYahtzees = newNumYahtzees;
-    const newMessage = systemMessageBuilder(
-      `${numYahtzees} Bonus Yahtzees for a total of ${newBonus}`,
-      room
-    );
-    taskObj.ioEmit(newMessage);
+    // const newMessage = systemMessageBuilder(
+    //   `${numYahtzees} Bonus Yahtzees for a total of ${newBonus}`,
+    //   room
+    // );
+    // taskObj.ioEmit(newMessage);
     this.markModified("yahtzeeBonus");
   } else {
     if (data === true) {
@@ -303,28 +302,28 @@ scoreCardSchema.methods.markYahtzee = async function (data, taskObj, room) {
 };
 
 scoreCardSchema.methods.markThreeOfAKind = function (data, taskObj, room) {
-    if (!this.lowerSection[0].marked) {
-      console.log("this is data: ", data);
-      this.lowerSection[0].threeOfAKind = data;
-      this.lowerSection[0].marked = true;
-      const newMessage = systemMessageBuilder(`Three of a kind marked`, room);
-      taskObj.ioEmit(newMessage);
-      this.markModified("lowerSection");
-      return this.updateScore();
-    }
-  };
-  
-  scoreCardSchema.methods.markFourOfAKind = function (data, taskObj, room) {
-    if (!this.lowerSection[1].marked) {
-      this.lowerSection[1].fourOfAKind = data;
-      this.lowerSection[1].marked = true;
-      const newMessage = systemMessageBuilder(`Four of a kind marked`, room);
-      taskObj.ioEmit(newMessage);
-      this.markModified("lowerSection");
-      return this.updateScore();
-    }
+  if (!this.lowerSection[0].marked) {
+    console.log("this is data: ", data);
+    this.lowerSection[0].threeOfAKind = data;
+    this.lowerSection[0].marked = true;
+    const newMessage = systemMessageBuilder(`Three of a kind marked`, room);
+    taskObj.ioEmit(newMessage);
+    this.markModified("lowerSection");
+    return this.updateScore();
+  }
 };
-  
+
+scoreCardSchema.methods.markFourOfAKind = function (data, taskObj, room) {
+  if (!this.lowerSection[1].marked) {
+    this.lowerSection[1].fourOfAKind = data;
+    this.lowerSection[1].marked = true;
+    const newMessage = systemMessageBuilder(`Four of a kind marked`, room);
+    taskObj.ioEmit(newMessage);
+    this.markModified("lowerSection");
+    return this.updateScore();
+  }
+};
+
 scoreCardSchema.methods.markChance = function (data, taskObj, room) {
   if (!this.lowerSection[6].marked) {
     this.lowerSection[6].chance = data;
