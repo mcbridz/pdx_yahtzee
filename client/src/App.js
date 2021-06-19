@@ -78,10 +78,15 @@ function App() {
       return;
     }
     socket.on("createGame", (game) => {
-      console.log(JSON.parse(game));
-      setGame(JSON.parse(game));
-      //setting in-game flags for user (transition page)
-      history.push("/ingame");
+      const gamePlayers = JSON.parse(game).users.map(user => {
+        return user.username
+      })
+      if (gamePlayers.includes(credentials.username)) {
+        console.log(JSON.parse(game));
+        setGame(JSON.parse(game));
+        //setting in-game flags for user (transition page)
+        history.push("/ingame");        
+      }
     });
     socket.on("getUnstartedGames", (list) => {
       setGamesList(JSON.parse(list));
@@ -218,7 +223,7 @@ function App() {
   };
 
   const joinGame = (userToken, gameID) => {
-    socket.emit("join game", { token: userToken, game: gameID });
+    socket.emit("addPlayer", { token: userToken, game: gameID });
   };
 
   return (

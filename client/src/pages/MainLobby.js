@@ -31,6 +31,9 @@ const MainLobby = (props) => {
           {props.gamesList.map((game) => {
             let joinThisGame = () => {
               return () => {
+                console.log('JOINING GAME')
+                console.log(props.credentials.token)
+                console.log(game._id)
                 props.joinGame(props.credentials.token, game._id);
               };
             };

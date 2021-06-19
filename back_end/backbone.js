@@ -97,22 +97,25 @@ module.exports = function (deps) {
     // { game: <game._id>, player: <playerIDTOKEN> }
     socket.on("addPlayer", async function (order) {
       // console.log('adding player')
-      let user = await User.findOne({ _id: jwt.decode(order.player, key)._id });
+      // console.log(order)
+      // const id = jwt.decode(order.token, key)._id
+      // console.log(id)
+      let user = await User.findOne({ _id: jwt.decode(order.token, key)._id });
       let game = await Game.findOne({ _id: order.game });
-      // console.log(user)
+      console.log(user)
       if (!game.started) {
         game = await game.addPlayer({ id: user._id, username: user.username });
       }
-      // console.log('SENDING THIS GAME:')
-      // console.log(game)
-      io.emit("addPlayer", JSON.stringify(game));
+      console.log('SENDING THIS GAME:')
+      console.log(game)
+      io.emit("createGame", JSON.stringify(game));
     });
 
     // order is an object, with the structure of:
     // { game: <game._id>, player: <playerIDTOKEN> }
     socket.on("removePlayer", async function (order) {
-      console.log("order is: ");
-      console.log(order);
+      // console.log("order is: ");
+      // console.log(order);
       let user = await User.findOne({ _id: jwt.decode(order.player, key) });
       let game = await Game.findOne({ _id: order.game });
       io.emit("removePlayer", JSON.stringify(await game.removePlayer(user)));
@@ -125,7 +128,7 @@ module.exports = function (deps) {
       // these are for emitting SYSTEM messages higher in the call stack
       taskObj.io = io;
       taskObj.ioEmit = function (message) {
-        console.log("Emitting off of taskObj in markScore from backbone.js");
+        // console.log("Emitting off of taskObj in markScore from backbone.js");
         this.io.emit("get messages", JSON.stringify(message));
       };
       console.log(taskObj);
@@ -135,7 +138,7 @@ module.exports = function (deps) {
         // console.log(game.scoreCards[0])
         game = await game.performTasks(taskObj);
         // console.log('//////////////////Sending Back ////////////')
-        console.log(game.scoreCards[0]);
+        // console.log(game.scoreCards[0]);
         io.emit("markScore", JSON.stringify(game));
       } else {
         console.log("NO DATA FOUND, NO WAY TO SEND MESSAGE BACK");
@@ -160,14 +163,14 @@ module.exports = function (deps) {
 
     socket.on("connect-to-room", (room) => {
       socket.join(room);
-      console.log("Joined room " + room);
+      // console.log("Joined room " + room);
     });
     socket.on("send-message", (msg) => {
-      console.log(msg);
+      // console.log(msg);
       socket.to(msg.room).emit("get-message", msg.content);
     });
     socket.on("chat message", (msg) => {
-      console.log("message: " + msg);
+      // console.log("message: " + msg);
       Message.newMessage(JSON.parse(msg));
 
       io.emit("chat message", msg);
