@@ -477,24 +477,22 @@ const ScoreCard = (props) => {
                   <input
                     id="bonus-checkbox"
                     type="checkbox"
-                    checked={props.scoreCard.numYahtzees >= 1}
-                    disabled
+                    checked={props.scoreCard.yahtzeeBonus.numYahtzees >= 1}
                   />
                 </td>
                 <td colSpan="1" id="bonus-yahtzee-checkbox">
                   <input
                     id="bonus-checkbox"
                     type="checkbox"
-                    checked={props.scoreCard.numYahtzees >= 2}
-                    disabled
+                    checked={props.scoreCard.yahtzeeBonus.numYahtzees >= 2}
                   />
                 </td>
                 <td colSpan="1" id="bonus-yahtzee-checkbox">
                   <input
                     id="bonus-checkbox"
                     type="checkbox"
-                    checked={props.scoreCard.numYahtzees >= 3}
-                    disabled
+                    checked={props.scoreCard.yahtzeeBonus.numYahtzees >= 3}
+                    // disabled
                   />
                 </td>
               </div>
