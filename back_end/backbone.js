@@ -48,7 +48,7 @@ module.exports = function (deps) {
   }
   const server = require("http").createServer(app);
   let io = null
-  if ((process.env.PORT === "undefined")) {
+  if (process.env.KEY) {
     console.log("Environmental variable found")
     console.log(process.env.PORT)
     io = require("socket.io")(server)
