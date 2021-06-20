@@ -39,6 +39,7 @@ const Login = (props) => {
       .then(async (data) => {
         console.log('TOKEN RECEIVED')
         console.log(data)
+        await props.setPort(data.port)
         await props.setCredentials({
           username: user.username,
           token: data.token,

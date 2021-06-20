@@ -18,9 +18,11 @@ router.post('/login', (req, res) => {
         if (!matchingPassword) return res.status(400).send('Invalid login ingo')
         console.log(`Signing token with key: ${key}`)
         jwt.sign({ _id: user._id }, key, (err, token) => {
+            let port = !process.env.PORT ? 8000 : process.env.PORT
             if (err) return res.status(500).send(err)
             console.log('SENDING TOKEN: ' + token)
-            res.status(200).send({ token })
+            let output = { token: token, port: port}
+            res.status(200).send(output)
         })
     })
     // res.status(300).send(req.body)
