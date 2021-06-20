@@ -169,8 +169,7 @@ const ScoreCard = (props) => {
 
   return (
     <div className="score-card">
-      <table id="upper-scores-table">
-        <button onClick={() => console.log(props.dice[0])}>test</button>
+      <table className="upper-scores-table">
         <thead>
           <tr>
             <th colSpan="12" className="section-header">
@@ -179,17 +178,21 @@ const ScoreCard = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr id="aces-row">
+          <tr className="aces-row">
             <td
               colSpan="2"
               className="upper-scores-category-title rounded-top"
               // disabled={!props.ourTurn || props.dice[0] === undefined}
-              onClick={!disabled ? scoreAces() : ""}
+              onClick={
+                !disabled || !props.scoreCard.upperSection[0].marked
+                  ? scoreAces()
+                  : ""
+              }
               // disabled={disabled}
             >
-              {upperScores[0]} <span id="dice-icon">&#x2680;</span>
+              {upperScores[0]} <span className="dice-icon">&#x2680;</span>
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={0}
               disabled={props.scoreCard.upperSection[0].marked}
@@ -197,16 +200,16 @@ const ScoreCard = (props) => {
               name="aces"
               scores={props.scoreCard.upperSection[0].aces}
             />
-            <td id="spacer"> </td>
+            <td className="spacer"> </td>
             <td
               colSpan="2"
               className="upper-scores-category-title"
               onClick={!disabled ? scoreFours() : ""}
             >
               {upperScores[3]}
-              <span id="dice-icon"> &#x2683;</span>
+              <span className="dice-icon"> &#x2683;</span>
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={3}
               disabled={props.scoreCard.upperSection[3].marked}
@@ -222,9 +225,9 @@ const ScoreCard = (props) => {
               className="upper-scores-category-title"
               onClick={!disabled ? scoreTwos() : ""}
             >
-              {upperScores[1]} <span id="dice-icon">&#x2681;</span>
+              {upperScores[1]} <span className="dice-icon">&#x2681;</span>
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={1}
               scores={props.scoreCard.upperSection[1].twos}
@@ -232,15 +235,15 @@ const ScoreCard = (props) => {
               name="twos"
               marked={props.scoreCard.upperSection[1].marked}
             />
-            <td id="spacer">{/* {" "} */}</td>
+            <td className="spacer">{/* {" "} */}</td>
             <td
               colSpan="2"
               className="upper-scores-category-title"
               onClick={!disabled ? scoreFives() : ""}
             >
-              {upperScores[4]} <span id="dice-icon">&#x2684;</span>
+              {upperScores[4]} <span className="dice-icon">&#x2684;</span>
             </td>
-            <td colSpan="1" id="spacer"></td>
+            <td colSpan="1" className="spacer"></td>
             <ScoreLine
               description={4}
               scores={props.scoreCard.upperSection[4].fives}
@@ -256,9 +259,9 @@ const ScoreCard = (props) => {
               className="upper-scores-category-title"
               onClick={!disabled ? scoreThrees() : ""}
             >
-              {upperScores[2]} <span id="dice-icon">&#x2682;</span>
+              {upperScores[2]} <span className="dice-icon">&#x2682;</span>
             </td>
-            <td colSpan="1" id="spacer"></td>
+            <td colSpan="1" className="spacer"></td>
             <ScoreLine
               description={2}
               scores={props.scoreCard.upperSection[2].threes}
@@ -266,7 +269,7 @@ const ScoreCard = (props) => {
               name="threes"
               marked={props.scoreCard.upperSection[2].marked}
             />
-            <td colSpan="1" id="spacer">
+            <td colSpan="1" className="spacer">
               {/* {" "} */}
             </td>
             <td
@@ -274,9 +277,9 @@ const ScoreCard = (props) => {
               className="upper-scores-category-title"
               onClick={!disabled ? scoreSixes() : ""}
             >
-              {upperScores[5]} <span id="dice-icon">&#x2685;</span>
+              {upperScores[5]} <span className="dice-icon">&#x2685;</span>
             </td>
-            <td colSpan="1" id="spacer"></td>
+            <td colSpan="1" className="spacer"></td>
             <ScoreLine
               description={5}
               scores={props.scoreCard.upperSection[5].sixes}
@@ -289,30 +292,30 @@ const ScoreCard = (props) => {
         </tbody>
       </table>
 
-      <table id="upper-totals-table">
+      <table className="upper-totals-table">
         <thead>
           <tr>
-            <th colSpan="12" id="upper-totals-table-header">
+            <th colSpan="12" className="upper-totals-table-header">
               Upper Scores Totals
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            {/* <td id="big-spacer"></td> */}
-            <td id="upper-total-desc">Upper Scores Total</td>
-            <td colSpan="1" id="spacer"></td>
+            
+            <td className="upper-total-desc">Upper Scores Total</td>
+            <td colSpan="1" className="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.upperSectionTotal}
               name="upperSectionTotalBonus"
             />
-            <td colSpan="1" id="spacer"></td>
-            <td id="upper-total-desc">Bonus</td>
-            <td colSpan="1" id="spacer"></td>
+            <td colSpan="1" className="spacer"></td>
+            <td className="upper-total-desc">Bonus</td>
+            <td colSpan="1" className="spacer"></td>
             <LittleScoreLine scores={props.scoreCard.bonus} name="upperBonus" />
-            <td colSpan="1" id="spacer"></td>
-            <td id="upper-total-desc">Upper Scores w/ Bonus</td>
-            <td colSpan="1" id="spacer"></td>
+            <td colSpan="1" className="spacer"></td>
+            <td className="upper-total-desc">Upper Scores w/ Bonus</td>
+            <td colSpan="1" className="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.upperSectionTotal}
               name="upperSectionTotalBonus"
@@ -322,7 +325,7 @@ const ScoreCard = (props) => {
       </table>
 
       <br />
-      <table id="lower-scores-table">
+      <table className="lower-scores-table">
         <thead>
           <tr>
             <th colSpan="12">Lower Scores</th>
@@ -337,7 +340,7 @@ const ScoreCard = (props) => {
             >
               {lowerScores[0]}
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={6}
               scores={props.scoreCard.lowerSection[0].threeOfAKind}
@@ -345,7 +348,7 @@ const ScoreCard = (props) => {
               name="threeOfAKind"
               marked={props.scoreCard.lowerSection[0].marked}
             />
-            <td id="spacer"> </td>
+            <td className="spacer"> </td>
             <td
               colSpan="2"
               className="upper-scores-category-title"
@@ -353,7 +356,7 @@ const ScoreCard = (props) => {
             >
               {lowerScores[3]}
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={8}
               scores={props.scoreCard.lowerSection[3].smStraight}
@@ -371,7 +374,7 @@ const ScoreCard = (props) => {
             >
               {lowerScores[1]}
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={6}
               scores={props.scoreCard.lowerSection[1].fourOfAKind}
@@ -379,7 +382,7 @@ const ScoreCard = (props) => {
               name="fourOfAKind"
               marked={props.scoreCard.lowerSection[1].marked}
             />
-            <td id="spacer"> </td>
+            <td className="spacer"> </td>
             <td
               colSpan="2"
               className="upper-scores-category-title"
@@ -387,7 +390,7 @@ const ScoreCard = (props) => {
             >
               {lowerScores[4]}
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={9}
               scores={props.scoreCard.lowerSection[4].lgStraight}
@@ -405,7 +408,7 @@ const ScoreCard = (props) => {
             >
               {lowerScores[2]}
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={7}
               scores={props.scoreCard.lowerSection[2].fullHouse}
@@ -413,19 +416,19 @@ const ScoreCard = (props) => {
               name="fullHouse"
               marked={props.scoreCard.lowerSection[2].marked}
             />
-            <td id="spacer"> </td>
+            <td className="spacer"> </td>
             <td
               colSpan="2"
               className="upper-scores-category-title"
               onClick={!disabled ? scoreYahtzee() : ""}
             >
-              {lowerScores[5]} <span id="dice-icon-yahtzee">&#x2685;</span>
-              <span id="dice-icon-yahtzee">&#x2685;</span>
-              <span id="dice-icon-yahtzee">&#x2685;</span>
-              <span id="dice-icon-yahtzee">&#x2685;</span>
-              <span id="dice-icon-yahtzee">&#x2685;</span>
+              {lowerScores[5]} <span className="dice-icon-yahtzee">&#x2685;</span>
+              <span className="dice-icon-yahtzee">&#x2685;</span>
+              <span className="dice-icon-yahtzee">&#x2685;</span>
+              <span className="dice-icon-yahtzee">&#x2685;</span>
+              <span className="dice-icon-yahtzee">&#x2685;</span>
             </td>
-            <td id="spacer"></td>
+            <td className="spacer"></td>
             <ScoreLine
               description={10}
               scores={props.scoreCard.lowerSection[5].yahtzee}
@@ -440,18 +443,17 @@ const ScoreCard = (props) => {
         </tbody>
       </table>
 
-      <table id="yahtzee-bonus-table">
+      <table className="yahtzee-bonus-table">
         <thead>
           <tr>
-            {/* <th colSpan="5"></th> */}
-            <th colSpan="12" id="yahtzee-bonus-header" onClick={scoreYahtzee()}>
+            <th colSpan="12" className="yahtzee-bonus-header" onClick={scoreYahtzee()}>
               Yahtzee Bonus
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr id="chance-row">
-            <div id="chance-row-left-side">
+          <tr className="chance-row">
+            <div className="chance-row-left-side">
               <td
                 colSpan="2"
                 id="chance"
@@ -460,7 +462,7 @@ const ScoreCard = (props) => {
               >
                 {lowerScores[6]}
               </td>
-              <td id="spacer"></td>
+              <td className="spacer"></td>
               <ScoreLine
                 description={6}
                 scores={props.scoreCard.lowerSection[6].chance}
@@ -470,31 +472,31 @@ const ScoreCard = (props) => {
               />
             </div>
             {/* <td colSpan="2"></td> */}
-            <div id="chance-row-right-side">
-              <td colSpan="4" id="yahtzee-bonus-desc">
+            <div className="chance-row-right-side">
+              <td colSpan="4" className="yahtzee-bonus-desc">
                 Each check mark for a Yahtzee after <br /> the first scores 100
                 points
               </td>
 
               {/* <td colSpan="6"></td> */}
-              <div id="checkboxes">
-                <td colSpan="1" id="bonus-yahtzee-checkbox">
+              <div className="checkboxes">
+                <td colSpan="1" className="bonus-yahtzee-checkbox">
                   <input
-                    id="bonus-checkbox"
+                    className="bonus-checkbox"
                     type="checkbox"
                     checked={props.scoreCard.yahtzeeBonus.numYahtzees >= 1}
                   />
                 </td>
-                <td colSpan="1" id="bonus-yahtzee-checkbox">
+                <td colSpan="1" className="bonus-yahtzee-checkbox">
                   <input
-                    id="bonus-checkbox"
+                    className="bonus-checkbox"
                     type="checkbox"
                     checked={props.scoreCard.yahtzeeBonus.numYahtzees >= 2}
                   />
                 </td>
-                <td colSpan="1" id="bonus-yahtzee-checkbox">
+                <td colSpan="1" className="bonus-yahtzee-checkbox">
                   <input
-                    id="bonus-checkbox"
+                    className="bonus-checkbox"
                     type="checkbox"
                     checked={props.scoreCard.yahtzeeBonus.numYahtzees >= 3}
                     // disabled
@@ -502,40 +504,39 @@ const ScoreCard = (props) => {
                 </td>
               </div>
             </div>
-            {/* <td id="bonus-spacer"></td> */}
           </tr>
         </tbody>
       </table>
 
-      <table id="totals-table">
+      <table className="totals-table">
         <thead>
           <tr>
-            <th colSpan="12" id="upper-totals-table-header">
+            <th colSpan="12" className="upper-totals-table-header">
               Score Totals
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            {/* <td id="big-spacer"></td> */}
-            <td id="upper-total-desc">Upper Scores Total</td>
-            <td colSpan="1" id="spacer"></td>
+            
+            <td className="upper-total-desc">Upper Scores Total</td>
+            <td colSpan="1" className="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.upperSectionTotal}
               disabled
               name="upperSectionTotal"
             />
-            <td colSpan="1" id="spacer"></td>
-            <td id="upper-total-desc">Lower Scores Total</td>
-            <td colSpan="1" id="spacer"></td>
+            <td colSpan="1" className="spacer"></td>
+            <td className="upper-total-desc">Lower Scores Total</td>
+            <td colSpan="1" className="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.lowerSectionTotal}
               disabled
               name="lowerSectionTotal"
             />
-            <td colSpan="1" id="spacer"></td>
-            <td id="upper-total-desc">Grand Total</td>
-            <td colSpan="1" id="spacer"></td>
+            <td colSpan="1" className="spacer"></td>
+            <td className="upper-total-desc">Grand Total</td>
+            <td colSpan="1" className="spacer"></td>
             <LittleScoreLine
               scores={props.scoreCard.grandTotal}
               disabled

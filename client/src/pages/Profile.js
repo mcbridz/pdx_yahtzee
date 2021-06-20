@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Avatar from "react-avatar-edit";
 import "../styles/Profile.css";
 
@@ -39,8 +39,8 @@ const Profile = (props) => {
     setAvatar(preview);
   };
 
-  const getUserInfo = () => {
-    fetch("/" + props.credentials.username, {
+  async function getUserInfo() {
+    await fetch("http://localhost:8000/" + props.credentials.username, {
       headers: {
         Authorization: `Bearer ${props.credentials.token}`,
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const Profile = (props) => {
       .then((user) => {
         setUpdateUser(user);
       });
-  };
+  }
 
   useEffect(() => {
     getUserInfo();
@@ -58,7 +58,6 @@ const Profile = (props) => {
 
   return (
     <div>
-      
       <h1 className="profile-title">{props.credentials.username}'s Profile</h1>
       <div className="profile-edit-form">
         <h2>Upload an Avatar</h2>
@@ -71,6 +70,7 @@ const Profile = (props) => {
             onBeforeFileLoad={onBeforeFileLoad}
             src={null}
           />
+          <button onClick={() => getUserInfo()}>asdadsa</button>
 
           {preview || avatar ? (
             <img

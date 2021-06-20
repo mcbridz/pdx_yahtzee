@@ -32,7 +32,7 @@
   line-height: 0.8;
 }
 
-#upper-scores-table {
+.upper-scores-table {
   min-width: 1000px;
   max-width: 1000px;
   border-collapse: collapse;
@@ -43,17 +43,17 @@ td {
   max-height: 110px;
 }
 
-#spacer {
+.spacer {
   min-width: 5px;
   max-width: 5px;
 }
 
-#big-spacer {
+.big-spacer {
   min-width: 140px;
   max-width: 140px;
 }
 
-#upper-total-desc {
+.upper-total-desc {
   border: 1px solid black;
   min-width: 200px;
   max-width: 200px;
@@ -62,27 +62,27 @@ td {
   font-weight: 600;
 }
 
-#upper-total-score {
+.upper-total-score {
   min-width: 80px;
   max-width: 80px;
   border-bottom: 2px solid black;
   cursor: pointer;
 }
 
-#upper-totals-table {
+.upper-totals-table {
   margin-top: -20px;
 }
 
-#upper-totals-table-header {
+.upper-totals-table-header {
   margin-bottom: 10px;
 }
 
-#lower-scores-table {
+.lower-scores-table {
   border-collapse: collapse;
   margin-top: -20px;
 }
 
-#bonus-yahtzee-checkbox {
+.bonus-yahtzee-checkbox {
   border: 1px solid black;
   max-width: 30px;
   min-width: 30px;
@@ -90,30 +90,30 @@ td {
   padding-top: 2px;
 }
 
-#bonus-yahtzee-row {
+.bonus-yahtzee-row {
   margin-left: 50px;
 }
 
-#bonus-spacer {
+.bonus-spacer {
   min-width: 140px;
 }
 
-#bonus-checkbox {
+.bonus-checkbox {
   width: 20px;
   height: 20px;
 }
 
-#dice-icon {
+.dice-icon {
   font-size: 32px;
   font-weight: 100;
 }
 
-#dice-icon-yahtzee {
+.dice-icon-yahtzee {
   font-size: 28px;
   font-weight: 100;
 }
 
-#chance-row {
+.chance-row {
   border-collapse: collapse;
   max-height: 50px;
   min-height: 50px;
@@ -122,12 +122,12 @@ td {
   margin-right: 17px;
 }
 
-#yahtzee-bonus-table {
+.yahtzee-bonus-table {
   min-width: 1005px;
   max-width: 1005px;
 }
 
-#chance-row-right-side {
+.chance-row-right-side {
   /* display: inline-block; */
   /* justify-content: flex-end */
   flex: 50%;
@@ -138,7 +138,7 @@ td {
   flex-direction: row;
 }
 
-#chance-row-left-side {
+.chance-row-left-side {
   flex: 50%;
   display: flex;
   flex-direction: row;
@@ -146,11 +146,11 @@ td {
   margin-left: 1px;
 }
 
-#yahtzee-bonus-header {
+.yahtzee-bonus-header {
   padding-left: 580px;
 }
 
-#yahtzee-bonus-desc {
+.yahtzee-bonus-desc {
   font-size: 14px;
   padding-right: 5px;
   padding-top: 8px;
@@ -163,7 +163,7 @@ td {
   border-top: none;
 }
 
-#checkboxes {
+.checkboxes {
   margin-top: 8px;
   margin-left: 40px;
 }
