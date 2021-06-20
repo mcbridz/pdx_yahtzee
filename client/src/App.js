@@ -10,7 +10,7 @@ import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
 import io from "socket.io-client";
 
-const socket = !process.env.PORT ? io(("http://localhost:8000", { transports: ["websocket"] })) : io();
+const socket = !process.env.PORT ? io("http://localhost:8000", { transports: ["websocket"] }) : io(`http://localhost:${process.env.PORT}`, { transports: ["websocket"] });
 
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
