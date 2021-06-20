@@ -47,13 +47,20 @@ module.exports = function (deps) {
     });
   }
   const server = require("http").createServer(app);
-
-  const io = require("socket.io")(server, {
-    cors: {
-      origin: "http://localhost:3000",
-      methods: ["GET", "POST"],
-    },
-  });
+  let io = null
+  if ((process.env.PORT === "undefined")) {
+    console.log("Environmental variable found")
+    console.log(process.env.PORT)
+    io = require("socket.io")(server)
+  } else {
+    io = require("socket.io")(server, {
+      cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+      },
+    });    
+    console.log("Environmental variable absent")
+  }
 
   const mapAwaiter = (list, callback) => {
     return Promise.all(list.map(callback));
