@@ -48,8 +48,8 @@ module.exports = function (deps) {
   }
   const server = require("http").createServer(app);
   let io = null
-  if (process.env.KEY) {
-    console.log("Environmental variable found")
+  if (process.env.NODE_ENV === 'production') {
+    console.log("Build mode detected")
     console.log(process.env.PORT)
     io = require("socket.io")(server)
   } else {
@@ -59,7 +59,7 @@ module.exports = function (deps) {
         methods: ["GET", "POST"],
       },
     });    
-    console.log("Environmental variable absent")
+    console.log("Development mode detected")
   }
 
   const mapAwaiter = (list, callback) => {
