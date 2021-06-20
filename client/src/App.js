@@ -11,7 +11,7 @@ import Profile from "./pages/Profile";
 import io from "socket.io-client";
 
 console.log(process.env)
-const socket = !process.env.MONGODB_URI ? io("http://localhost:8000", { transports: ["websocket"] }) : io(`http://localhost:${process.env.PORT}`, { transports: ["websocket"] });
+const socket = (process.env.NODE_ENV === "development") ? io("http://localhost:8000", { transports: ["websocket"] }) : io(`http://localhost:${process.env.PORT}`, { transports: ["websocket"] });
 
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
