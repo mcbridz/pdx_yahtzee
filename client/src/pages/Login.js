@@ -23,7 +23,7 @@ const Login = (props) => {
   };
 
   async function loginUser(user) {
-    await fetch("http://localhost:8000/login/", {
+    await fetch("/login", {
       method: "POST",
       body: JSON.stringify({
         username: user.username,
