@@ -79,7 +79,10 @@ function App() {
     if (!credentials.username) {
       return;
     } else if (!listening) {
-      if (process.env.NODE_ENV === "production") socket = io(`wss://pdxcg-yahtzee.herokuapp.com:${port}`, { transports: ["websocket"] });
+      if (process.env.NODE_ENV === "production") {
+        console.log("Attempting to connect socket")
+        socket = io();
+      }
 
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
