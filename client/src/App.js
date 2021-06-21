@@ -73,16 +73,21 @@ function App() {
   const [opposingPlayers, setOpposingPlayers] = useState([]);
 
   const [ourTurn, setOurTurn] = useState(false);
-
-  let socket = io("http://localhost:8000", { transports: ["websocket"] });
+  let socket
+  if (process.env.NODE_ENV === "production") {
+    socket = io();
+  } else {
+    socket = io("http://localhost:8000", { transports: ["websocket"] });
+  }
   useEffect(() => {
     if (!credentials.username) {
       return;
     } else if (!listening) {
       if (process.env.NODE_ENV === "production") {
-        let host = location.origin.replace(/^http/, 'ws')
-        console.log("Attempting to connect socket")
-        socket = io( host, { transports: ["websocket"] });
+        // let host = location.origin.replace(/^http/, 'ws')
+        // console.log("Attempting to connect socket")
+        // socket = io( host, { transports: ["websocket"] });
+
       }
 
       socket.on("createGame", (game) => {
