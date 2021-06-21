@@ -80,8 +80,9 @@ function App() {
       return;
     } else if (!listening) {
       if (process.env.NODE_ENV === "production") {
+        let host = location.origin.replace(/^http/, 'ws')
         console.log("Attempting to connect socket")
-        socket = io({ transports: ["websocket"] });
+        socket = io( host, { transports: ["websocket"] });
       }
 
       socket.on("createGame", (game) => {
