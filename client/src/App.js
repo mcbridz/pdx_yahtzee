@@ -81,7 +81,7 @@ function App() {
     } else if (!listening) {
       if (process.env.NODE_ENV === "production") {
         console.log("Attempting to connect socket")
-        socket = io();
+        socket = io({ transports: ["websocket"] });
       }
 
       socket.on("createGame", (game) => {
