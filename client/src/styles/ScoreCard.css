@@ -15,7 +15,7 @@
   /* background-color: antiquewhite; */
 }
 
-#game-table {
+.game-table {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -166,4 +166,181 @@ td {
 .checkboxes {
   margin-top: 8px;
   margin-left: 40px;
+}
+
+.gold {
+  background: linear-gradient(-95deg, #fff087, #eccf02, #fff087);
+  background-size: 50% 100%;
+  animation: linear-gradient 10s linear infinite;
+}
+
+@keyframes linear-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 400% 400%;
+  }
+}
+
+/* 
+////////////////////////////////////////////////////////////////
+
+Mini version
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+*/
+
+.score-card-mini {
+  min-width: 525px;
+  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  border: 3px solid black;
+  border-radius: 13px;
+  max-width: 525px;
+  /* position: absolute;
+  bottom: 0; */
+  margin-bottom: 1px;
+  /* background-color: antiquewhite; */
+}
+
+.game-table-mini {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upper-scores-category-title-mini {
+  border: 1px solid black;
+  min-width: 60px;
+  max-width: 60px;
+  min-height: 25px;
+  max-height: 25px;
+  font-weight: normal;
+  line-height: 0.8;
+}
+
+.upper-scores-table-mini {
+  min-width: 500px;
+  max-width: 500px;
+  border-collapse: collapse;
+}
+
+.spacer-mini {
+  min-width: 3px;
+  max-width: 3px;
+}
+
+.upper-total-desc-mini {
+  border: 1px solid black;
+  min-width: 70px;
+  max-width: 70px;
+  height: 25px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.upper-total-score-mini {
+  min-width: 40px;
+  max-width: 40px;
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
+
+.upper-totals-table-mini {
+  margin-top: -20px;
+}
+
+.upper-totals-table-header-mini {
+  margin-bottom: 5px;
+}
+
+.lower-scores-table-mini {
+  border-collapse: collapse;
+  margin-top: -10px;
+}
+
+.bonus-yahtzee-checkbox-mini {
+  border: 1px solid black;
+  max-width: 15px;
+  min-width: 15px;
+  margin-left: 25px;
+  padding-top: 1px;
+}
+
+.bonus-yahtzee-row-mini {
+  margin-left: 25px;
+}
+
+.bonus-spacer-mini {
+  min-width: 70px;
+}
+
+.bonus-checkbox-mini {
+  width: 10px;
+  height: 10px;
+}
+
+.dice-icon-mini {
+  font-size: 20px;
+  font-weight: 100;
+}
+
+.dice-icon-yahtzee-mini {
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.chance-row-mini {
+  border-collapse: collapse;
+  max-height: 25px;
+  min-height: 25px;
+  display: flex;
+  width: 500px;
+  margin-right: 9px;
+}
+
+.yahtzee-bonus-table-mini {
+  min-width: 500px;
+  max-width: 500px;
+}
+
+.chance-row-right-side-mini {
+  /* display: inline-block; */
+  /* justify-content: flex-end */
+  flex: 50%;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  margin-left: 37px;
+  display: flex;
+  flex-direction: row;
+}
+
+.chance-row-left-side-mini {
+  flex: 50%;
+  display: flex;
+  flex-direction: row;
+  margin-top: -25px;
+  margin-left: -9px;
+}
+
+.yahtzee-bonus-header-mini {
+  padding-left: 290px;
+}
+
+.yahtzee-bonus-desc-mini {
+  font-size: 10px;
+  padding-right: 2px;
+  padding-top: 4px;
+}
+
+.checkboxes-mini {
+  margin-top: 4px;
+  margin-left: 20px;
 }

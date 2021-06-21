@@ -6,6 +6,7 @@ import Dice from "../components/Dice";
 import RollButton from "../components/RollButton";
 import ScoreCard from "../components/ScoreCard";
 import "../styles/GameTable.css";
+import OpposingScores from "../components/OpposingScores";
 
 const numOfDice = 5;
 const numOfRolls = 3;
@@ -67,7 +68,7 @@ const GameBoard = (props) => {
   };
 
   return (
-    <div id="game-table">
+    <div className="game-table">
       <div id="dice-btn-container">
         {props.gameState.started ? (
           <div>
@@ -112,7 +113,14 @@ const GameBoard = (props) => {
         markScore={props.markScore}
         gameState={props.gameState}
         ourTurn={props.ourTurn}
+        version={1}
       />
+      {/* <OpposingScores
+        gameState={props.gameState}
+        ourTurn={props.ourTurn}
+        scoreCard={props.scoreCard}
+        opposingPlayers={props.opposingPlayers}
+      /> */}
     </div>
   );
 };

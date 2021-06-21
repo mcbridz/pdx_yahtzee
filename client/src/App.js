@@ -10,7 +10,7 @@ import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
 import io from "socket.io-client";
 
-console.log(process.env)
+console.log(process.env);
 
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
@@ -68,23 +68,24 @@ function App() {
   const [dice, setDice] = useState(Array.from({ length: numOfDice }));
   const [rolling, setRolling] = useState(false);
   const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
-  const [port, setPort] = useState(8000)
-  const [listening, setListening] = useState(false)
+  const [port, setPort] = useState(8000);
+  const [listening, setListening] = useState(false);
+  const [opposingPlayers, setOpposingPlayers] = useState([]);
 
   const [ourTurn, setOurTurn] = useState(false);
-  
-  let socket = io("http://localhost:8000", { transports: ["websocket"] });  
+
+  let socket = io("http://localhost:8000", { transports: ["websocket"] });
   useEffect(() => {
     if (!credentials.username) {
       return;
     } else if (!listening) {
-      if (process.env.NODE_ENV === "production") socket = io()
+      if (process.env.NODE_ENV === "production") socket = io();
 
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
         });
-  
+
         if (gamePlayers.includes(credentials.username)) {
           console.log(JSON.parse(game));
           setGame(JSON.parse(game));
@@ -102,7 +103,7 @@ function App() {
         const currentPlayerScoreCard = gameJSON.scoreCards.filter(
           (scoreCard) => credentials.username == scoreCard.player.trim()
         )[0];
-        console.log("currentPlayer.username", game.currentPlayer.username);
+        // console.log("currentPlayer.username", game.currentPlayer.username);
         if (gameJSON.currentPlayer.username === credentials.username) {
           setLocked(Array(numOfDice).fill(false));
           setDice(Array.from({ length: numOfDice }));
@@ -134,6 +135,11 @@ function App() {
         let scorecard = newGame.scoreCards.filter(
           (scorecard) => scorecard.player === credentials.username
         )[0];
+        let opposingScoreCards = newGame.scoreCards.filter(
+          (scorecard) => scorecard.player !== credentials.username
+        );
+        setOpposingPlayers(opposingScoreCards);
+        // console.log("opposing scorecards", opposingScoreCards);
         // console.log('scorecard')
         // console.log(scorecard.player)
         // console.log('credentials')
@@ -186,7 +192,7 @@ function App() {
       });
       //emitters stay at the bottom
       socket.emit("get games", { started: false });
-      setListening(true)
+      setListening(true);
     }
   }, [credentials, listening]);
   ///////////////////////////////////////
@@ -271,6 +277,7 @@ function App() {
             setRollsRemaining={setRollsRemaining}
             emitDice={emitDice}
             ourTurn={ourTurn}
+            opposingPlayers={opposingPlayers}
           />
         </Route>
 

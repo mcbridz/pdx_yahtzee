@@ -16,9 +16,11 @@ const ScoreLine = (props) => {
     "Score 50",
   ];
 
+  const version = ["", "-mini"];
+
   return (
     <div>
-      <td colSpan="3" className="score-line-description">
+      <td colSpan="3" className={"score-line-description" + version[props.version]}>
         {!props.marked ? scoresDescriptions[props.description] : props.scores}
       </td>
     </div>
