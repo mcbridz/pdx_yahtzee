@@ -79,7 +79,7 @@ function App() {
     if (!credentials.username) {
       return;
     } else if (!listening) {
-      if (process.env.NODE_ENV === "production") socket = io(`http://localhost:${port}`, { transports: ["websocket"] });
+      if (process.env.NODE_ENV === "production") socket = io(`https://localhost:${port}`, { transports: ["websocket"] });
 
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
