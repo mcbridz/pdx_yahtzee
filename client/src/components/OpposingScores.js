@@ -20,8 +20,8 @@ const OpposingScores = (props) => {
 
   return props.opposingPlayers.map((opponent, i) => {
     return (
-      <div>
-        {console.log(opponent)}
+      <div key={"oppoPlayerCard" + i}>
+        {/* {console.log(opponent)} */}
         <ScoreCard
           scoreCard={props.opposingPlayers[i]}
           dice={props.dice}

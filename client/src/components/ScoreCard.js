@@ -155,7 +155,11 @@ const ScoreCard = (props) => {
     };
   };
 
-  const disabled = rollsRemaining === 0 || dice[0] === undefined || !ourTurn;
+  const doNothing = () => {
+    return
+  }
+
+  const disabled = dice[0] === undefined || !ourTurn;
 
   return (
     <div className={"score-card" + version[props.version]}>
@@ -178,11 +182,12 @@ const ScoreCard = (props) => {
                 ourTurn &&
                 dice[0] !== undefined &&
                 !scoreCard.upperSection[0].marked
-                  ? "upper-scores-category-title"
+                  ? "upper-scores-category-title gold"
                   : "upper-scores-category-title" + version[props.version]
               }
-              // disabled={!props.ourTurn || props.dice[0] === undefined}
-              onClick={!disabled ? scoreAces() : null}
+              // disabled={!ourTurn}
+              // onClick={scoreAces()}
+              onClick={!(disabled || scoreCard.upperSection[0].marked) ? scoreAces() : doNothing}
               // disabled={disabled}
             >
               {upperScores[0]}{" "}
@@ -203,7 +208,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreFours() : ""}
+              onClick={!(disabled || scoreCard.upperSection[3].marked) ? scoreFours() : doNothing}
             >
               {upperScores[3]}
               <span className={"dice-icon" + version[props.version]}>
@@ -226,7 +231,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreTwos() : null}
+              onClick={!(disabled || scoreCard.upperSection[1].marked) ? scoreTwos() : doNothing}
             >
               {upperScores[1]}{" "}
               <span className={"dice-icon" + version[props.version]}>
@@ -246,7 +251,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreFives() : null}
+              onClick={!(disabled || scoreCard.upperSection[4].marked) ? scoreFives() : doNothing}
             >
               {upperScores[4]}{" "}
               <span className={"dice-icon" + version[props.version]}>
@@ -268,7 +273,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreThrees() : null}
+              onClick={!(disabled || scoreCard.upperSection[2].marked) ? scoreThrees() : doNothing}
             >
               {upperScores[2]}{" "}
               <span className={"dice-icon" + version[props.version]}>
@@ -290,7 +295,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreSixes() : null}
+              onClick={!(disabled || scoreCard.upperSection[5].marked) ? scoreSixes() : doNothing}
             >
               {upperScores[5]}{" "}
               <span className={"dice-icon" + version[props.version]}>
@@ -367,7 +372,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreThreeOfAKind() : null}
+              onClick={!(disabled || scoreCard.lowerSection[0].marked) ? scoreThreeOfAKind() : doNothing}
             >
               {lowerScores[0]}
             </td>
@@ -384,7 +389,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreSmStraight() : null}
+              onClick={!(disabled || scoreCard.lowerSection[3].marked) ? scoreSmStraight() : doNothing}
             >
               {lowerScores[3]}
             </td>
@@ -403,7 +408,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreFourOfAKind() : null}
+              onClick={!(disabled || scoreCard.lowerSection[1].marked) ? scoreFourOfAKind() : doNothing}
             >
               {lowerScores[1]}
             </td>
@@ -420,7 +425,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreLgStraight() : null}
+              onClick={!(disabled || scoreCard.lowerSection[4].marked) ? scoreLgStraight() : doNothing}
             >
               {lowerScores[4]}
             </td>
@@ -439,7 +444,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreFullHouse() : null}
+              onClick={!(disabled || scoreCard.lowerSection[2].marked) ? scoreFullHouse() : doNothing}
             >
               {lowerScores[2]}
             </td>
@@ -456,7 +461,7 @@ const ScoreCard = (props) => {
             <td
               colSpan="2"
               className={"upper-scores-category-title" + version[props.version]}
-              onClick={!disabled ? scoreYahtzee() : null}
+              onClick={!disabled ? scoreYahtzee() : doNothing}
             >
               {lowerScores[5]}{" "}
               <span className={"dice-icon-yahtzee" + version[props.version]}>
@@ -510,7 +515,7 @@ const ScoreCard = (props) => {
                 className={
                   "upper-scores-category-title" + version[props.version]
                 }
-                onClick={!disabled ? scoreChance() : null}
+                onClick={!disabled ? scoreChance() : doNothing}
               >
                 {lowerScores[6]}
               </td>

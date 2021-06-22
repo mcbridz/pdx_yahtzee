@@ -115,7 +115,7 @@ const GameBoard = (props) => {
         rollsRemaining={props.rollsRemaining}
         version={0}
       />
-      {/* <OpposingScores
+      <OpposingScores
         scoreCard={props.scoreCard}
         dice={dice}
         markScore={props.markScore}
@@ -123,7 +123,7 @@ const GameBoard = (props) => {
         ourTurn={props.ourTurn}
         version={0}
         opposingPlayers={props.opposingPlayers}
-      /> */}
+      />
     </div>
   );
 };

@@ -21,8 +21,7 @@ router.post('/login', (req, res) => {
             let port = !process.env.PORT ? 8000 : process.env.PORT
             if (err) return res.status(500).send(err)
             console.log('SENDING TOKEN: ' + token)
-            let output = { token: token, port: port}
-            res.status(200).send(output)
+            res.status(200).send({ token })
         })
     })
     // res.status(300).send(req.body)
