@@ -27,6 +27,7 @@ const registerRoute = require("./unprotected_routes/register");
 app.use("/", registerRoute);
 const editUserRoute = require("./protected_routes/editUsers");
 app.use("/", editUserRoute);
+// app.set('port', (process.env.PORT || 3000))
 
 module.exports = function (deps) {
   const mongoose = require("mongoose");

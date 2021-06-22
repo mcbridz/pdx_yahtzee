@@ -8,7 +8,8 @@ import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
-import io from "socket.io-client";
+// import io from "socket.io"; //HEROKU
+import io from "socket.io-client"; //DEVELOPMENT
 
 console.log(process.env);
 
@@ -73,13 +74,22 @@ function App() {
   const [opposingPlayers, setOpposingPlayers] = useState([]);
 
   const [ourTurn, setOurTurn] = useState(false);
-
-  let socket = io("http://localhost:8000", { transports: ["websocket"] });
+  let socket
+  if (process.env.NODE_ENV === "production") {
+    socket = io();
+  } else {
+    socket = io("http://localhost:8000", { transports: ["websocket"] });
+  }
   useEffect(() => {
     if (!credentials.username) {
       return;
     } else if (!listening) {
-      if (process.env.NODE_ENV === "production") socket = io();
+      if (process.env.NODE_ENV === "production") {
+        // let host = location.origin.replace(/^http/, 'ws')
+        // console.log("Attempting to connect socket")
+        // socket = io( host, { transports: ["websocket"] });
+
+      }
 
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
