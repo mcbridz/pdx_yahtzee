@@ -144,11 +144,13 @@ module.exports = function (deps) {
       console.log(taskObj);
       if (taskObj.game && taskObj.scoreCard) {
         let game = await Game.findOne({ _id: taskObj.game });
+        console.log('//////////////////Game //////////////')
+        console.log(game)
         // console.log('//////////////////Sending In //////////////')
         // console.log(game.scoreCards[0])
         game = await game.performTasks(taskObj);
-        // console.log('//////////////////Sending Back ////////////')
-        // console.log(game.scoreCards[0]);
+        console.log('//////////////////Sending Back ////////////')
+        console.log(game);
         io.emit("markScore", JSON.stringify(game));
       } else {
         console.log("NO DATA FOUND, NO WAY TO SEND MESSAGE BACK");
