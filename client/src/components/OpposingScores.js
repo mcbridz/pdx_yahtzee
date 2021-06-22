@@ -67,7 +67,7 @@ const OpposingScores = (props) => {
         </div>
         {props.opposingPlayers.map((opponent, i) => {
           return (
-            <div className="opposingScoreCard" key={"oppoPlayerCard" + i} style={setHidden(i === selectedCard)} id={"opposingScoreCard" + i}>
+            <div className="opposingScoreCard" key={"oppoPlayerCard" + i} style={setHidden(i === selectedCard)} id={"oppossingScoreCard" + i}>
               {/* {console.log(opponent)} */}
               <ScoreCard
                 scoreCard={props.opposingPlayers[i]}
