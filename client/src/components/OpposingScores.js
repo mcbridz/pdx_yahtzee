@@ -27,6 +27,8 @@ const OpposingScores = (props) => {
       if (!showing) {
         hideScoreCards();
       }
+      document.getElementById("oppossingScoreCard" + selectedCard).display = "none"
+      document.getElementById("oppossingScoreCard" + index).display = "block"
       setSelectedScoreCard(index)
     }
   }
@@ -49,6 +51,11 @@ const OpposingScores = (props) => {
     }
   }
 
+  const setHidden = (bool) => {
+    if (bool) return { display: "block" }
+    else return { display: "none" }
+  }
+
   return <div id="scoreCardsContainer">
     <div id="scoreCardFlexBox">
       <div id="buttonsFlexBox">
@@ -60,7 +67,7 @@ const OpposingScores = (props) => {
         </div>
         {props.opposingPlayers.map((opponent, i) => {
           return (
-            <div className="opposingScoreCard" key={"oppoPlayerCard" + i} style={{ display: (i === selectedCard) ? "block" : "none" }}>
+            <div className="opposingScoreCard" key={"oppoPlayerCard" + i} style={setHidden(i === selectedCard)} id={"opposingScoreCard" + i}>
               {/* {console.log(opponent)} */}
               <ScoreCard
                 scoreCard={props.opposingPlayers[i]}
