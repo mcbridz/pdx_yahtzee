@@ -184,9 +184,9 @@ function App() {
       socket.on("get messages", (msgObj) => {
         console.log(msgObj);
         if (msgObj.private === true && msgObj.room === game._id) {
-          io.in(msgObj.room).emit(msgObj.message);
+          io.in(msgObj.room).emit(msgObj.text);
         } else if (msgObj.private === false && game._id === null) {
-          io.in("main_lobby").emit(msgObj.message);
+          io.in("main_lobby").emit(msgObj.text);
         } else if (msgObj.private === true && msgObj.room === room) {
           //message meant for user -private room
         }
