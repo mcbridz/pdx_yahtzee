@@ -27,10 +27,13 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.statics.signup = async function (username, plainTextPassword) {
+userSchema.statics.signup = async function (userObj) {
   const user = new this();
-  user.username = username;
-  await user.hashPassword(plainTextPassword);
+  user.username = userObj.username;
+  user.firstName = userObj.firstName;
+  user.lastName = userObj.lastName;
+  user.emailAddress = userObj.email;
+  await user.hashPassword(userObj.password);
   await user.save();
   return user;
 };

@@ -14,11 +14,11 @@ router.post("/register", (req, res) => {
     if (userExists) return res.status(400).send("username already exists");
     console.log("creating user");
     const user = await User.signup(
-      req.body.username,
-      req.body.password,
-      req.body.email,
-      req.body.firstName,
-      req.body.lastName
+      {username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      fistName: req.body.firstName,
+      lastName: req.body.lastName}
     );
     res.status(201).send(user.sanitize());
   });
