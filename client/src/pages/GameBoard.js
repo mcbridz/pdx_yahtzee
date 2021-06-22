@@ -105,7 +105,16 @@ const GameBoard = (props) => {
           </button>
         )}
       </div>
-      <Chat version={0} value={0} credentials={props.credentials} />
+      <Chat
+        version={0}
+        value={0}
+        credentials={props.credentials}
+        message={props.message}
+        setMessage={props.setMessage}
+        gameState={props.gameState}
+        messageList={props.messageList}
+        setMessageList={props.setMessageList}
+      />
       <ScoreCard
         scoreCard={props.scoreCard}
         dice={dice}

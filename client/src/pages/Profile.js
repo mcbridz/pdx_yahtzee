@@ -40,7 +40,7 @@ const Profile = (props) => {
   };
 
   async function getUserInfo() {
-    await fetch("http://localhost:8000/" + props.credentials.username, {
+    await fetch("/" + props.credentials.username, {
       headers: {
         Authorization: `Bearer ${props.credentials.token}`,
         "Content-Type": "application/json",

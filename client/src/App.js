@@ -73,6 +73,9 @@ function App() {
   const [listening, setListening] = useState(false);
   const [opposingPlayers, setOpposingPlayers] = useState([]);
 
+  const [message, setMessage] = useState("");
+  const [messageList, setMessageList] = useState([]);
+
   const [ourTurn, setOurTurn] = useState(false);
   let socket;
   if (process.env.NODE_ENV === "production") {
@@ -181,9 +184,9 @@ function App() {
       socket.on("get messages", (msgObj) => {
         console.log(msgObj);
         if (msgObj.private === true && msgObj.room === game._id) {
-          //message meant for user in game
+          io.in(msgObj.room).emit(msgObj.message);
         } else if (msgObj.private === false && game._id === null) {
-          //message meant for user -main lobby/public room
+          io.in("main_lobby").emit(msgObj.message);
         } else if (msgObj.private === true && msgObj.room === room) {
           //message meant for user -private room
         }
@@ -287,6 +290,10 @@ function App() {
             emitDice={emitDice}
             ourTurn={ourTurn}
             opposingPlayers={opposingPlayers}
+            message={message}
+            setMessage={setMessage}
+            messageList={messageList}
+            setMessageList={setMessageList}
           />
         </Route>
 
@@ -299,6 +306,11 @@ function App() {
             setGamesList={setGamesList}
             createGame={createGame}
             joinGame={joinGame}
+            message={message}
+            setMessage={setMessage}
+            messageList={messageList}
+            setMessageList={setMessageList}
+            gameState={game}
           />
         </Route>
 

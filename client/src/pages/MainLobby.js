@@ -31,9 +31,9 @@ const MainLobby = (props) => {
           {props.gamesList.map((game) => {
             let joinThisGame = () => {
               return () => {
-                console.log('JOINING GAME')
-                console.log(props.credentials.token)
-                console.log(game._id)
+                console.log("JOINING GAME");
+                console.log(props.credentials.token);
+                console.log(game._id);
                 props.joinGame(props.credentials.token, game._id);
               };
             };
@@ -52,7 +52,16 @@ const MainLobby = (props) => {
             );
           })}
         </div>
-        <Chat value={0} version={1} credentials={props.credentials} />
+        <Chat
+          value={0}
+          version={1}
+          credentials={props.credentials}
+          message={props.message}
+          setMessage={props.setMessage}
+          messageList={props.messageList}
+          setMessageList={props.setMessageList}
+          gameState={props.gameState}
+        />
       </div>
     </div>
   );

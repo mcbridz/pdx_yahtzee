@@ -9,30 +9,29 @@ let socket;
 const CONNECTION_PORT = "localhost:8000/";
 
 const Chat = (props) => {
-  const [message, setMessage] = useState("");
-  const [messageList, setMessageList] = useState([]);
-
-  const scrollRef = React.createRef()
+  const scrollRef = React.createRef();
 
   const rooms = ["mainLobby", "preGameLobby/" + props.gameID, props.gameID];
   const version = ["inGame", "mainLobby", "preGameLobby"];
-  const [chatBoxOpen, setChatBoxOpen] = useState(false)
+  const [chatBoxOpen, setChatBoxOpen] = useState(false);
 
   const connectToRoom = useCallback(() => {
-    socket.emit("connect-to-room", rooms[props.value]);
-  }, [props.value, rooms]);
+    socket.emit(
+      "connect-to-room",
+      props.gameState._id === null ? "main_lobby" : props.gameState._id
+    );
+  }, [props.gameState._id]);
 
   const sendMessage = async () => {
     let msg = {
-      room: rooms[props.value],
-      content: {
-        author: props.credentials.username,
-        message: message,
-      },
+      room: !props.gameState._id ? "main_lobby" : props.gameState._id,
+      private: !props.gameState._id ? false : true,
+      username: props.credentials.username,
+      text: props.message,
     };
-    await socket.emit("send-message", msg);
-    setMessageList([...messageList, msg.content]);
-    setMessage("");
+    await socket.emit("chat message", msg);
+    props.setMessageList([...props.messageList, msg]);
+    props.setMessage("");
   };
 
   const handleKeyDown = (e) => {
@@ -41,56 +40,54 @@ const Chat = (props) => {
     }
   };
 
-  
   const openChat = function () {
-    document.getElementById("chatbox").style.width = "400px"
-    document.getElementById("sendButton").style.display = "inline"
-    setChatBoxOpen(true)
-  }
-  
+    document.getElementById("chatbox").style.width = "400px";
+    document.getElementById("sendButton").style.display = "inline";
+    setChatBoxOpen(true);
+  };
+
   const closeChat = function () {
-    document.getElementById("chatbox").style.width = "0px"
-    document.getElementById("sendButton").style.display = "none"
-    setChatBoxOpen(false)
-  }
-  
+    document.getElementById("chatbox").style.width = "0px";
+    document.getElementById("sendButton").style.display = "none";
+    setChatBoxOpen(false);
+  };
+
   const openChatManager = function () {
     if (chatBoxOpen) {
-      closeChat()
+      closeChat();
     } else {
-      openChat()
+      openChat();
     }
-  }
+  };
 
   useEffect(() => {
     socket = io(CONNECTION_PORT);
     connectToRoom();
-    socket.on("get-message", (data) => {
-      setMessageList([...messageList, data]);
+    socket.on("get messages", (data) => {
+      props.setMessageList([...props.messageList, data]);
     });
-  }, []);
+  }, [props, connectToRoom]);
 
   return (
     <div id="chatbox" className={"chat-container-" + version[props.version]}>
       {/* <ScrollableFeed> */}
-      <div className={"chat-messages-" + version[props.version]} ref={scrollRef}>
-        {messageList.map((msg, index) => {
+      <div className={"chat-messages-" + version[props.version]}>
+        {props.messageList.map((msg, index) => {
           return (
             <div
               className={
                 props.credentials.username !== "" ||
-                  msg.author !== props.credentials.username
+                msg.author !== props.credentials.username
                   ? "chat-message-you-" + version[props.version]
                   : "chat-message-other-" + version[props.version]
               }
             >
               <h2 key={index}>
-                {msg.author}: {msg.message}
+                {msg.username}: {msg.text}
               </h2>
             </div>
           );
         })}
-        <div id="scrollable"></div>
       </div>
       {/* </ScrollableFeed> */}
       <div className={"chat-inputs-" + version[props.version]}>
@@ -98,12 +95,16 @@ const Chat = (props) => {
           type="text"
           placeholder="Add message..."
           onChange={(e) => {
-            setMessage(e.target.value);
+            props.setMessage(e.target.value);
           }}
-          value={message}
+          value={props.message}
           onKeyDown={handleKeyDown}
         />
-        <button id="sendButton" onClick={sendMessage} disabled={message === ""}>
+        <button
+          id="sendButton"
+          onClick={sendMessage}
+          disabled={props.message === ""}
+        >
           <IoIosSend
             color="white"
             size={44}
@@ -111,12 +112,13 @@ const Chat = (props) => {
           />
         </button>
       </div>
-      <button id="openChatBtn" onClick={openChatManager} >
+      <button id="openChatBtn" onClick={openChatManager}>
         <IoIosSend
           color="white"
           size={44}
           id={"send" + version[props.version]}
-        /></button>
+        />
+      </button>
     </div>
   );
 };
