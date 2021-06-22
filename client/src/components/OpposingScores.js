@@ -23,6 +23,10 @@ const OpposingScores = (props) => {
   const changeHandler = (index) => {
     return () => {
       console.log("changing selected card to " + index.toString())
+      const showing = showScoreCards;
+      if (!showing) {
+        hideScoreCards();
+      }
       setSelectedScoreCard(index)
     }
   }
