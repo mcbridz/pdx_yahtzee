@@ -371,6 +371,10 @@ Mini version
   flex-direction: column;
 }
 
+#scoreCardFlexBox {
+  transition: 0.5s;
+}
+
 #scoreCardsContainer {
   position: fixed;
   right: 0;
@@ -380,6 +384,7 @@ Mini version
 #buttonsAndCardFlexBox {
   display: flex;
   flex-direction: row;
+  transition: width 0.5s;
 }
 
 #buttonsFlexBox {

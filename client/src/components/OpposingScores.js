@@ -18,9 +18,11 @@ const OpposingScores = (props) => {
   // }, [opposingPlayerScorecards]);
   // return ({gameState.started ? opposingPlayerScorecards : ''})
   const [selectedCard, setSelectedScoreCard] = useState(0)
+  const [showScoreCards, setShowScoreCards] = useState(true)
 
   const changeHandler = (index) => {
     return () => {
+      console.log("changing selected card to " + index.toString())
       setSelectedScoreCard(index)
     }
   }
@@ -31,10 +33,22 @@ const OpposingScores = (props) => {
     })
   }
 
+  const hideScoreCards = () => {
+    if (showScoreCards) {
+      document.getElementById("buttonsAndCardFlexBox").style.width = "0px";
+      // document.getElementById("buttonsAndCardFlexBox").style.display = "none";
+      setShowScoreCards(false)
+    } else {      
+      document.getElementById("buttonsAndCardFlexBox").style.width = "inherit";
+      // document.getElementById("buttonsAndCardFlexBox").style.display = "flex";
+      setShowScoreCards(true)
+    }
+  }
+
   return <div id="scoreCardsContainer">
     <div id="scoreCardFlexBox">
       <div id="buttonsFlexBox">
-        <button id="hideScoreCards">&times;</button>
+        <button id="hideScoreCards" onClick={hideScoreCards}>&times;</button>
       </div>
       <div id="buttonsAndCardFlexBox">
         <div id="buttonContainer">
