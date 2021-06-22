@@ -69,25 +69,27 @@ function App() {
   const [dice, setDice] = useState(Array.from({ length: numOfDice }));
   const [rolling, setRolling] = useState(false);
   const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
+  const [port, setPort] = useState(8000);
   const [listening, setListening] = useState(false);
   const [opposingPlayers, setOpposingPlayers] = useState([]);
-  const [socket, setSocket] = useState(null)
 
   const [ourTurn, setOurTurn] = useState(false);
-  useEffect(() => {    
+  let socket;
+  if (process.env.NODE_ENV === "production") {
+    socket = io();
+  } else {
+    socket = io("http://localhost:8000", { transports: ["websocket"] });
+  }
+  useEffect(() => {
     if (!credentials.username) {
       return;
     } else if (!listening) {
-      if (!socket) {
-        if (process.env.NODE_ENV === "production") {
-          let tmpsocket = io();
-          setSocket(tmpsocket)
-        } else {
-          let tmpsocket = io("http://localhost:8000", { transports: ["websocket"] });
-          setSocket(tmpsocket)
-        }
-        return
+      if (process.env.NODE_ENV === "production") {
+        // let host = location.origin.replace(/^http/, 'ws')
+        // console.log("Attempting to connect socket")
+        // socket = io( host, { transports: ["websocket"] });
       }
+
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
@@ -103,10 +105,10 @@ function App() {
       socket.on("getUnstartedGames", (list) => {
         setGamesList(JSON.parse(list));
       });
-      socket.on("markScore", async (gameObj) => {
+      socket.on("markScore", (gameObj) => {
         let gameJSON = JSON.parse(gameObj);
         console.log(gameJSON);
-        // console.log(gameJSON.currentPlayer);
+        console.log(gameJSON.currentPlayer);
         const currentPlayerScoreCard = gameJSON.scoreCards.filter(
           (scoreCard) => credentials.username == scoreCard.player.trim()
         )[0];
@@ -124,17 +126,9 @@ function App() {
           setLocked(Array(numOfDice).fill(true));
           setOurTurn(false);
         }
-        console.log('YOUR SCORECARD: ')
         console.log(currentPlayerScoreCard);
-        setGame(gameJSON)
+        setGame(gameJSON);
         setScoreCard(currentPlayerScoreCard);
-        let opposingScoreCards = gameJSON.scoreCards.filter(
-          (scorecard) => scorecard.player !== credentials.username
-        );
-        console.log('OPPOSING SCORECARDS: ')
-        console.log(opposingScoreCards)
-        setOpposingPlayers(opposingScoreCards);          
-        
       });
       socket.on("diceRoll", (dice) => {
         if (!ourTurn) {
@@ -209,10 +203,7 @@ function App() {
       socket.emit("get games", { started: false });
       setListening(true);
     }
-
-
-
-  }, [credentials, listening, game._id, ourTurn, history, room, socket]);
+  }, [credentials, listening]);
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////
@@ -269,6 +260,7 @@ function App() {
           <Login
             credentials={credentials}
             setCredentials={setMyCredentials()}
+            setPort={setPort}
           />
         </Route>
 

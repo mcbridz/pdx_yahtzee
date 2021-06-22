@@ -70,4 +70,12 @@
 }
 
 .host-game-button {
+  background-color: darkred;
+  color: antiquewhite;
+  font-family: Revue;
+  min-width: 200px;
+  font-size: 28px;
+  border-radius: 4px;
+  cursor: pointer;
 }
+ 

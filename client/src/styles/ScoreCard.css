@@ -344,3 +344,12 @@ Mini version
   margin-top: 4px;
   margin-left: 20px;
 }
+
+.gold-overlay {
+  display: flex;
+  background-color: white;
+  z-index: 999;
+  min-height: 47px;
+  align-items: center;
+  justify-content: center;
+}
