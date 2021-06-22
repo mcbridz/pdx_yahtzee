@@ -4,7 +4,7 @@ const key = process.env.KEY || require("../../secrets").key;
 
 const router = express.Router();
 
-const User = require("../protected_routes/userModel");
+const User = require("./userModel").User;
 
 router.get("/:username", function (req, res) {
   const authorization = req.header("Authorization") || "";
@@ -13,7 +13,7 @@ router.get("/:username", function (req, res) {
 
   if (type === "Bearer" && jwt.verify(token, key)) {
     const payload = jwt.decode(token, key);
-    User.findOne({ username: req.params.username }),
+    User.find({ username: req.params.username }),
       async (err, user) => {
         if (err) return res.status(500).send(err);
         if (!user) return res.status(400).send("not a valid user");

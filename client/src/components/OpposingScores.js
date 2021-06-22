@@ -18,13 +18,19 @@ const OpposingScores = (props) => {
   // }, [opposingPlayerScorecards]);
   // return ({gameState.started ? opposingPlayerScorecards : ''})
 
-
-  return props.opposingPlayers.map((opponent) => {
+  return props.opposingPlayers.map((opponent, i) => {
     return (
       <div>
-        <h2>
-          {opponent.player} - {opponent.grandTotal}{" "}
-        </h2>
+        {console.log(opponent)}
+        <ScoreCard
+          scoreCard={props.opposingPlayers[i]}
+          dice={props.dice}
+          markScore={props.markScore}
+          gameState={props.gameState}
+          ourTurn={props.ourTurn}
+          version={1}
+          key={i}
+        />
       </div>
     );
   });

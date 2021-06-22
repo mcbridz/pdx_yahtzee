@@ -108,17 +108,20 @@ const GameBoard = (props) => {
       <Chat version={0} value={0} credentials={props.credentials} />
       <ScoreCard
         scoreCard={props.scoreCard}
-        setScoreCard={props.setScoreCard}
         dice={dice}
         markScore={props.markScore}
         gameState={props.gameState}
         ourTurn={props.ourTurn}
-        version={1}
+        rollsRemaining={props.rollsRemaining}
+        version={0}
       />
       {/* <OpposingScores
+        scoreCard={props.scoreCard}
+        dice={dice}
+        markScore={props.markScore}
         gameState={props.gameState}
         ourTurn={props.ourTurn}
-        scoreCard={props.scoreCard}
+        version={0}
         opposingPlayers={props.opposingPlayers}
       /> */}
     </div>
