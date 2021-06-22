@@ -17,23 +17,49 @@ const OpposingScores = (props) => {
   //   opposingPlayerScorecards();
   // }, [opposingPlayerScorecards]);
   // return ({gameState.started ? opposingPlayerScorecards : ''})
+  const [selectedCard, setSelectedScoreCard] = useState(0)
 
-  return props.opposingPlayers.map((opponent, i) => {
-    return (
-      <div key={"oppoPlayerCard" + i}>
-        {/* {console.log(opponent)} */}
-        <ScoreCard
-          scoreCard={props.opposingPlayers[i]}
-          dice={props.dice}
-          markScore={props.markScore}
-          gameState={props.gameState}
-          ourTurn={props.ourTurn}
-          version={1}
-          key={i}
-        />
+  const changeHandler = (index) => {
+    return () => {
+      setSelectedScoreCard(index)
+    }
+  }
+
+  const makeButtons = (opposingPlayerScoreCards) => {
+    return opposingPlayerScoreCards.map((opponent, i) => {
+      return <button onClick={changeHandler(i)}>{opponent.player}</button>
+    })
+  }
+
+  return <div id="scoreCardsContainer">
+    <div id="scoreCardFlexBox">
+      <div id="buttonsFlexBox">
+        <button id="hideScoreCards">&times;</button>
       </div>
-    );
-  });
+      <div id="buttonsAndCardFlexBox">
+        <div id="buttonContainer">
+          {makeButtons(props.opposingPlayers)}
+        </div>
+        {props.opposingPlayers.map((opponent, i) => {
+          return (
+            <div className="opposingScoreCard" key={"oppoPlayerCard" + i} style={{ display: (i === selectedCard) ? "fixed" : "none" }}>
+              {/* {console.log(opponent)} */}
+              <ScoreCard
+                scoreCard={props.opposingPlayers[i]}
+                dice={props.dice}
+                markScore={props.markScore}
+                gameState={props.gameState}
+                ourTurn={props.ourTurn}
+                version={1}
+                key={i}
+              />
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  </div>
 };
+
 
 export default OpposingScores;
