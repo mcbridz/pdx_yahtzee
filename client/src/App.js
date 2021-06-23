@@ -119,7 +119,7 @@ function App() {
     } else if (!listening) {
       console.log('Running useEffect code')
       console.log('Checking socket\'s connection status')
-      console.log(socket.status)
+      console.log(socket.connected)
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
