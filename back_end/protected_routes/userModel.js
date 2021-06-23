@@ -29,6 +29,7 @@ const userSchema = new Schema({
 
 userSchema.statics.signup = async function (userObj) {
   const user = new this();
+  console.log(userObj)
   user.username = userObj.username;
   user.firstName = userObj.firstName;
   user.lastName = userObj.lastName;

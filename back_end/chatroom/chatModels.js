@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const User = require('../protected_routes/userModel')
+const key = process.env.KEY || require("../../secrets").key;
 const Schema = mongoose.Schema
 
 // Chatroom schema, methods and statics
@@ -39,7 +42,8 @@ messageSchema.statics.newMessage = async function (messageData) {
 }
 
 messageSchema.statics.getMessages = function (filter) {
-    return this.find((!filter) ? { private: false } : filter)
+    console.log(filter)
+    return this.find(filter)
 }
 
 messageSchema.statics.systemMessage = async function (text, room) {

@@ -67,12 +67,15 @@ module.exports = function (deps) {
     return Promise.all(list.map(callback));
   };
 
-  io.on("connection", (socket) => {
-    console.log("a user has connected");
+  io.on("connection", async (socket) => {
+    console.log("a user has connected: " + socket.id);
     socket.on("getUnstartedGames", async function (pass) {
       let games = await Game.getUnstartedGames();
-      io.emit(JSON.stringify(games));
+      io.emit(JSON.stringify({ data: games }));
     });
+    let messages = JSON.stringify({ data: await Message.getMessages({ private: false }) })
+    console.log('Sending Messages')
+    socket.emit("get messages", messages)
 
     // order is an object, with the structure of:
     // { public: <true/false>, playerList: [playerIDTOKEN, playerIDTOKEN, playerIDTOKEN] }
@@ -173,38 +176,41 @@ module.exports = function (deps) {
       io.emit("endGame", JSON.stringify(game));
     });
 
-    socket.on("connect-to-room", (room) => {
-      socket.join(room);
-      // console.log("Joined room " + room);
-    });
-    socket.on("send-message", (msg) => {
-      // console.log(msg);
-      socket.to(msg.room).emit("get-message", msg.content);
-    });
-    socket.on("chat message", (msg) => {
-      // console.log("message: " + msg);
-      Message.newMessage(JSON.parse(msg));
-
-      io.emit("chat message", msg);
-    });
+    // socket.on("connect-to-room", (room) => {
+    //   socket.join(room);
+    //   // console.log("Joined room " + room);
+    // });
     socket.on("new room", (room) => {
       Room.newRoom(room);
       if (!Room.private) {
         io.emit("new room", room);
       }
     });
+    socket.on("new message", async (msgObj) => {
+      let newMessage = await Message.newMessage(JSON.parse(msgObj))
+      console.log('NEW MESSAGE')
+      console.log(newMessage)
+      io.emit("get messages", JSON.stringify({ data: [newMessage] }))
+    })
     socket.on("get messages", async (filter) => {
-      io.emit("get messages", await Message.getMessages(filter));
+      let newFilter = JSON.parse(filter)
+      console.log('FILTER')
+      console.log(newFilter)
+      let messages = await Message.getMessages(newFilter)
+      console.log('MESSAGES')
+      console.log(messages)
+      let output = JSON.stringify({ data: messages })
+      // JSON.stringify(await Message.getMessages(JSON.parse(filter)))
+      io.emit("get messages", output);
     });
     socket.on("get rooms", (filter) => {
       io.emit("get rooms", Room.getRooms(filter));
     });
-    socket.on("get games", async (filter) => {
-      const games = await Game.getGames(filter);
-      console.log("inside get games");
-      console.log(games);
-      io.emit("get games", games);
-    });
+    
+    setInterval(() => {
+      console.log("PUH-PUH")
+      socket.emit("heartbeat", JSON.stringify({}))
+    }, 5000)
   });
 
   return server;
