@@ -8,7 +8,7 @@ import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
-import socket from "./ioFile"
+import socket from "./ioFile";
 
 console.log(process.env);
 
@@ -84,25 +84,38 @@ function App() {
   //   socket = io("http://localhost:8000", { transports: ["websocket"] });
   // }
   const parseMessages = (msgArr) => {
-    let msgListIDs = []
-    messageList.map((msg) => msgListIDs.push(msg._id))
-    console.log(msgListIDs)
+    let msgListIDs = [];
+    messageList.map((msg) => msgListIDs.push(msg._id));
+    console.log(msgListIDs);
+    console.log(msgArr);
     msgArr.forEach((msgObj) => {
-      if (msgObj.private === true && msgObj.room === game._id && !msgListIDs.includes(msgObj._id)) {
-        let newArr = [...messageList, msgObj]
-        console.log(newArr)
-        setMessageList(newArr)
-      } else if (msgObj.private === false && game._id === null && !msgListIDs.includes(msgObj._id)) {
-        let newArr = [...messageList, msgObj]
-        console.log(newArr)
-        setMessageList(newArr)
-      } else if (msgObj.private === true && msgObj.room === room && !msgListIDs.includes(msgObj._id)) {
-        let newArr = [...messageList, msgObj]
-        console.log(newArr)
-        setMessageList(newArr)
+      if (
+        msgObj.private === true &&
+        msgObj.room === game._id &&
+        !msgListIDs.includes(msgObj._id)
+      ) {
+        let newArr = [...messageList, msgObj];
+        console.log(newArr);
+        setMessageList(newArr);
+      } else if (
+        msgObj.private === false &&
+        game._id === null &&
+        !msgListIDs.includes(msgObj._id)
+      ) {
+        let newArr = [...messageList, msgObj];
+        console.log(newArr);
+        setMessageList(newArr);
+      } else if (
+        msgObj.private === true &&
+        msgObj.room === room &&
+        !msgListIDs.includes(msgObj._id)
+      ) {
+        let newArr = [...messageList, msgObj];
+        console.log(newArr);
+        setMessageList(newArr);
       }
-    })
-  }
+    });
+  };
   useEffect(() => {
     // if (!credentials.username) {
     //   return;
@@ -196,19 +209,17 @@ function App() {
       setGamesList(rooms);
     });
     socket.on("get messages", (msgObj) => {
-      let parsedData = JSON.parse(msgObj).data
-      console.log(parsedData)
-      parseMessages(parsedData)
+      let parsedData = JSON.parse(msgObj).data;
+      console.log(parsedData);
+      parseMessages(parsedData);
     });
     //emitters stay at the bottom
     socket.emit("get games", { started: false });
     setListening(true);
 
-
-
     return () => {
       socket.removeAllListeners();
-    }
+    };
     // }
   });
   ///////////////////////////////////////
@@ -255,8 +266,8 @@ function App() {
   };
 
   const sendMessage = (msgObj) => {
-    socket.emit("new message", JSON.stringify(msgObj))
-  }
+    socket.emit("new message", JSON.stringify(msgObj));
+  };
 
   return (
     <div className="App">
