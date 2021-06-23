@@ -8,8 +8,7 @@ import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
-// import io from "socket.io"; //HEROKU
-import io from "socket.io-client"; //DEVELOPMENT
+import socket from "./ioFile"
 
 console.log(process.env);
 
@@ -77,23 +76,27 @@ function App() {
   const [messageList, setMessageList] = useState([]);
 
   const [ourTurn, setOurTurn] = useState(false);
-  let socket;
-  if (process.env.NODE_ENV === "production") {
-    socket = io();
-  } else {
-    socket = io("http://localhost:8000", { transports: ["websocket"] });
-  }
+  // let socket;
+  // if (process.env.NODE_ENV === "production") {
+  //   socket = io();
+  // } else {
+  //   console.log('CREATING SOCKET')
+  //   socket = io("http://localhost:8000", { transports: ["websocket"] });
+  // }
   const parseMessages = (msgArr) => {
+    let msgListIDs = []
+    messageList.map((msg) => msgListIDs.push(msg._id))
+    console.log(msgListIDs)
     msgArr.forEach((msgObj) => {
-      if (msgObj.private === true && msgObj.room === game._id) {
+      if (msgObj.private === true && msgObj.room === game._id && !msgListIDs.includes(msgObj._id)) {
         let newArr = [...messageList, msgObj]
         console.log(newArr)
         setMessageList(newArr)
-      } else if (msgObj.private === false && game._id === null) {
+      } else if (msgObj.private === false && game._id === null && !msgListIDs.includes(msgObj._id)) {
         let newArr = [...messageList, msgObj]
         console.log(newArr)
         setMessageList(newArr)
-      } else if (msgObj.private === true && msgObj.room === room) {
+      } else if (msgObj.private === true && msgObj.room === room && !msgListIDs.includes(msgObj._id)) {
         let newArr = [...messageList, msgObj]
         console.log(newArr)
         setMessageList(newArr)
@@ -117,7 +120,7 @@ function App() {
       }
     });
     socket.on("getUnstartedGames", (list) => {
-      setGamesList(JSON.parse(list));
+      setGamesList(JSON.parse(list).data);
     });
     socket.on("markScore", (gameObj) => {
       let gameJSON = JSON.parse(gameObj);
@@ -192,8 +195,8 @@ function App() {
     socket.on("get rooms", (rooms) => {
       setGamesList(rooms);
     });
-    socket.on("get messages", (msgArr) => {
-      let parsedData = JSON.parse(msgArr)
+    socket.on("get messages", (msgObj) => {
+      let parsedData = JSON.parse(msgObj).data
       console.log(parsedData)
       parseMessages(parsedData)
     });
