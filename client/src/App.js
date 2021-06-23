@@ -13,7 +13,6 @@ import io from "socket.io"; //Production
 console.log(process.env);
 
 let socket = io() //Production
-console.log(socket.status)
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
@@ -119,6 +118,8 @@ function App() {
       return;
     } else if (!listening) {
       console.log('Running useEffect code')
+      console.log('Checking socket\'s connection status')
+      console.log(socket.status)
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
