@@ -212,11 +212,14 @@ function App() {
     socket.emit("get games", { started: false });
     setListening(true);
 
-    return () => {
-      socket.removeAllListeners();
-    };
+    //Development
+
+    
+    // return () => {
+    //   socket.removeAllListeners();
+    // };
     // }
-  });
+  }, []);
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////
