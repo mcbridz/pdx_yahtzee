@@ -13,7 +13,7 @@ import io from "socket.io"; //Production
 console.log(process.env);
 
 let socket = io() //Production
-console.log(socket)
+console.log(socket.status)
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
