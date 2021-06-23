@@ -114,8 +114,10 @@ function App() {
   useEffect(() => {
     //Production
     if (!credentials.username) {
+      console.log('Not running useEffect code')
       return;
     } else if (!listening) {
+      console.log('Running useEffect code')
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
