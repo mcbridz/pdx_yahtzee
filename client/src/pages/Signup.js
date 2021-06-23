@@ -31,6 +31,7 @@ const Signup = () => {
     if (newUser.password !== passwordVerify) {
       alert("Passwords do not match.");
     } else {
+      console.log(newUser)
       const options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -7,7 +7,7 @@ const Profile = (props) => {
     username: "",
     firstName: "",
     lastName: "",
-    email: "",
+    emailAddress: "",
   });
   // const [newPassword, setNewPassword] = useState("");
   const [preview, setPreview] = useState(null);
@@ -46,15 +46,20 @@ const Profile = (props) => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(response)
+        return response.json()
+      })
       .then((user) => {
+        console.log("RESPONSE FOR PROFILE")
+        console.log(user)
         setUpdateUser(user);
       });
   }
 
   useEffect(() => {
     getUserInfo();
-  });
+  }, []);
 
   return (
     <div>
@@ -105,12 +110,12 @@ const Profile = (props) => {
               onChange={handleChange}
               name="lastName"
             />
-            <label htmlFor="email">Email: </label>
+            <label htmlFor="emailAddress">Email Address: </label>
             <input
-              type="email"
-              value={updateUser.email}
+              type="emailAddress"
+              value={updateUser.emailAddress}
               onChange={handleChange}
-              name="email"
+              name="emailAddress"
             />
           </div>
         </form>
