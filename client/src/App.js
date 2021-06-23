@@ -8,15 +8,12 @@ import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
-import socket from "./ioFile" //Development
-// import io from "socket.io";
-
-// const socket = io()
-import socket from "./ioFile";
-
+// import socket from "./ioFile" //Development
+import io from "socket.io"; //Production
 console.log(process.env);
 
 function App() {
+  const socket = io() //Production
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
   const [room, setRoom] = useState("");
@@ -80,13 +77,7 @@ function App() {
   const [messageList, setMessageList] = useState([]);
 
   const [ourTurn, setOurTurn] = useState(false);
-  // let socket;
-  // if (process.env.NODE_ENV === "production") {
-  //   socket = io();
-  // } else {
-  //   console.log('CREATING SOCKET')
-  //   socket = io("http://localhost:8000", { transports: ["websocket"] });
-  // }
+
   const parseMessages = (msgArr) => {
     let msgListIDs = [];
     messageList.map((msg) => msgListIDs.push(msg._id));
