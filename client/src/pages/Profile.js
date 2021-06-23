@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Avatar from "react-avatar-edit";
+import { useHistory } from "react-router-dom";
 import "../styles/Profile.css";
 
 const Profile = (props) => {
@@ -12,6 +13,18 @@ const Profile = (props) => {
   // const [newPassword, setNewPassword] = useState("");
   const [preview, setPreview] = useState(null);
   const [avatar, setAvatar] = useState(null);
+
+  const history = useHistory();
+
+  const checkLoginStatus = useCallback(() => {
+    if (props.credentials.username === "") {
+      history.push("/login");
+    }
+  }, [props.credentials, history]);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, [checkLoginStatus]);
 
   function onClose() {
     newAvatar();

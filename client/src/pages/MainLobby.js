@@ -4,9 +4,9 @@ import { Link, useHistory } from "react-router-dom";
 import "../styles/MainLobby.css";
 
 const MainLobby = (props) => {
-  const history = useHistory();
-
   const createGame = props.createGame;
+  
+  const history = useHistory();
 
   const checkLoginStatus = useCallback(() => {
     if (props.credentials.username === "") {
