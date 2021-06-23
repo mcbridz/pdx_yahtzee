@@ -1,5 +1,5 @@
-import io from "socket.io"; //HEROKU
-// import io from "socket.io-client"; //DEVELOPMENT
+// import io from "socket.io"; //HEROKU
+import io from "socket.io-client"; //DEVELOPMENT
 let output;
   if (process.env.NODE_ENV === "production") {
     output = io();

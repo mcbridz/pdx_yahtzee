@@ -8,7 +8,10 @@ import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
-import socket from "./ioFile"
+// import socket from "./ioFile" //Development
+import io from "socket.io";
+
+const socket = io()
 
 console.log(process.env);
 
