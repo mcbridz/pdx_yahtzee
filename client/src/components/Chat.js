@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import io from "socket.io-client";
 import { IoIosSend } from "react-icons/io";
-import ScrollableFeed from 'react-scrollable-feed'
+import ScrollableFeed from "react-scrollable-feed";
 
 import "../styles/Chat.css";
 
@@ -25,12 +25,12 @@ const Chat = (props) => {
       private: !props.gameState._id ? false : true,
       username: props.credentials.username,
       text: props.message,
-      token: props.credentials.token
+      token: props.credentials.token,
     };
     // socket.emit("chat message", msg);
-    props.sendMessage(msg)
+    props.sendMessage(msg);
     // props.setMessageList([...props.messageList, msg]);
-    // props.setMessage("");
+    props.setMessage("");
   };
 
   const handleKeyDown = (e) => {
@@ -70,24 +70,24 @@ const Chat = (props) => {
   return (
     <div id="chatbox" className={"chat-container-" + version[props.version]}>
       <ScrollableFeed>
-      <div className={"chat-messages-" + version[props.version]}>
-        {props.messageList.map((msg, index) => {
-          return (
-            <div
-              className={
-                props.credentials.username !== "" ||
-                msg.author !== props.credentials.username
-                  ? "chat-message-you-" + version[props.version]
-                  : "chat-message-other-" + version[props.version]
-              }
-            >
-              <h2 key={index}>
-                {msg.username}: {msg.text}
-              </h2>
-            </div>
-          );
-        })}
-      </div>
+        <div className={"chat-messages-" + version[props.version]}>
+          {props.messageList.map((msg, index) => {
+            return (
+              <div
+                className={
+                  props.credentials.username !== "" ||
+                  msg.author !== props.credentials.username
+                    ? "chat-message-you-" + version[props.version]
+                    : "chat-message-other-" + version[props.version]
+                }
+              >
+                <h2 key={index}>
+                  {msg.username}: {msg.text}
+                </h2>
+              </div>
+            );
+          })}
+        </div>
       </ScrollableFeed>
       <div className={"chat-inputs-" + version[props.version]}>
         <input

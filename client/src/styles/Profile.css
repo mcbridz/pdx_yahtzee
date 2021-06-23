@@ -1,3 +1,9 @@
+.profile-container {
+  background: radial-gradient(yellow 1%, orange 10%, red 90%, darkred 100%);
+  min-height: 100vh;
+  margin-top: -40px;
+}
+
 #avatar-preview {
   height: 100px;
   width: 100px;
@@ -8,4 +14,49 @@
   flex-direction: row;
   justify-content: center;
   margin: 50px;
+}
+
+.edit-inputs {
+  display: flex;
+  flex-direction: column;
+  min-width: 850px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 170px;
+}
+
+.label-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-title {
+  font-family: Revue;
+  color: antiquewhite;
+  font-size: 50px;
+  padding-top: 50px;
+  text-shadow: -3px 0 darkred, 0 3px darkred, 3px 0 darkred, 0 -3px darkred;
+}
+
+.input-label {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.input {
+  min-width: 450px;
+  min-height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.edit-button {
+  background-color: darkred;
+  width: 200px;
+  font-family: Revue;
+  font-size: 28px;
+  color: antiquewhite;
+  border-radius: 8px;
+  margin-top: 20px;
 }
