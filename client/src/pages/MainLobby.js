@@ -61,6 +61,7 @@ const MainLobby = (props) => {
           messageList={props.messageList}
           setMessageList={props.setMessageList}
           gameState={props.gameState}
+          sendMessage={props.sendMessage}
         />
       </div>
     </div>

@@ -83,130 +83,131 @@ function App() {
   } else {
     socket = io("http://localhost:8000", { transports: ["websocket"] });
   }
-  useEffect(() => {
-    if (!credentials.username) {
-      return;
-    } else if (!listening) {
-      if (process.env.NODE_ENV === "production") {
-        // let host = location.origin.replace(/^http/, 'ws')
-        // console.log("Attempting to connect socket")
-        // socket = io( host, { transports: ["websocket"] });
+  const parseMessages = (msgArr) => {
+    msgArr.forEach((msgObj) => {
+      if (msgObj.private === true && msgObj.room === game._id) {
+        let newArr = [...messageList, msgObj]
+        console.log(newArr)
+        setMessageList(newArr)
+      } else if (msgObj.private === false && game._id === null) {
+        let newArr = [...messageList, msgObj]
+        console.log(newArr)
+        setMessageList(newArr)
+      } else if (msgObj.private === true && msgObj.room === room) {
+        let newArr = [...messageList, msgObj]
+        console.log(newArr)
+        setMessageList(newArr)
       }
+    })
+  }
+  useEffect(() => {
+    // if (!credentials.username) {
+    //   return;
+    // } else if (!listening) {
+    socket.on("createGame", (game) => {
+      const gamePlayers = JSON.parse(game).users.map((user) => {
+        return user.username;
+      });
 
-      socket.on("createGame", (game) => {
-        const gamePlayers = JSON.parse(game).users.map((user) => {
-          return user.username;
-        });
-
-        if (gamePlayers.includes(credentials.username)) {
-          console.log(JSON.parse(game));
-          setGame(JSON.parse(game));
-          //setting in-game flags for user (transition page)
-          history.push("/ingame");
-        }
-      });
-      socket.on("getUnstartedGames", (list) => {
-        setGamesList(JSON.parse(list));
-      });
-      socket.on("markScore", (gameObj) => {
-        let gameJSON = JSON.parse(gameObj);
-        console.log(gameJSON);
-        console.log(gameJSON.currentPlayer);
-        const currentPlayerScoreCard = gameJSON.scoreCards.filter(
-          (scoreCard) => credentials.username == scoreCard.player.trim()
-        )[0];
-        // console.log("currentPlayer.username", game.currentPlayer.username);
-        if (gameJSON.currentPlayer.username === credentials.username) {
-          setLocked(Array(numOfDice).fill(false));
-          setDice(Array.from({ length: numOfDice }));
-          setRolling(false);
-          setRollsRemaining(numOfRolls);
-          if (!ourTurn) {
-            setOurTurn(true);
-          }
-        } else {
-          setRollsRemaining(0);
-          setLocked(Array(numOfDice).fill(true));
-          setOurTurn(false);
-        }
-        console.log(currentPlayerScoreCard);
-        setGame(gameJSON);
-        setScoreCard(currentPlayerScoreCard);
-      });
-      socket.on("diceRoll", (dice) => {
-        if (!ourTurn) {
-          setDice(JSON.parse(dice));
-        }
-      });
-      socket.on("startGame", (game) => {
-        console.log("STARTED GAME");
-        const newGame = JSON.parse(game);
-        setGame(newGame);
-        console.log("newGame");
-        console.log(newGame);
-        let scorecard = newGame.scoreCards.filter(
-          (scorecard) => scorecard.player === credentials.username
-        )[0];
-        let opposingScoreCards = newGame.scoreCards.filter(
-          (scorecard) => scorecard.player !== credentials.username
-        );
-        setOpposingPlayers(opposingScoreCards);
-        // console.log("opposing scorecards", opposingScoreCards);
-        // console.log('scorecard')
-        // console.log(scorecard.player)
-        // console.log('credentials')
-        // console.log(credentials.username)
-        // console.log(scorecard.player.trim() === credentials.username.trim())
-        setScoreCard(scorecard);
-        // console.log('scoreCard')
-        // console.log(scoreCard)
-        console.log("game host", game.host);
-        if (newGame.currentPlayer.username === credentials.username) {
-          setOurTurn(true);
-        }
-      });
-      socket.on("endGame", (game) => {
-        setGame(JSON.parse(game));
-      });
-      socket.on("addPlayer", (game) => {
-        // console.log('new player added')
-        // console.log(JSON.parse(game))
-        setGame(JSON.parse(game));
-      });
-      socket.on("removePlayer", (game) => {
-        console.log("player removed on database");
+      if (gamePlayers.includes(credentials.username)) {
         console.log(JSON.parse(game));
         setGame(JSON.parse(game));
-      });
-      socket.on("get rooms", (rooms) => {
-        setGamesList(rooms);
-      });
-      socket.on("get messages", (msgObj) => {
-        console.log(msgObj);
-        if (msgObj.private === true && msgObj.room === game._id) {
-          io.in(msgObj.room).emit(msgObj.text);
-        } else if (msgObj.private === false && game._id === null) {
-          io.in("main_lobby").emit(msgObj.text);
-        } else if (msgObj.private === true && msgObj.room === room) {
-          //message meant for user -private room
+        //setting in-game flags for user (transition page)
+        history.push("/ingame");
+      }
+    });
+    socket.on("getUnstartedGames", (list) => {
+      setGamesList(JSON.parse(list));
+    });
+    socket.on("markScore", (gameObj) => {
+      let gameJSON = JSON.parse(gameObj);
+      console.log(gameJSON);
+      console.log(gameJSON.currentPlayer);
+      const currentPlayerScoreCard = gameJSON.scoreCards.filter(
+        (scoreCard) => credentials.username == scoreCard.player.trim()
+      )[0];
+      // console.log("currentPlayer.username", game.currentPlayer.username);
+      if (gameJSON.currentPlayer.username === credentials.username) {
+        setLocked(Array(numOfDice).fill(false));
+        setDice(Array.from({ length: numOfDice }));
+        setRolling(false);
+        setRollsRemaining(numOfRolls);
+        if (!ourTurn) {
+          setOurTurn(true);
         }
-      });
-      socket.on("get games", (games) => {
-        console.log("THESE GAMES RECEIVED");
-        // if (typeof (games) === "object") {
-        //   if (games._id) {
-        //     setGamesList(games)
-        //   }
-        //   return
-        // }
-        console.log(games);
-        setGamesList(games);
-      });
-      //emitters stay at the bottom
-      socket.emit("get games", { started: false });
-      setListening(true);
+      } else {
+        setRollsRemaining(0);
+        setLocked(Array(numOfDice).fill(true));
+        setOurTurn(false);
+      }
+      console.log(currentPlayerScoreCard);
+      setGame(gameJSON);
+      setScoreCard(currentPlayerScoreCard);
+    });
+    socket.on("diceRoll", (dice) => {
+      if (!ourTurn) {
+        setDice(JSON.parse(dice));
+      }
+    });
+    socket.on("startGame", (game) => {
+      console.log("STARTED GAME");
+      const newGame = JSON.parse(game);
+      setGame(newGame);
+      console.log("newGame");
+      console.log(newGame);
+      let scorecard = newGame.scoreCards.filter(
+        (scorecard) => scorecard.player === credentials.username
+      )[0];
+      let opposingScoreCards = newGame.scoreCards.filter(
+        (scorecard) => scorecard.player !== credentials.username
+      );
+      setOpposingPlayers(opposingScoreCards);
+      // console.log("opposing scorecards", opposingScoreCards);
+      // console.log('scorecard')
+      // console.log(scorecard.player)
+      // console.log('credentials')
+      // console.log(credentials.username)
+      // console.log(scorecard.player.trim() === credentials.username.trim())
+      setScoreCard(scorecard);
+      // console.log('scoreCard')
+      // console.log(scoreCard)
+      console.log("game host", game.host);
+      if (newGame.currentPlayer.username === credentials.username) {
+        setOurTurn(true);
+      }
+    });
+    socket.on("endGame", (game) => {
+      setGame(JSON.parse(game));
+    });
+    socket.on("addPlayer", (game) => {
+      // console.log('new player added')
+      // console.log(JSON.parse(game))
+      setGame(JSON.parse(game));
+    });
+    socket.on("removePlayer", (game) => {
+      console.log("player removed on database");
+      console.log(JSON.parse(game));
+      setGame(JSON.parse(game));
+    });
+    socket.on("get rooms", (rooms) => {
+      setGamesList(rooms);
+    });
+    socket.on("get messages", (msgArr) => {
+      let parsedData = JSON.parse(msgArr)
+      console.log(parsedData)
+      parseMessages(parsedData)
+    });
+    //emitters stay at the bottom
+    socket.emit("get games", { started: false });
+    setListening(true);
+
+
+
+    return () => {
+      socket.removeAllListeners();
     }
-  }, [credentials, listening]);
+    // }
+  });
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////
@@ -249,6 +250,10 @@ function App() {
   const joinGame = (userToken, gameID) => {
     socket.emit("addPlayer", { token: userToken, game: gameID });
   };
+
+  const sendMessage = (msgObj) => {
+    socket.emit("new message", JSON.stringify(msgObj))
+  }
 
   return (
     <div className="App">
@@ -294,6 +299,7 @@ function App() {
             setMessage={setMessage}
             messageList={messageList}
             setMessageList={setMessageList}
+            sendMessage={sendMessage}
           />
         </Route>
 
@@ -311,6 +317,7 @@ function App() {
             messageList={messageList}
             setMessageList={setMessageList}
             gameState={game}
+            sendMessage={sendMessage}
           />
         </Route>
 

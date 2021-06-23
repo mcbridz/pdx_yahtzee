@@ -114,6 +114,7 @@ const GameBoard = (props) => {
         gameState={props.gameState}
         messageList={props.messageList}
         setMessageList={props.setMessageList}
+        sendMessage={props.sendMessage}
       />
       <ScoreCard
         scoreCard={props.scoreCard}

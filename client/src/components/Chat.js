@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import io from "socket.io-client";
 import { IoIosSend } from "react-icons/io";
-// import ScrollableFeed from "react-scrollable-feed";
+import ScrollableFeed from 'react-scrollable-feed'
 
 import "../styles/Chat.css";
-
-let socket;
-const CONNECTION_PORT = "localhost:8000/";
 
 const Chat = (props) => {
   const scrollRef = React.createRef();
@@ -15,23 +12,25 @@ const Chat = (props) => {
   const version = ["inGame", "mainLobby", "preGameLobby"];
   const [chatBoxOpen, setChatBoxOpen] = useState(false);
 
-  const connectToRoom = useCallback(() => {
-    socket.emit(
-      "connect-to-room",
-      props.gameState._id === null ? "main_lobby" : props.gameState._id
-    );
-  }, [props.gameState._id]);
+  // const connectToRoom = useCallback(() => {
+  //   socket.emit(
+  //     "connect-to-room",
+  //     props.gameState._id === null ? "main_lobby" : props.gameState._id
+  //   );
+  // }, [props.gameState._id]);
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     let msg = {
       room: !props.gameState._id ? "main_lobby" : props.gameState._id,
       private: !props.gameState._id ? false : true,
       username: props.credentials.username,
       text: props.message,
+      token: props.credentials.token
     };
-    await socket.emit("chat message", msg);
-    props.setMessageList([...props.messageList, msg]);
-    props.setMessage("");
+    // socket.emit("chat message", msg);
+    props.sendMessage(msg)
+    // props.setMessageList([...props.messageList, msg]);
+    // props.setMessage("");
   };
 
   const handleKeyDown = (e) => {
@@ -60,17 +59,17 @@ const Chat = (props) => {
     }
   };
 
-  useEffect(() => {
-    socket = io(CONNECTION_PORT);
-    connectToRoom();
-    socket.on("get messages", (data) => {
-      props.setMessageList([...props.messageList, data]);
-    });
-  }, [props, connectToRoom]);
+  // useEffect(() => {
+  //   socket = io(CONNECTION_PORT);
+  //   connectToRoom();
+  //   socket.on("get messages", (data) => {
+  //     props.setMessageList([...props.messageList, data]);
+  //   });
+  // }, [props, connectToRoom]);
 
   return (
     <div id="chatbox" className={"chat-container-" + version[props.version]}>
-      {/* <ScrollableFeed> */}
+      <ScrollableFeed>
       <div className={"chat-messages-" + version[props.version]}>
         {props.messageList.map((msg, index) => {
           return (
@@ -89,7 +88,7 @@ const Chat = (props) => {
           );
         })}
       </div>
-      {/* </ScrollableFeed> */}
+      </ScrollableFeed>
       <div className={"chat-inputs-" + version[props.version]}>
         <input
           type="text"
