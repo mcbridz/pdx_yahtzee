@@ -12,8 +12,8 @@ import Profile from "./pages/Profile";
 import io from "socket.io"; //Production
 console.log(process.env);
 
+let socket = io() //Production
 function App() {
-  let socket = io() //Production
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
   const [room, setRoom] = useState("");
