@@ -80,92 +80,91 @@ function App() {
   function cloneObject(obj) {
     var clone = {};
     for (var i in obj) {
-      if (typeof (obj[i]) == "object" && obj[i] != null)
+      if (typeof obj[i] == "object" && obj[i] != null)
         clone[i] = cloneObject(obj[i]);
-      else
-        clone[i] = obj[i];
+      else clone[i] = obj[i];
     }
     return clone;
   }
-  
+
   const copyMessageData = (msgArr, newMsg) => {
-    let newMessageArr = []
+    let newMessageArr = [];
     msgArr.forEach((msgObj) => {
-      let newObj = cloneObject(msgObj)
-      console.log("PUSHING THIS OLD MESSAGE")
-      newMessageArr.push(newObj)
-    })
-    console.log(newMessageArr)
-    console.log("PUSHING THE FOLLOWING MESSAGE")
-    console.log(newMsg)
-    const count = newMessageArr.push(newMsg)
-    console.log("NEW MESSAGE ARRAY IS NOW LENGTH: " + count.toString())
-    return newMessageArr
-  }
-
-
+      let newObj = cloneObject(msgObj);
+      console.log("PUSHING THIS OLD MESSAGE");
+      newMessageArr.push(newObj);
+    });
+    console.log(newMessageArr);
+    console.log("PUSHING THE FOLLOWING MESSAGE");
+    console.log(newMsg);
+    const count = newMessageArr.push(newMsg);
+    console.log("NEW MESSAGE ARRAY IS NOW LENGTH: " + count.toString());
+    return newMessageArr;
+  };
 
   const parseMessages = (msgArr, propMessageList) => {
     // console.log(msgArr)
-    console.log(propMessageList)
+    console.log(propMessageList);
     let msgListIDs = [];
     propMessageList.map((msg) => msgListIDs.push(msg._id));
     console.log(msgListIDs);
-    console.log("Message List PRIOR to adding message")
+    console.log("Message List PRIOR to adding message");
     console.log(msgArr);
-    var newArr = []
+    var newArr = [];
     msgArr.forEach((msgObj) => {
       if (
         msgObj.private === true &&
         msgObj.room === game._id &&
         !msgListIDs.includes(msgObj._id)
       ) {
-        newArr.push(msgObj)
+        newArr.push(msgObj);
         console.log(newArr);
       } else if (
         msgObj.private === false &&
         game._id === null &&
         !msgListIDs.includes(msgObj._id)
       ) {
-        newArr.push(msgObj)
+        newArr.push(msgObj);
         console.log(newArr);
       } else if (
         msgObj.private === true &&
         msgObj.room === room &&
         !msgListIDs.includes(msgObj._id)
       ) {
-        newArr.push(msgObj)
+        newArr.push(msgObj);
         console.log(newArr);
       }
-      console.log('END OF PARSE MESSAGE FOREACH ON INCOMING ARR')
-      console.log(newArr)
+      console.log("END OF PARSE MESSAGE FOREACH ON INCOMING ARR");
+      console.log(newArr);
     });
-    return newArr
+    return newArr;
   };
   useEffect(() => {
     //Production
     if (!credentials.username) {
-      console.log('Not running useEffect code, trying set construct socket and set listeners for connect/disconnect')
+      console.log(
+        "Not running useEffect code, trying set construct socket and set listeners for connect/disconnect"
+      );
       // let socket = io() //Production
-      socket.on("connect", () => console.log(socket.connected))
-      socket.on("disconnect", () => console.log(socket.connected))
+      socket.on("connect", () => console.log(socket.connected));
+      socket.on("disconnect", () => console.log(socket.connected));
       socket.on("get messages", (msgObj) => {
         let parsedData = JSON.parse(msgObj).data;
         console.log(parsedData);
         let newMessages = parseMessages(parsedData, messageList);
-        console.log("newMessages")
-        console.log(newMessages)
+        console.log("newMessages");
+        console.log(newMessages);
         // let tempArr = messageList
-        let toBeSetArr = messageList.concat(newMessages)
-        console.log("The best named Arr ever")
-        console.log(toBeSetArr)
-        setMessageList(toBeSetArr)
+        let toBeSetArr = messageList.concat(newMessages);
+        console.log("The best named Arr ever");
+        console.log(toBeSetArr);
+        setMessageList(toBeSetArr);
       });
       return;
     } else if (!listening) {
-      console.log('Running useEffect code')
-      console.log('Checking socket\'s connection status')
-      console.log(socket.connected)
+      console.log("Running useEffect code");
+      console.log("Checking socket's connection status");
+      console.log(socket.connected);
       socket.on("createGame", (game) => {
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
@@ -180,6 +179,12 @@ function App() {
       });
       socket.on("getUnstartedGames", (list) => {
         setGamesList(JSON.parse(list).data);
+      });
+      socket.on("get games", (gamesObj) => {
+        console.log(gamesObj);
+        let gamesArr = gamesObj.data;
+        console.log(gamesArr);
+        setGamesList(gamesArr);
       });
       socket.on("markScore", (gameObj) => {
         let gameJSON = JSON.parse(gameObj);
@@ -259,7 +264,6 @@ function App() {
       setListening(true);
 
       //Development
-
 
       // return () => {
       //   socket.removeAllListeners();
