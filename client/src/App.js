@@ -114,7 +114,9 @@ function App() {
   useEffect(() => {
     //Production
     if (!credentials.username) {
-      console.log('Not running useEffect code')
+      console.log('Not running useEffect code, setting listener for connect/disconnect')
+      socket.on("connect", () => console.log(socket.connected))
+      socket.on("disconnect", () => console.log(socket.connected))
       return;
     } else if (!listening) {
       console.log('Running useEffect code')
