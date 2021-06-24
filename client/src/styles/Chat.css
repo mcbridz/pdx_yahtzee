@@ -1,8 +1,13 @@
 /*  IN GAME LOBBY CSS */
 
+#closeChatBtn {
+  width: 60px;
+  background-color: darkgrey;
+}
+
 .chat-container-inGame {
   width: 0px;
-  height: 350px;
+  height: 550px;
   border: 3px solid black;
   border-radius: 10px;
   display: flex;
@@ -17,14 +22,14 @@
   z-index: 1;
   transition: 0.5s;
 }
-
+/* 
 .chat-container-inGame .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
-}
+} */
 
 .chat-messages-inGame {
   flex: 85%;
@@ -115,8 +120,8 @@
 */
 
 .chat-container-mainLobby {
-  width: 700px;
-  height: 450px;
+  width: 600px;
+  height: 500px;
   border: 3px solid black;
   border-radius: 10px;
   display: flex;
@@ -201,7 +206,8 @@
 }
 
 #sendButton {
-  display: none;
+  padding-top: 10px;
+  /* display: none; */
 }
 
 /*   PREGAME LOBBY CSS   */

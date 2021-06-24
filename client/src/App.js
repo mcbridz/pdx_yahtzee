@@ -177,9 +177,9 @@ function App() {
           history.push("/ingame");
         }
       });
-      socket.on("getUnstartedGames", (list) => {
-        setGamesList(JSON.parse(list).data);
-      });
+      // socket.on("getUnstartedGames", (list) => {
+      //   setGamesList(JSON.parse(list).data);
+      // });
       socket.on("get games", (gamesObj) => {
         console.log(gamesObj);
         let gamesArr = gamesObj.data;

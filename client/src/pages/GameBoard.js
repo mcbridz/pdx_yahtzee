@@ -100,7 +100,10 @@ const GameBoard = (props) => {
             />
           </div>
         ) : (
-          <button onClick={props.startGame(props.gameState._id)}>
+          <button
+            onClick={props.startGame(props.gameState._id)}
+            disabled={props.gameState.host !== props.credentials.username}
+          >
             Start Game
           </button>
         )}

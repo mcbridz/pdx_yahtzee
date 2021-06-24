@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import io from "socket.io-client";
 import { IoIosSend } from "react-icons/io";
+import { BsChat } from "react-icons/bs";
 import ScrollableFeed from "react-scrollable-feed";
 
 import "../styles/Chat.css";
@@ -41,13 +42,13 @@ const Chat = (props) => {
 
   const openChat = function () {
     document.getElementById("chatbox").style.width = "400px";
-    document.getElementById("sendButton").style.display = "inline";
+    // document.getElementById("openChatBtn").style.display = "inline";
     setChatBoxOpen(true);
   };
 
   const closeChat = function () {
     document.getElementById("chatbox").style.width = "0px";
-    document.getElementById("sendButton").style.display = "none";
+    // document.getElementById("openChatBtn").style.display = "none";
     setChatBoxOpen(false);
   };
 
@@ -68,7 +69,12 @@ const Chat = (props) => {
   // }, [props, connectToRoom]);
 
   return (
-    <div id="chatbox" className={"chat-container-" + version[props.version]}>
+    
+    <div
+      id={props.gameState._id ? "chatbox" : ""}
+      className={"chat-container-" + version[props.version]}
+      
+    >
       <ScrollableFeed>
         <div className={"chat-messages-" + version[props.version]}>
           {props.messageList.map((msg, index) => {
@@ -76,7 +82,7 @@ const Chat = (props) => {
               <div
                 className={
                   props.credentials.username !== "" ||
-                  msg.author !== props.credentials.username
+                  msg.username !== props.credentials.username
                     ? "chat-message-you-" + version[props.version]
                     : "chat-message-other-" + version[props.version]
                 }
@@ -99,25 +105,40 @@ const Chat = (props) => {
           value={props.message}
           onKeyDown={handleKeyDown}
         />
-        <button
-          id="sendButton"
-          onClick={sendMessage}
-          disabled={props.message === ""}
-        >
+        {props.gameState._id === null ? (
+          <button
+            id="sendButton"
+            onClick={sendMessage}
+            disabled={props.message === ""}
+          >
+            <IoIosSend
+              color="white"
+              size={44}
+              id={"send" + version[props.version]}
+            />
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
+      {props.gameState._id && chatBoxOpen ? (
+        <button id="openChatBtn" onClick={openChatManager}>
           <IoIosSend
             color="white"
             size={44}
             id={"send" + version[props.version]}
           />
         </button>
-      </div>
-      <button id="openChatBtn" onClick={openChatManager}>
-        <IoIosSend
-          color="white"
-          size={44}
-          id={"send" + version[props.version]}
-        />
-      </button>
+      ) : (
+        ""
+      )}
+      {props.gameState._id && !chatBoxOpen ? (
+        <button id="closeChatBtn" onClick={openChatManager}>
+          <BsChat color="white" size={44} />
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
