@@ -103,16 +103,23 @@ module.exports = function (deps) {
       });
       // console.log(usernameList)
       Game.createGame(usernameList, order.public).then(async (game) => {
+        //Emit game first
         // console.log(JSON.stringify(game))
+        io.emit("createGame", JSON.stringify(game));
+
+
+        //GetGames second, async buffer for client
         console.log("backbone.js");
         console.log(game);
+        const games = await Game.getGames({ public: true, started: false });
+        io.emit("get games", { data: games });
+
+
+        //Message Last, hopefully client has received createGame emit and emptied messageList
         newMessage = await Message.systemMessage("Game Created", game.room);
         console.log("SYSTEM CREATE GAME MESSAGE");
         console.log(newMessage);
-        io.emit("createGame", JSON.stringify(game));
         io.emit("get messages", JSON.stringify({ data: [newMessage] }));
-        const games = await Game.getGames({ public: true, started: false });
-        io.emit("get games", { data: games });
       });
     });
 

@@ -77,39 +77,14 @@ function App() {
 
   const [ourTurn, setOurTurn] = useState(false);
 
-  function cloneObject(obj) {
-    var clone = {};
-    for (var i in obj) {
-      if (typeof obj[i] == "object" && obj[i] != null)
-        clone[i] = cloneObject(obj[i]);
-      else clone[i] = obj[i];
-    }
-    return clone;
-  }
-
-  const copyMessageData = (msgArr, newMsg) => {
-    let newMessageArr = [];
-    msgArr.forEach((msgObj) => {
-      let newObj = cloneObject(msgObj);
-      console.log("PUSHING THIS OLD MESSAGE");
-      newMessageArr.push(newObj);
-    });
-    console.log(newMessageArr);
-    console.log("PUSHING THE FOLLOWING MESSAGE");
-    console.log(newMsg);
-    const count = newMessageArr.push(newMsg);
-    console.log("NEW MESSAGE ARRAY IS NOW LENGTH: " + count.toString());
-    return newMessageArr;
-  };
-
   const parseMessages = (msgArr, propMessageList) => {
     // console.log(msgArr)
-    console.log(propMessageList);
+    // console.log(propMessageList);
     let msgListIDs = [];
     propMessageList.map((msg) => msgListIDs.push(msg._id));
-    console.log(msgListIDs);
-    console.log("Message List PRIOR to adding message");
-    console.log(msgArr);
+    // console.log(msgListIDs);
+    // console.log("Message List PRIOR to adding message");
+    // console.log(msgArr);
     var newArr = [];
     msgArr.forEach((msgObj) => {
       if (
@@ -134,8 +109,8 @@ function App() {
         newArr.push(msgObj);
         console.log(newArr);
       }
-      console.log("END OF PARSE MESSAGE FOREACH ON INCOMING ARR");
-      console.log(newArr);
+      // console.log("END OF PARSE MESSAGE FOREACH ON INCOMING ARR");
+      // console.log(newArr);
     });
     return newArr;
   };
@@ -163,14 +138,19 @@ function App() {
       });
       return;
     } else if (!listening) {
-      console.log("Running useEffect code");
-      console.log("Checking socket's connection status");
-      console.log(socket.connected);
+      // console.log("Running useEffect code");
+      // console.log("Checking socket's connection status");
+      // console.log(socket.connected);
       socket.on("createGame", (game) => {
+        console.log("createGame listener fired")
+        console.log("Emptying message list")
+        const defaultArray = []
+        setMessageList(defaultArray)
+        console.log("setMessageList set to empty array, current messageList: ")
+        console.log(messageList)
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
         });
-
         if (gamePlayers.includes(credentials.username)) {
           console.log(JSON.parse(game));
           setGame(JSON.parse(game));
@@ -272,21 +252,21 @@ function App() {
 
       //Production
     }
-  }, [credentials, listening, messageList]);
+  }, [credentials, listening, messageList, setMessageList]);
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////
 
-  //the below will need to be updated as we develop the invite system
-  //and options for public or private games
-  const createGame = function (playerList, isPrivate) {
-    console.log("PLAYER");
-    console.log(credentials);
-    socket.emit("createGame", {
-      public: true,
-      playerList: [credentials.token],
-    });
-  };
+  const createGame = function () {
+    return (playerList, isPrivate) => {
+      console.log("PLAYER");
+      console.log(credentials);
+      socket.emit("createGame", {
+        public: true,
+        playerList: [credentials.token],
+      });
+    };
+  }
 
   const markScore = function (taskObj) {
     console.log("Sending the following task: ");
@@ -375,7 +355,7 @@ function App() {
             setInPreGameLobby={setInPreGameLobby}
             gamesList={gamesList}
             setGamesList={setGamesList}
-            createGame={createGame}
+            createGame={createGame()}
             joinGame={joinGame}
             message={message}
             setMessage={setMessage}
