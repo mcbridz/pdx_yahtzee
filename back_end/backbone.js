@@ -206,6 +206,9 @@ module.exports = function (deps) {
     socket.on("get rooms", (filter) => {
       io.emit("get rooms", Room.getRooms(filter));
     });
+    socket.on("test", (data) => {
+      io.emit("test", data)
+    })
     
     setInterval(() => {
       console.log("PUH-PUH")
