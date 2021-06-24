@@ -8,11 +8,10 @@ import Signup from "./pages/Signup";
 import Landing from "./pages/Landing";
 import MainLobby from "./pages/MainLobby";
 import Profile from "./pages/Profile";
-// import socket from "./ioFile" //Development
-import io from "socket.io"; //Production
+import socket from "./ioFile" //Development
+// import io from "socket.io"; //Production
 console.log(process.env);
 
-let socket = io() //Production
 function App() {
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
@@ -114,7 +113,8 @@ function App() {
   useEffect(() => {
     //Production
     if (!credentials.username) {
-      console.log('Not running useEffect code, setting listener for connect/disconnect')
+      console.log('Not running useEffect code, trying set construct socket and set listeners for connect/disconnect')
+      // let socket = io() //Production
       socket.on("connect", () => console.log(socket.connected))
       socket.on("disconnect", () => console.log(socket.connected))
       return;
