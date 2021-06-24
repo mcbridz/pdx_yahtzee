@@ -1,4 +1,3 @@
-// import io from "socket.io"; //HEROKU
 import io from "socket.io-client"; //DEVELOPMENT
 var output;
 if (process.env.NODE_ENV === "production") {

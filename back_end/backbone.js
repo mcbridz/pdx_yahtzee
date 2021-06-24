@@ -73,7 +73,15 @@ module.exports = function (deps) {
       let games = await Game.getUnstartedGames();
       io.emit(JSON.stringify({ data: games }));
     });
-    let messages = JSON.stringify({ data: await Message.getMessages({ private: false }) })
+    let messageArr = await Message.getMessages({ private: false })
+    console.log('messageArr')
+    console.log(messageArr)
+    let messagePackage = { data: messageArr }
+    console.log('messagePackage')
+    console.log(messagePackage)
+    let messagePackageStr = JSON.stringify(messagePackage)
+    // let messages = JSON.stringify({ data: await Message.getMessages({ private: false }) })
+    let messages = messagePackageStr
     console.log('Sending Messages')
     socket.emit("get messages", messages)
 
@@ -206,9 +214,6 @@ module.exports = function (deps) {
     socket.on("get rooms", (filter) => {
       io.emit("get rooms", Room.getRooms(filter));
     });
-    socket.on("test", (data) => {
-      io.emit("test", data)
-    })
     
     setInterval(() => {
       console.log("PUH-PUH")
