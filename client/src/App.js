@@ -107,6 +107,7 @@ function App() {
 
   const parseMessages = (msgArr, propMessageList) => {
     // console.log(msgArr)
+    console.log(propMessageList)
     let msgListIDs = [];
     propMessageList.map((msg) => msgListIDs.push(msg._id));
     console.log(msgListIDs);
@@ -266,7 +267,7 @@ function App() {
 
       //Production
     }
-  }, [credentials, listening]);
+  }, [credentials, listening, messageList]);
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////

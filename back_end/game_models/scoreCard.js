@@ -100,6 +100,9 @@ scoreCardSchema.methods.updateScore = function () {
     upperSectionTotal += subtotal;
   }
   this.upperSectionTotal = upperSectionTotal;
+  if (upperSectionTotal >= 63) {
+    this.bonus = 35
+  } 
   let lowerSectionTotal = 0;
   for (let i = 0; i < lowerSectionRef.length; i++) {
     let subtotal = this.lowerSection[i][lowerSectionRef[i]];
