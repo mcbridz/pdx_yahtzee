@@ -405,3 +405,10 @@ Mini version
   display: flex;
   flex-direction: column;
 }
+
+.opponent-title {
+  width: 50px;
+  background-color: darkred;
+  color: antiquewhite;
+  border-radius: 3px;
+}

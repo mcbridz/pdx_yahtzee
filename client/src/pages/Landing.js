@@ -15,9 +15,15 @@ const Landing = () => {
       </div>
       <div id="site-description">
         {/* <h2>Welcome to Yahtzee!</h2> */}
-        <p>Come play Yahtzee online with your friends...</p>
-        <p>Uses socket.io to allow you to play and chat in real time...</p>
-        <p>Not sure what to put here yet...</p>
+        <p>Come play Yahtzee online with your friends!</p>
+        <p>
+          This project uses socket.io to allow you to play and chat in real
+          time.
+        </p>
+        <p>
+          Created as a capstone project for PDX Code Guild's Advanced Javascript
+          Course.
+        </p>
         <p id="login-p">
           <Link to="/login" className="landing-link">
             Log In

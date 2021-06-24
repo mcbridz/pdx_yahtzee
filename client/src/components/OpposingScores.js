@@ -17,16 +17,16 @@ const OpposingScores = (props) => {
   //   opposingPlayerScorecards();
   // }, [opposingPlayerScorecards]);
   // return ({gameState.started ? opposingPlayerScorecards : ''})
-  const [selectedCard, setSelectedScoreCard] = useState(0);
+  const [selectedCard, setSelectedScoreCard] = useState(null);
   const [showScoreCards, setShowScoreCards] = useState(false);
 
   const changeHandler = (index) => {
     return () => {
       console.log("changing selected card to " + index.toString());
       const showing = showScoreCards;
-      if (!showing) {
-        hideScoreCards();
-      }
+      // if (!showing) {
+      //   hideScoreCards();
+      // }
       document.getElementById("oppossingScoreCard" + selectedCard).display =
         "none";
       document.getElementById("oppossingScoreCard" + index).display = "block";
@@ -36,7 +36,11 @@ const OpposingScores = (props) => {
 
   const makeButtons = (opposingPlayerScoreCards) => {
     return opposingPlayerScoreCards.map((opponent, i) => {
-      return <button onClick={changeHandler(i)}>{opponent.player}</button>;
+      return (
+        <button onClick={changeHandler(i)}>
+          {opponent.player} - {opponent.grandTotal}
+        </button>
+      );
     });
   };
 

@@ -7,3 +7,12 @@
   font-size: 28px;
   color: antiquewhite;
 }
+
+.start-game-button {
+  width: 200px;
+  background-color: darkred;
+  font-family: Revue;
+  color: antiquewhite;
+  font-size: 30px;
+  border-radius: 5px;
+}

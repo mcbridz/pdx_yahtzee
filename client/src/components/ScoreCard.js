@@ -181,6 +181,7 @@ const ScoreCard = (props) => {
               className={
                 ourTurn &&
                 dice[0] !== undefined &&
+                props.version === 0 &&
                 !scoreCard.upperSection[0].marked
                   ? "upper-scores-category-title gold"
                   : "upper-scores-category-title" + version[props.version]
@@ -215,6 +216,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.upperSection[3].marked
                   ? "upper-scores-category-title gold"
@@ -250,6 +252,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.upperSection[1].marked
                   ? "upper-scores-category-title gold"
@@ -282,6 +285,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.upperSection[4].marked
                   ? "upper-scores-category-title gold"
@@ -316,6 +320,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.upperSection[2].marked
                   ? "upper-scores-category-title gold"
@@ -350,6 +355,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.upperSection[5].marked
                   ? "upper-scores-category-title gold"
@@ -440,6 +446,7 @@ const ScoreCard = (props) => {
               className={
                 ourTurn &&
                 dice[0] !== undefined &&
+                props.version === 0 &&
                 !scoreCard.lowerSection[0].marked
                   ? "upper-scores-category-title gold"
                   : "upper-scores-category-title" + version[props.version]
@@ -468,6 +475,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.lowerSection[3].marked
                   ? "upper-scores-category-title gold"
@@ -499,6 +507,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.lowerSection[1].marked
                   ? "upper-scores-category-title gold"
@@ -528,6 +537,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.lowerSection[4].marked
                   ? "upper-scores-category-title gold"
@@ -559,6 +569,7 @@ const ScoreCard = (props) => {
               colSpan="2"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.lowerSection[2].marked
                   ? "upper-scores-category-title gold"
@@ -589,6 +600,7 @@ const ScoreCard = (props) => {
               id="yahtzee2big"
               className={
                 ourTurn &&
+                props.version === 0 &&
                 dice[0] !== undefined &&
                 !scoreCard.lowerSection[5].marked
                   ? "upper-scores-category-title gold"
@@ -663,6 +675,7 @@ const ScoreCard = (props) => {
                 id="chance"
                 className={
                   ourTurn &&
+                  props.version === 0 &&
                   dice[0] !== undefined &&
                   !scoreCard.lowerSection[6].marked
                     ? "upper-scores-category-title gold"
