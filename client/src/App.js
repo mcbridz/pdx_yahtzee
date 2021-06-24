@@ -149,6 +149,7 @@ function App() {
       socket.on("connect", () => console.log(socket.connected));
       socket.on("disconnect", () => console.log(socket.connected));
       socket.on("get messages", (msgObj) => {
+        console.log(msgObj);
         let parsedData = JSON.parse(msgObj).data;
         console.log(parsedData);
         let newMessages = parseMessages(parsedData, messageList);

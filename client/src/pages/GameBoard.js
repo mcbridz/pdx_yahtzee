@@ -73,7 +73,9 @@ const GameBoard = (props) => {
         {props.gameState.started ? (
           <div>
             {!props.ourTurn ? (
-              <p>{props.gameState.currentPlayer.username}'s turn</p>
+              <p className="other-players-turn">
+                {props.gameState.currentPlayer.username}'s turn
+              </p>
             ) : (
               ""
             )}
@@ -134,7 +136,7 @@ const GameBoard = (props) => {
         markScore={props.markScore}
         gameState={props.gameState}
         ourTurn={props.ourTurn}
-        version={0}
+        version={1}
         opposingPlayers={props.opposingPlayers}
       />
     </div>
