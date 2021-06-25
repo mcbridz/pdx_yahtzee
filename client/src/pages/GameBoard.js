@@ -52,6 +52,7 @@ const GameBoard = (props) => {
           <div>{scoreCard.grandTotal}</div>
         </div>)
       })
+      console.log(endGameScreen)
       setEndGame(endGameScreen)
     }
   }, [props.gameState])
@@ -155,7 +156,9 @@ const GameBoard = (props) => {
       </div>      
       ) :
         <div className="endGameScoreContainer">
-          {endGame.forEach(playerScore => { return playerScore })}
+          {endGame.forEach(playerScore => {
+            return playerScore
+          })}
         </div>}
     </div>
   );
