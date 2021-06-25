@@ -105,14 +105,14 @@ function App() {
     console.log(msgListIDs);
     var newArr = [];
     msgArr.forEach((msgObj) => {
-      console.log(msgObj)
-      console.log("msgObj.private === true")
-      console.log("msgObj.private" + msgObj.private.toString())
-      console.log(msgObj.private === true)
-      console.log("msgObj.room === game.room")
-      console.log("msgObj.room: " + msgObj.room.toString())
-      console.log("game.room: " + game.room.toString())
-      console.log(msgObj.room === game.room)
+      // console.log(msgObj)
+      // console.log("msgObj.private === true")
+      // console.log("msgObj.private" + msgObj.private.toString())
+      // console.log(msgObj.private === true)
+      // // console.log("msgObj.room === game.room")
+      // console.log("msgObj.room: " + msgObj.room.toString())
+      // console.log("game.room: " + game.room.toString())
+      // console.log(msgObj.room === game.room)
       if (
         msgObj.private === true &&
         msgObj.room === game.room &&

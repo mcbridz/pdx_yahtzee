@@ -1,6 +1,7 @@
 #dice-btn-container {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-bottom: 25px;
+  margin-top: -260px;
 }
 
 .other-players-turn {
