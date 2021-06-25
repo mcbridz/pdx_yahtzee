@@ -193,7 +193,7 @@ function App() {
         // console.log(gameJSON);
         // console.log(gameJSON.currentPlayer);
         const currentPlayerScoreCard = gameJSON.scoreCards.filter(
-          (scoreCard) => credentials.username == scoreCard.player.trim()
+          (scoreCard) => credentials.username === scoreCard.player.trim()
         )[0];
         let opposingScoreCards = gameJSON.scoreCards.filter(
           (scorecard) => scorecard.player !== credentials.username
@@ -279,7 +279,7 @@ function App() {
 
       //Production
     }
-  }, [credentials, listening, messageList, setMessageList, game]);
+  }, [credentials, listening, messageList, setMessageList, game, history, ourTurn]);
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////

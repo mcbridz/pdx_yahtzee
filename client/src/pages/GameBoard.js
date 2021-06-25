@@ -46,7 +46,7 @@ const GameBoard = (props) => {
     if(!props.gameState.started && props.gameState.turnNum > 0) {
       console.log("endGame triggered")
       let endGameScreen = []
-      props.gameState.scoreCards.map((scoreCard, index) => {
+      props.gameState.scoreCards.forEach((scoreCard, index) => {
         endGameScreen.push(<div key={"endGameScoreEntry" + index}>
           <div className="endGameScreenPlayerName">{scoreCard.player}</div>
           <div>{scoreCard.grandTotal}</div>
@@ -133,7 +133,8 @@ const GameBoard = (props) => {
         setMessageList={props.setMessageList}
         sendMessage={props.sendMessage}
       /> */}
-      <ScoreCard
+      {(endGame.length === 0) ? (<div>
+        <ScoreCard
         scoreCard={props.scoreCard}
         dice={dice}
         markScore={props.markScore}
@@ -151,6 +152,11 @@ const GameBoard = (props) => {
         version={1}
         opposingPlayers={props.opposingPlayers}
       />
+      </div>      
+      ) :
+        <div className="endGameScoreContainer">
+          {endGame.forEach(playerScore => { return playerScore })}
+        </div>}
     </div>
   );
 };
