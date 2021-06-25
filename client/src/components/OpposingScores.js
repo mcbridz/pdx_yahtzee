@@ -17,20 +17,23 @@ const OpposingScores = (props) => {
   //   opposingPlayerScorecards();
   // }, [opposingPlayerScorecards]);
   // return ({gameState.started ? opposingPlayerScorecards : ''})
-  const [selectedCard, setSelectedScoreCard] = useState(null);
+  const [selectedCard, setSelectedScoreCard] = useState(0);
   const [showScoreCards, setShowScoreCards] = useState(false);
 
   const changeHandler = (index) => {
     return () => {
       console.log("changing selected card to " + index.toString());
+      
       const showing = showScoreCards;
-      // if (!showing) {
-      //   hideScoreCards();
-      // }
-      document.getElementById("oppossingScoreCard" + selectedCard).display =
-        "none";
-      document.getElementById("oppossingScoreCard" + index).display = "block";
-      setSelectedScoreCard(index);
+      console.log(showing)
+      if (!showing) {
+        hideScoreCards();
+      }
+      // document.getElementById("oppossingScoreCard" + selectedCard).display =
+      //   "none";
+      // document.getElementById("oppossingScoreCard" + index).display = "block";
+      // setSelectedScoreCard(index);
+      setSelectedScoreCard(index)
     };
   };
 
@@ -45,14 +48,16 @@ const OpposingScores = (props) => {
   };
 
   const hideScoreCards = () => {
+    console.log("hideScoreCards fired")
     if (!showScoreCards) {
-      document.getElementById("buttonsAndCardFlexBox").style.width = "0px";
-      // document.getElementById("buttonsAndCardFlexBox").style.display = "none";
-      setShowScoreCards(false);
-    } else {
+      console.log("Setting buttonsAndCardFlexBox width to inherit")
       document.getElementById("buttonsAndCardFlexBox").style.width = "inherit";
       // document.getElementById("buttonsAndCardFlexBox").style.display = "flex";
       setShowScoreCards(true);
+    } else {
+      document.getElementById("buttonsAndCardFlexBox").style.width = "0px";
+      // document.getElementById("buttonsAndCardFlexBox").style.display = "none";
+      setShowScoreCards(false);
     }
   };
 

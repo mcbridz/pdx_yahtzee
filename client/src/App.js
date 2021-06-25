@@ -142,11 +142,6 @@ function App() {
       // console.log("Checking socket's connection status");
       // console.log(socket.connected);
       socket.on("createGame", (game) => {
-        console.log("createGame listener fired")
-        console.log("Emptying message list")
-        const defaultArray = []
-        setMessageList(defaultArray)
-        console.log("setMessageList set to empty array, current messageList: ")
         console.log(messageList)
         const gamePlayers = JSON.parse(game).users.map((user) => {
           return user.username;
