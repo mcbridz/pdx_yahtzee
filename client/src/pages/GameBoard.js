@@ -156,7 +156,7 @@ const GameBoard = (props) => {
       </div>      
       ) :
         <div className="endGameScoreContainer">
-          {endGame.forEach(playerScore => {
+          {endGame.map(playerScore => {
             return playerScore
           })}
         </div>}
