@@ -119,7 +119,7 @@ module.exports = function (deps) {
         newMessage = await Message.systemMessage("Game Created", game.room);
         console.log("SYSTEM CREATE GAME MESSAGE");
         console.log(newMessage);
-        io.emit("get messages", JSON.stringify({ data: [newMessage] }));
+        setTimeout(() => { io.emit("get messages", JSON.stringify({ data: [newMessage] })); }, 2000)
       });
     });
 

@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
 import GameBoard from "./pages/GameBoard";
 import NavBar from "./components/NavBar";
@@ -13,6 +13,8 @@ import socket from "./ioFile"; //Development
 console.log(process.env);
 
 function App() {
+  const testRef = useRef()
+  testRef.current = "default"
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
   const [room, setRoom] = useState("");
@@ -26,6 +28,16 @@ function App() {
     currentPlayer: { id: "", username: "" },
     host: "",
   });
+
+  // const testGame = {
+  //   _id: "null",
+  //   users: [{user: mcbridz, token: "123455"}],
+  //   scoreCards: [],
+  //   public: true,
+  //   started: false,
+  //   currentPlayer: { id: "", username: "" },
+  //   host: "",
+  // }
 
   const [scoreCard, setScoreCard] = useState({
     id: "",
@@ -58,6 +70,7 @@ function App() {
   });
 
   const [gamesList, setGamesList] = useState([]);
+  const [test, setTest] = useState("default")
 
   const token = credentials.token;
   const history = useHistory();
@@ -77,19 +90,32 @@ function App() {
 
   const [ourTurn, setOurTurn] = useState(false);
 
-  const parseMessages = (msgArr, propMessageList) => {
-    // console.log(msgArr)
-    // console.log(propMessageList);
+  const parseMessages = (msgArr, propMessageList, game) => {
+    console.log("////////////////////////////////////////////")
+    console.log("//////////  parseMessages /////////////////")
+    console.log("Game")
+    console.log(game)
+    console.log("Message array")
+    console.log(msgArr)
+    console.log("Existing Messages")
+    console.log(propMessageList);
     let msgListIDs = [];
     propMessageList.map((msg) => msgListIDs.push(msg._id));
-    // console.log(msgListIDs);
-    // console.log("Message List PRIOR to adding message");
-    // console.log(msgArr);
+    console.log("ID's array")
+    console.log(msgListIDs);
     var newArr = [];
     msgArr.forEach((msgObj) => {
+      console.log(msgObj)
+      console.log("msgObj.private === true")
+      console.log("msgObj.private" + msgObj.private.toString())
+      console.log(msgObj.private === true)
+      console.log("msgObj.room === game.room")
+      console.log("msgObj.room: " + msgObj.room.toString())
+      console.log("game.room: " + game.room.toString())
+      console.log(msgObj.room === game.room)
       if (
         msgObj.private === true &&
-        msgObj.room === game._id &&
+        msgObj.room === game.room &&
         !msgListIDs.includes(msgObj._id)
       ) {
         newArr.push(msgObj);
@@ -115,6 +141,32 @@ function App() {
     return newArr;
   };
   useEffect(() => {
+    socket.on("get messages", (msgObj) => {
+      console.log("///////////////////CAN I SEE THE GAME HERE?//////////////")
+      console.log(game)
+      console.log(msgObj);
+      console.log(test)
+      console.log(testRef.current)
+      let parsedData = JSON.parse(msgObj).data;
+      console.log(parsedData);
+      // while (!game._id) {
+      //   console.log("Waiting for game update for a private message")
+      //   console.log(game)
+      //   if (parsedData.length === 0) {
+      //     break
+      //   }
+      // }
+      let newMessages = parseMessages(parsedData, messageList, game);
+      console.log("newMessages");
+      console.log(newMessages);
+      // let tempArr = messageList
+      let toBeSetArr = messageList.concat(newMessages);
+      console.log("The best named Arr ever");
+      console.log(toBeSetArr);
+      setMessageList(toBeSetArr);
+    });
+  })
+  useEffect(() => {
     //Production
     if (!credentials.username) {
       console.log(
@@ -123,33 +175,25 @@ function App() {
       // let socket = io() //Production
       socket.on("connect", () => console.log(socket.connected));
       socket.on("disconnect", () => console.log(socket.connected));
-      socket.on("get messages", (msgObj) => {
-        console.log(msgObj);
-        let parsedData = JSON.parse(msgObj).data;
-        console.log(parsedData);
-        let newMessages = parseMessages(parsedData, messageList);
-        console.log("newMessages");
-        console.log(newMessages);
-        // let tempArr = messageList
-        let toBeSetArr = messageList.concat(newMessages);
-        console.log("The best named Arr ever");
-        console.log(toBeSetArr);
-        setMessageList(toBeSetArr);
-      });
-      return;
+
     } else if (!listening) {
       // console.log("Running useEffect code");
       // console.log("Checking socket's connection status");
       // console.log(socket.connected);
-      socket.on("createGame", (game) => {
+      
+      socket.on("createGame", (newGame) => {
         console.log(messageList)
-        const gamePlayers = JSON.parse(game).users.map((user) => {
+        const gamePlayers = JSON.parse(newGame).users.map((user) => {
           return user.username;
         });
+        console.log(gamePlayers)
+        console.log(gamePlayers.includes(credentials.username))
         if (gamePlayers.includes(credentials.username)) {
-          console.log(JSON.parse(game));
-          setGame(JSON.parse(game));
+          console.log(JSON.parse(newGame));
+          setGame(JSON.parse(newGame));
           //setting in-game flags for user (transition page)
+          testRef.current = "test"
+          setTest("This works")
           history.push("/ingame");
         }
       });
@@ -247,7 +291,7 @@ function App() {
 
       //Production
     }
-  }, [credentials, listening, messageList, setMessageList]);
+  }, [credentials, listening, messageList, setMessageList, game]);
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////
