@@ -116,10 +116,10 @@ module.exports = function (deps) {
 
 
         //Message Last, hopefully client has received createGame emit and emptied messageList
-        newMessage = await Message.systemMessage("Game Created", game.room);
-        console.log("SYSTEM CREATE GAME MESSAGE");
-        console.log(newMessage);
-        setTimeout(() => { io.emit("get messages", JSON.stringify({ data: [newMessage] })); }, 2000)
+        // newMessage = await Message.systemMessage("Game Created", game.room);
+        // console.log("SYSTEM CREATE GAME MESSAGE");
+        // console.log(newMessage);
+        // setTimeout(() => { io.emit("get messages", JSON.stringify({ data: [newMessage] })); }, 2000)
       });
     });
 
@@ -156,11 +156,11 @@ module.exports = function (deps) {
     // data = {'markOnes', <number of ones dice>, 'markSixes', <number of sixes dice>}
     socket.on("markScore", async function (taskObj) {
       // these are for emitting SYSTEM messages higher in the call stack
-      taskObj.io = io;
-      taskObj.ioEmit = function (message) {
-        // console.log("Emitting off of taskObj in markScore from backbone.js");
-        this.io.emit("get messages", JSON.stringify(message));
-      };
+      // taskObj.io = io;
+      // taskObj.ioEmit = function (message) {
+      //   // console.log("Emitting off of taskObj in markScore from backbone.js");
+      //   this.io.emit("get messages", JSON.stringify(message));
+      // };
       console.log(taskObj);
       if (taskObj.game && taskObj.scoreCard) {
         let game = await Game.findOne({ _id: taskObj.game });

@@ -111,7 +111,7 @@ const GameBoard = (props) => {
           </button>
         )}
       </div>
-      <Chat
+      {/* <Chat
         version={0}
         value={0}
         credentials={props.credentials}
@@ -121,7 +121,7 @@ const GameBoard = (props) => {
         messageList={props.messageList}
         setMessageList={props.setMessageList}
         sendMessage={props.sendMessage}
-      />
+      /> */}
       <ScoreCard
         scoreCard={props.scoreCard}
         dice={dice}
