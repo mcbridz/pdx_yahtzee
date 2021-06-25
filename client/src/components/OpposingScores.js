@@ -78,7 +78,7 @@ const OpposingScores = (props) => {
                 </p>
                 {/* {console.log(opponent)} */}
                 <ScoreCard
-                  scoreCard={props.opposingPlayers[i]}
+                  scoreCard={opponent}
                   dice={props.dice}
                   markScore={props.markScore}
                   gameState={props.gameState}

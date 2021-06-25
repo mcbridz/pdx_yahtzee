@@ -213,6 +213,12 @@ function App() {
         const currentPlayerScoreCard = gameJSON.scoreCards.filter(
           (scoreCard) => credentials.username == scoreCard.player.trim()
         )[0];
+        let opposingScoreCards = gameJSON.scoreCards.filter(
+          (scorecard) => scorecard.player !== credentials.username
+        );
+        console.log("opposingScoreCards inside markScore")
+        console.log(opposingScoreCards)
+        setOpposingPlayers(opposingScoreCards);
         // console.log("currentPlayer.username", game.currentPlayer.username);
         if (gameJSON.currentPlayer.username === credentials.username) {
           setLocked(Array(numOfDice).fill(false));
