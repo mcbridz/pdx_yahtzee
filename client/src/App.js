@@ -343,7 +343,7 @@ function App() {
         grandTotal: 0,
       });
       setLocked(Array(3).fill(false));
-      setDice(Array.from({ length: 3 }));
+      setDice(Array.from({ length: 5 }));
       setRolling(false);
       setRollsRemaining(3);
       setOpposingPlayers([]);
