@@ -43,14 +43,14 @@ const GameBoard = (props) => {
     console.log("Checking endGame status indicators")
     console.log("props.gameState.started ", props.gameState.started)
     console.log("props.gameState.turnNum ", props.gameState.turnNum)
-    if(!props.gameState.started && props.gameState.turnNum > 0) {
+    if (!props.gameState.started && props.gameState.turnNum > 0) {
       console.log("endGame triggered")
       let endGameScreen = []
       props.gameState.scoreCards.forEach((scoreCard, index) => {
         endGameScreen.push(<div key={"endGameScoreEntry" + index}>
-          
+
           <div className="endGameScreenPlayerName">{scoreCard.player}: {scoreCard.grandTotal}</div>
-    
+
         </div>)
       })
       console.log(endGameScreen)
@@ -83,13 +83,13 @@ const GameBoard = (props) => {
   return (
     <div className="game-table">
       <div id="dice-btn-container">
-        {props.gameState.started ? (
+        {props.gameState.started ? ( //open first ternary
           <div>
-            {!props.ourTurn ? (
+            {!props.ourTurn ? ( //open first nested ternary on first ternary
               <p className="other-players-turn">
                 {props.gameState.currentPlayer.username}'s turn
               </p>
-            ) : (
+            ) : ( //else first nested ternary on first ternary
               ""
             )}
             <div id="dice-div">
@@ -115,13 +115,24 @@ const GameBoard = (props) => {
             />
           </div>
         ) : (
-          <button
-            className="start-game-button"
-            onClick={props.startGame(props.gameState._id)}
-            disabled={props.gameState.host !== props.credentials.username}
-          >
-            Start Game
-          </button>
+          (endGame.length === 0) ? (<div>
+            <button
+              className="start-game-button"
+              onClick={props.startGame(props.gameState._id)}
+              disabled={props.gameState.host !== props.credentials.username}
+            >
+              Start Game
+            </button>
+          </div>) : (
+            <div>
+              <button
+                className="start-game-button"
+                onClick={props.resetState}
+              >
+                Return To Lobby
+              </button>
+            </div>
+          )
         )}
       </div>
       {/* <Chat
@@ -137,24 +148,24 @@ const GameBoard = (props) => {
       /> */}
       {(endGame.length === 0) ? (<div>
         <ScoreCard
-        scoreCard={props.scoreCard}
-        dice={dice}
-        markScore={props.markScore}
-        gameState={props.gameState}
-        ourTurn={props.ourTurn}
-        rollsRemaining={props.rollsRemaining}
-        version={0}
-      />
-      <OpposingScores
-        scoreCard={props.scoreCard}
-        dice={dice}
-        markScore={props.markScore}
-        gameState={props.gameState}
-        ourTurn={props.ourTurn}
-        version={1}
-        opposingPlayers={props.opposingPlayers}
-      />
-      </div>      
+          scoreCard={props.scoreCard}
+          dice={dice}
+          markScore={props.markScore}
+          gameState={props.gameState}
+          ourTurn={props.ourTurn}
+          rollsRemaining={props.rollsRemaining}
+          version={0}
+        />
+        <OpposingScores
+          scoreCard={props.scoreCard}
+          dice={dice}
+          markScore={props.markScore}
+          gameState={props.gameState}
+          ourTurn={props.ourTurn}
+          version={1}
+          opposingPlayers={props.opposingPlayers}
+        />
+      </div>
       ) :
         <div className="endGameScoreContainer">
           <p id="final-scores">The final scores are:</p>

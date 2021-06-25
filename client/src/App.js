@@ -295,6 +295,56 @@ function App() {
     };
   };
 
+  const resetState = function () {
+    return () => {
+      setGame({
+        _id: null,
+        users: [],
+        scoreCards: [],
+        public: true,
+        started: false,
+        currentPlayer: { id: "", username: "" },
+        host: "",
+      })
+      setScoreCard({
+        id: "",
+        game: "",
+        gameNum: "",
+        player: "",
+        upperSection: [
+          { aces: 0, marked: false, value: 1 },
+          { twos: 0, marked: false, value: 2 },
+          { threes: 0, marked: false, value: 3 },
+          { fours: 0, marked: false, value: 4 },
+          { fives: 0, marked: false, value: 5 },
+          { sixes: 0, marked: false, value: 6 },
+        ],
+        bonus: 0,
+        upperSectionTotal: 0,
+        lowerSection: [
+          { threeOfAKind: 0, marked: false },
+          { fourOfAKind: 0, marked: false },
+          { fullHouse: 0, value: 25, marked: false },
+          { smStraight: 0, value: 30, marked: false },
+          { lgStraight: 0, value: 40, marked: false },
+          { yahtzee: 0, value: 50, marked: false },
+          { chance: 0, marked: false },
+        ],
+        yahtzeeBonus: { score: 0, numYahtzees: 0 },
+        lowerSectionTotal: 0,
+        grandTotal: 0,
+      })
+      setLocked(Array(3).fill(false))
+      setDice(Array.from({ length: 3 }))
+      setRolling(false)
+      setRollsRemaining(3)
+      setOpposingPlayers([])
+      setOurTurn(false)
+    }
+  }
+
+
+
   const markScore = function (taskObj) {
     // console.log("Sending the following task: ");
     // console.log(taskObj);
@@ -372,6 +422,7 @@ function App() {
             messageList={messageList}
             setMessageList={setMessageList}
             sendMessage={sendMessage}
+            resetState={resetState()}
           />
         </Route>
 
