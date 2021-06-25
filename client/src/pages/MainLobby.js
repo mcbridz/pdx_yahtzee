@@ -5,7 +5,7 @@ import "../styles/MainLobby.css";
 
 const MainLobby = (props) => {
   const createGame = props.createGame;
-  
+
   const history = useHistory();
 
   const checkLoginStatus = useCallback(() => {
@@ -28,6 +28,9 @@ const MainLobby = (props) => {
       </div>
       <div className="main-lobby-body">
         <div className="list-of-games-container">
+          {props.gamesList.length === 0 && (
+            <p id="no-games">No games currently available. Host a new one!</p>
+          )}
           {props.gamesList.map((game) => {
             let joinThisGame = () => {
               return () => {

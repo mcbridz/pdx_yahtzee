@@ -1,61 +1,46 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState} from "react";
 import ScoreCard from "./ScoreCard";
+import { FaArrowCircleLeft } from "react-icons/fa";
+import { FaArrowCircleRight } from "react-icons/fa";
 
 const OpposingScores = (props) => {
-  // const opposingPlayerScorecards = useCallback(() => {
-  //   props.opposingPlayers.map((opponent) => {
-  //     return (
-  //       <div>
-  //         <h2>
-  //           {opponent.player} - {opponent.grandTotal}{" "}
-  //         </h2>
-  //       </div>
-  //     );
-  //   });
-  // }, [props.opposingPlayers]);
-  // useEffect(() => {
-  //   opposingPlayerScorecards();
-  // }, [opposingPlayerScorecards]);
-  // return ({gameState.started ? opposingPlayerScorecards : ''})
+ 
   const [selectedCard, setSelectedScoreCard] = useState(0);
   const [showScoreCards, setShowScoreCards] = useState(false);
 
   const changeHandler = (index) => {
     return () => {
       console.log("changing selected card to " + index.toString());
-      
+
       const showing = showScoreCards;
-      console.log(showing)
+      console.log(showing);
       if (!showing) {
         hideScoreCards();
       }
-      // document.getElementById("oppossingScoreCard" + selectedCard).display =
-      //   "none";
-      // document.getElementById("oppossingScoreCard" + index).display = "block";
-      // setSelectedScoreCard(index);
-      setSelectedScoreCard(index)
+      
+      setSelectedScoreCard(index);
     };
   };
 
   const makeButtons = (opposingPlayerScoreCards) => {
     return opposingPlayerScoreCards.map((opponent, i) => {
       return (
-        <button onClick={changeHandler(i)}>
-          {opponent.player} - {opponent.grandTotal}
+        <button className="opponent-title" onClick={changeHandler(i)}>
+          {opponent.player}
         </button>
       );
     });
   };
 
   const hideScoreCards = () => {
-    console.log("hideScoreCards fired")
+    console.log("hideScoreCards fired");
     if (!showScoreCards) {
-      console.log("Setting buttonsAndCardFlexBox width to inherit")
+      console.log("Setting buttonsAndCardFlexBox width to inherit");
       document.getElementById("buttonsAndCardFlexBox").style.width = "inherit";
       // document.getElementById("buttonsAndCardFlexBox").style.display = "flex";
       setShowScoreCards(true);
     } else {
-      document.getElementById("buttonsAndCardFlexBox").style.width = "0px";
+      document.getElementById("buttonsAndCardFlexBox").style.width = "70px";
       // document.getElementById("buttonsAndCardFlexBox").style.display = "none";
       setShowScoreCards(false);
     }
@@ -71,7 +56,11 @@ const OpposingScores = (props) => {
       <div id="scoreCardFlexBox">
         <div id="buttonsFlexBox">
           <button id="hideScoreCards" onClick={hideScoreCards}>
-            &times;
+            {showScoreCards ? (
+              <FaArrowCircleRight size={28} color="white" />
+            ) : (
+              <FaArrowCircleLeft size={28} color="white" />
+            )}
           </button>
         </div>
         <div id="buttonsAndCardFlexBox">
@@ -84,6 +73,9 @@ const OpposingScores = (props) => {
                 style={setHidden(i === selectedCard)}
                 id={"oppossingScoreCard" + i}
               >
+                <p className="opposing-player-indicator">
+                  {opponent.player}'s Scorecard
+                </p>
                 {/* {console.log(opponent)} */}
                 <ScoreCard
                   scoreCard={props.opposingPlayers[i]}

@@ -384,7 +384,7 @@ const ScoreCard = (props) => {
               version={props.version}
             />
           </tr>
-          <br />
+         
         </tbody>
       </table>
 
@@ -432,7 +432,7 @@ const ScoreCard = (props) => {
         </tbody>
       </table>
 
-      <br />
+      
       <table className={"lower-scores-table" + version[props.version]}>
         <thead>
           <tr>
@@ -703,7 +703,7 @@ const ScoreCard = (props) => {
                 colSpan="4"
                 className={"yahtzee-bonus-desc" + version[props.version]}
               >
-                Each check mark for a Yahtzee after <br /> the first scores 100
+                Each check mark for a Yahtzee after  the first scores 100
                 points
               </td>
 

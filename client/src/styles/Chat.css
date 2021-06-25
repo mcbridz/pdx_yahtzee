@@ -2,7 +2,8 @@
 
 #closeChatBtn {
   width: 60px;
-  background-color: darkgrey;
+  background-color: #36393f;
+  border-radius: 5px;
 }
 
 .chat-container-inGame {
