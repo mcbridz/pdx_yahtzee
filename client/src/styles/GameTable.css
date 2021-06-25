@@ -20,3 +20,16 @@
 #no-games {
   font-size: 24px;
 }
+
+#final-scores {
+  font-size: 24px;
+}
+
+.endGameScreenPlayerName {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#end-game-text{
+  font-size: 24px;
+}

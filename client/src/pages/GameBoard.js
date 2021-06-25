@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 // import Chat from "../components/Chat";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import Dice from "../components/Dice";
 import RollButton from "../components/RollButton";
@@ -48,8 +48,9 @@ const GameBoard = (props) => {
       let endGameScreen = []
       props.gameState.scoreCards.forEach((scoreCard, index) => {
         endGameScreen.push(<div key={"endGameScoreEntry" + index}>
-          <div className="endGameScreenPlayerName">{scoreCard.player}</div>
-          <div>{scoreCard.grandTotal}</div>
+          
+          <div className="endGameScreenPlayerName">{scoreCard.player}: {scoreCard.grandTotal}</div>
+    
         </div>)
       })
       console.log(endGameScreen)
@@ -156,9 +157,12 @@ const GameBoard = (props) => {
       </div>      
       ) :
         <div className="endGameScoreContainer">
+          <p id="final-scores">The final scores are:</p>
           {endGame.map(playerScore => {
             return playerScore
           })}
+
+          <p id="end-game-text">Start a new game or return to the <Link to="/mainlobby" className="landing-link">Main Lobby</Link></p>
         </div>}
     </div>
   );
