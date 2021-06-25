@@ -198,6 +198,25 @@ gameSchema.methods.performTasks = async function (taskObj) {
   // const messageText = `${this.currentPlayer.username} scores ${taskObj.tasks[0].task}`
   // const newMessage = Message.systemMessage(messageText, this.room)
   // taskObj.ioEmit(newMessage)
+
+  ////////////////////////////////////////
+  // EndGame check
+  ////////////////////////////////////////
+  let endGame = true
+  this.scoreCards.forEach((scoreCard, index) => {
+    let upperSectionDone = true
+    scoreCard.upperSection.forEach((scoreObj) => {
+      if(!scoreObj.marked) upperSectionDone = false
+    })
+    console.log("Check for upperSectionDone returns: ", upperSectionDone)
+    let lowerSectionDone = true
+    scoreCard.lowerSection.forEach((scoreObj) => {
+      if(!scoreObj.marked) lowerSectionDone = false
+    })
+    console.log("Check for lowerSectionDone returns: ", lowerSectionDone)
+    if(!lowerSectionDone || !upperSectionDone) endGame = false
+  })
+  if (endGame) this.started = false
   return this.save();
 };
 

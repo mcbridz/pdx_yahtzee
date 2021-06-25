@@ -38,6 +38,24 @@ const GameBoard = (props) => {
     checkLoginStatus();
   }, [checkLoginStatus]);
 
+  const [endGame, setEndGame] = useState([])
+  useEffect(() => {
+    console.log("Checking endGame status indicators")
+    console.log("props.gameState.started ", props.gameState.started)
+    console.log("props.gameState.turnNum ", props.gameState.turnNum)
+    if(!props.gameState.started && props.gameState.turnNum > 0) {
+      console.log("endGame triggered")
+      let endGameScreen = []
+      props.gameState.scoreCards.map((scoreCard, index) => {
+        endGameScreen.push(<div key={"endGameScoreEntry" + index}>
+          <div className="endGameScreenPlayerName">{scoreCard.player}</div>
+          <div>{scoreCard.grandTotal}</div>
+        </div>)
+      })
+      setEndGame(endGameScreen)
+    }
+  }, [props.gameState])
+
   const rollDice = (evt) => {
     const rolls = [];
     for (let i = 0; i < numOfDice; i++) {
