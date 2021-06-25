@@ -110,7 +110,7 @@ module.exports = function (deps) {
         //GetGames second, async buffer for client
         // console.log("backbone.js");
         // console.log(game);
-        const games = await Game.getGames({ public: true, started: false });
+        const games = await Game.getGames({ public: true, started: false, turnNum: 0 });
         io.emit("get games", { data: games });
 
         //Message Last, hopefully client has received createGame emit and emptied messageList

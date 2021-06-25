@@ -106,7 +106,7 @@ gameSchema.statics.newGame = function (playerList) {
 };
 
 gameSchema.statics.getUnstartedGames = function () {
-  return this.find({ started: false });
+  return this.find({ started: false, turnNum: 0 });
 };
 
 gameSchema.methods.addPlayer = async function (player) {
