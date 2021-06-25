@@ -1,9 +1,3 @@
-/* @font-face {
-  font-family: Revue;
-  src: url("./fonts/Revue\ Regular.ttf");
-} */
-
-/* @import url(https://db.onlinewebfonts.com/c/41ed59a29024f1d258b293b9043e8f81?family=Revue); */
 .landing-logo1 {
   font-family: Revue;
   font-size: 85px;
@@ -28,8 +22,6 @@
 }
 
 .landing {
-  /* background-color: yellow; */
   background: radial-gradient(yellow 1%, orange 10%, red 90%, darkred 100%);
   min-height: 100vh;
-  /* margin-top: -58px; */
 }

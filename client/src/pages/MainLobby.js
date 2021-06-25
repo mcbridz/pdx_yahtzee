@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import Chat from "../components/Chat";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../styles/MainLobby.css";
 
 const MainLobby = (props) => {
@@ -31,17 +31,17 @@ const MainLobby = (props) => {
           {props.gamesList.length === 0 && (
             <p id="no-games">No games currently available. Host a new one!</p>
           )}
-          {props.gamesList.map((game) => {
+          {props.gamesList.map((game, index) => {
             let joinThisGame = () => {
               return () => {
-                console.log("JOINING GAME");
-                console.log(props.credentials.token);
-                console.log(game._id);
+                // console.log("JOINING GAME");
+                // console.log(props.credentials.token);
+                // console.log(game._id);
                 props.joinGame(props.credentials.token, game._id);
               };
             };
             return (
-              <div className="games-list">
+              <div className="games-list" key={index}>
                 <div id="game-name">{game.host + "'s game"}</div>
                 <div id="players-amount">
                   Players: {game.users.length + "/4"}

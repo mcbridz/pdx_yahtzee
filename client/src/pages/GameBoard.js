@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Chat from "../components/Chat";
+import React, { useEffect, useCallback } from "react";
+// import Chat from "../components/Chat";
 import { useHistory } from "react-router-dom";
 
 import Dice from "../components/Dice";
@@ -9,14 +9,13 @@ import "../styles/GameTable.css";
 import OpposingScores from "../components/OpposingScores";
 
 const numOfDice = 5;
-const numOfRolls = 3;
 
 const GameBoard = (props) => {
   const locked = props.locked;
   const setLocked = props.setLocked;
   const dice = props.dice;
   const setDice = props.setDice;
-  const rolling = props.rolling;
+
   const setRolling = props.setRolling;
   const rollsRemaining = props.rollsRemaining;
   const setRollsRemaining = props.setRollsRemaining;
@@ -48,15 +47,9 @@ const GameBoard = (props) => {
         dice[i] = Math.ceil(Math.random() * 6);
         rolls.push(dice[i]);
       }
-      console.log(rolls);
       setDice(rolls);
-      console.log("EMITTING DICE");
       props.emitDice(rolls);
     }
-
-    // setLocked({
-    //   locked: rollsRemaining > 0 ? locked : Array(numOfDice).fill(true),
-    // });
     setRollsRemaining(rollsRemaining - 1);
     setRolling(false);
   };

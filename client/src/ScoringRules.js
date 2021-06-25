@@ -5,17 +5,16 @@ export const sum = (dice) => {
 // counts frequency of each dice
 
 export const sameDice = (dice) => {
-  console.log("test");
   const freqs = new Map();
   for (let d of dice) freqs.set(d, (freqs.get(d) || 0) + 1);
-  console.log(Array.from(freqs.values()));
+  // console.log(Array.from(freqs.values()));
   return Array.from(freqs.values());
 };
 
 // number of times a val appears in dice
 export const count = (dice, val) => {
-  console.log("////////////////////////////////");
-  console.log(dice);
+  // console.log("////////////////////////////////");
+  // console.log(dice);
   return dice.filter((d) => d === val).length;
 };
 

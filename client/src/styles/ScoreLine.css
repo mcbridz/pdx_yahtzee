@@ -5,28 +5,16 @@
   cursor: pointer;
   height: 50px;
   background-color: white;
-  /* border-right: 1px solid black;
-  border-top: 1px solid black; */
 }
-
-/* .score-line-score:hover {
-  background-color: #f8f8f8;
-} */
 
 .score-line-description {
   border-bottom: 2px solid black;
-  /* border-top: 1px solid black; */
   min-width: 370px;
   max-width: 370px;
-  /* cursor: pointer; */
   vertical-align: bottom;
   height: 50px;
   background-color: #f8f8f8;
 }
-
-/* .score-line-description:hover {
-  background-color: #f8f8f8;
-} */
 
 .score-line-comp:hover {
   background-color: #f8f8f8;
@@ -51,29 +39,17 @@ MINI
   cursor: pointer;
   height: 25px;
   background-color: white;
-  /* border-right: 1px solid black;
-  border-top: 1px solid black; */
 }
-
-/* .score-line-score:hover {
-  background-color: #f8f8f8;
-} */
 
 .score-line-description-mini {
   border-bottom: 2px solid black;
-  /* border-top: 1px solid black; */
   min-width: 190px;
   max-width: 190px;
-  /* cursor: pointer; */
   vertical-align: bottom;
   height: 25px;
   background-color: white;
   font-size: 12px;
 }
-
-/* .score-line-description:hover {
-  background-color: #f8f8f8;
-} */
 
 .score-line-comp-mini:hover {
   background-color: #f8f8f8;

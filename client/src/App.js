@@ -1,6 +1,6 @@
 import "./App.css";
-import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Route, Switch, Link, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 import GameBoard from "./pages/GameBoard";
 import NavBar from "./components/NavBar";
 import Login from "./pages/Login";
@@ -13,11 +13,9 @@ import socket from "./ioFile"; //Development
 console.log(process.env);
 
 function App() {
-  const testRef = useRef()
-  testRef.current = "default"
   const [credentials, setCredentials] = useState({ username: "", token: "" });
   const [inPreGameLobby, setInPreGameLobby] = useState(false);
-  const [room, setRoom] = useState("");
+  const [room] = useState("");
 
   const [game, setGame] = useState({
     _id: null,
@@ -28,16 +26,6 @@ function App() {
     currentPlayer: { id: "", username: "" },
     host: "",
   });
-
-  // const testGame = {
-  //   _id: "null",
-  //   users: [{user: mcbridz, token: "123455"}],
-  //   scoreCards: [],
-  //   public: true,
-  //   started: false,
-  //   currentPlayer: { id: "", username: "" },
-  //   host: "",
-  // }
 
   const [scoreCard, setScoreCard] = useState({
     id: "",
@@ -64,15 +52,11 @@ function App() {
       { chance: 0, marked: false },
     ],
     yahtzeeBonus: { score: 0, numYahtzees: 0 },
-    // chance: { score: 0, marked: false },
     lowerSectionTotal: 0,
     grandTotal: 0,
   });
 
   const [gamesList, setGamesList] = useState([]);
-  const [test, setTest] = useState("default")
-
-  const token = credentials.token;
   const history = useHistory();
 
   const numOfDice = 5;
@@ -81,7 +65,7 @@ function App() {
   const [dice, setDice] = useState(Array.from({ length: numOfDice }));
   const [rolling, setRolling] = useState(false);
   const [rollsRemaining, setRollsRemaining] = useState(numOfRolls);
-  const [port, setPort] = useState(8000);
+  const [, setPort] = useState(8000);
   const [listening, setListening] = useState(false);
   const [opposingPlayers, setOpposingPlayers] = useState([]);
 
@@ -91,18 +75,18 @@ function App() {
   const [ourTurn, setOurTurn] = useState(false);
 
   const parseMessages = (msgArr, propMessageList, game) => {
-    console.log("////////////////////////////////////////////")
-    console.log("//////////  parseMessages /////////////////")
-    console.log("Game")
-    console.log(game)
-    console.log("Message array")
-    console.log(msgArr)
-    console.log("Existing Messages")
-    console.log(propMessageList);
+    // console.log("////////////////////////////////////////////")
+    // console.log("//////////  parseMessages /////////////////")
+    // console.log("Game")
+    // console.log(game)
+    // console.log("Message array")
+    // console.log(msgArr)
+    // console.log("Existing Messages")
+    // console.log(propMessageList);
     let msgListIDs = [];
     propMessageList.map((msg) => msgListIDs.push(msg._id));
-    console.log("ID's array")
-    console.log(msgListIDs);
+    // console.log("ID's array")
+    // console.log(msgListIDs);
     var newArr = [];
     msgArr.forEach((msgObj) => {
       // console.log(msgObj)
@@ -119,21 +103,21 @@ function App() {
         !msgListIDs.includes(msgObj._id)
       ) {
         newArr.push(msgObj);
-        console.log(newArr);
+        // console.log(newArr);
       } else if (
         msgObj.private === false &&
         game._id === null &&
         !msgListIDs.includes(msgObj._id)
       ) {
         newArr.push(msgObj);
-        console.log(newArr);
+        // console.log(newArr);
       } else if (
         msgObj.private === true &&
         msgObj.room === room &&
         !msgListIDs.includes(msgObj._id)
       ) {
         newArr.push(msgObj);
-        console.log(newArr);
+        // console.log(newArr);
       }
       // console.log("END OF PARSE MESSAGE FOREACH ON INCOMING ARR");
       // console.log(newArr);
@@ -142,13 +126,13 @@ function App() {
   };
   useEffect(() => {
     socket.on("get messages", (msgObj) => {
-      console.log("///////////////////CAN I SEE THE GAME HERE?//////////////")
-      console.log(game)
-      console.log(msgObj);
-      console.log(test)
-      console.log(testRef.current)
+      // console.log("///////////////////CAN I SEE THE GAME HERE?//////////////")
+      // console.log(game)
+      // console.log(msgObj);
+      // console.log(test)
+
       let parsedData = JSON.parse(msgObj).data;
-      console.log(parsedData);
+      // console.log(parsedData);
       // while (!game._id) {
       //   console.log("Waiting for game update for a private message")
       //   console.log(game)
@@ -157,43 +141,41 @@ function App() {
       //   }
       // }
       let newMessages = parseMessages(parsedData, messageList, game);
-      console.log("newMessages");
-      console.log(newMessages);
+      // console.log("newMessages");
+      // console.log(newMessages);
       // let tempArr = messageList
       let toBeSetArr = messageList.concat(newMessages);
-      console.log("The best named Arr ever");
-      console.log(toBeSetArr);
+      // console.log("The best named Arr ever");
+      // console.log(toBeSetArr);
       setMessageList(toBeSetArr);
     });
-  })
+  });
   useEffect(() => {
     //Production
     if (!credentials.username) {
-      console.log(
-        "Not running useEffect code, trying set construct socket and set listeners for connect/disconnect"
-      );
+      // console.log(
+      //   "Not running useEffect code, trying set construct socket and set listeners for connect/disconnect"
+      // );
       // let socket = io() //Production
       socket.on("connect", () => console.log(socket.connected));
       socket.on("disconnect", () => console.log(socket.connected));
-
     } else if (!listening) {
       // console.log("Running useEffect code");
       // console.log("Checking socket's connection status");
       // console.log(socket.connected);
-      
+
       socket.on("createGame", (newGame) => {
-        console.log(messageList)
+        // console.log(messageList)
         const gamePlayers = JSON.parse(newGame).users.map((user) => {
           return user.username;
         });
-        console.log(gamePlayers)
-        console.log(gamePlayers.includes(credentials.username))
+        // console.log(gamePlayers)
+        // console.log(gamePlayers.includes(credentials.username))
         if (gamePlayers.includes(credentials.username)) {
-          console.log(JSON.parse(newGame));
+          // console.log(JSON.parse(newGame));
           setGame(JSON.parse(newGame));
           //setting in-game flags for user (transition page)
-          testRef.current = "test"
-          setTest("This works")
+
           history.push("/ingame");
         }
       });
@@ -201,23 +183,23 @@ function App() {
       //   setGamesList(JSON.parse(list).data);
       // });
       socket.on("get games", (gamesObj) => {
-        console.log(gamesObj);
+        // console.log(gamesObj);
         let gamesArr = gamesObj.data;
-        console.log(gamesArr);
+        // console.log(gamesArr);
         setGamesList(gamesArr);
       });
       socket.on("markScore", (gameObj) => {
         let gameJSON = JSON.parse(gameObj);
-        console.log(gameJSON);
-        console.log(gameJSON.currentPlayer);
+        // console.log(gameJSON);
+        // console.log(gameJSON.currentPlayer);
         const currentPlayerScoreCard = gameJSON.scoreCards.filter(
           (scoreCard) => credentials.username == scoreCard.player.trim()
         )[0];
         let opposingScoreCards = gameJSON.scoreCards.filter(
           (scorecard) => scorecard.player !== credentials.username
         );
-        console.log("opposingScoreCards inside markScore")
-        console.log(opposingScoreCards)
+        // console.log("opposingScoreCards inside markScore")
+        // console.log(opposingScoreCards)
         setOpposingPlayers(opposingScoreCards);
         // console.log("currentPlayer.username", game.currentPlayer.username);
         if (gameJSON.currentPlayer.username === credentials.username) {
@@ -233,7 +215,7 @@ function App() {
           setLocked(Array(numOfDice).fill(true));
           setOurTurn(false);
         }
-        console.log(currentPlayerScoreCard);
+        // console.log(currentPlayerScoreCard);
         setGame(gameJSON);
         setScoreCard(currentPlayerScoreCard);
       });
@@ -243,11 +225,11 @@ function App() {
         }
       });
       socket.on("startGame", (game) => {
-        console.log("STARTED GAME");
+        // console.log("STARTED GAME");
         const newGame = JSON.parse(game);
         setGame(newGame);
-        console.log("newGame");
-        console.log(newGame);
+        // console.log("newGame");
+        // console.log(newGame);
         let scorecard = newGame.scoreCards.filter(
           (scorecard) => scorecard.player === credentials.username
         )[0];
@@ -264,7 +246,7 @@ function App() {
         setScoreCard(scorecard);
         // console.log('scoreCard')
         // console.log(scoreCard)
-        console.log("game host", game.host);
+        // console.log("game host", game.host);
         if (newGame.currentPlayer.username === credentials.username) {
           setOurTurn(true);
         }
@@ -278,8 +260,8 @@ function App() {
         setGame(JSON.parse(game));
       });
       socket.on("removePlayer", (game) => {
-        console.log("player removed on database");
-        console.log(JSON.parse(game));
+        // console.log("player removed on database");
+        // console.log(JSON.parse(game));
         setGame(JSON.parse(game));
       });
       socket.on("get rooms", (rooms) => {
@@ -304,18 +286,18 @@ function App() {
 
   const createGame = function () {
     return (playerList, isPrivate) => {
-      console.log("PLAYER");
-      console.log(credentials);
+      // console.log("PLAYER");
+      // console.log(credentials);
       socket.emit("createGame", {
         public: true,
         playerList: [credentials.token],
       });
     };
-  }
+  };
 
   const markScore = function (taskObj) {
-    console.log("Sending the following task: ");
-    console.log(taskObj);
+    // console.log("Sending the following task: ");
+    // console.log(taskObj);
     socket.emit("markScore", taskObj);
   };
 
@@ -327,8 +309,8 @@ function App() {
 
   const setMyCredentials = () => {
     return (inputObj) => {
-      console.log("setMyCredentials triggered");
-      console.log(inputObj);
+      // console.log("setMyCredentials triggered");
+      // console.log(inputObj);
       setCredentials(inputObj);
     };
   };

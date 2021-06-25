@@ -74,22 +74,22 @@ module.exports = function (deps) {
       io.emit("get games", { data: games });
     });
     let messageArr = await Message.getMessages({ private: false });
-    console.log("messageArr");
-    console.log(messageArr);
+    // console.log("messageArr");
+    // console.log(messageArr);
     let messagePackage = { data: messageArr };
-    console.log("messagePackage");
-    console.log(messagePackage);
+    // console.log("messagePackage");
+    // console.log(messagePackage);
     let messagePackageStr = JSON.stringify(messagePackage);
     // let messages = JSON.stringify({ data: await Message.getMessages({ private: false }) })
     let messages = messagePackageStr;
-    console.log("Sending Messages");
+    // console.log("Sending Messages");
     socket.emit("get messages", messages);
 
     // order is an object, with the structure of:
     // { public: <true/false>, playerList: [playerIDTOKEN, playerIDTOKEN, playerIDTOKEN] }
     socket.on("createGame", async function (order) {
-      console.log("CREATE GAME order");
-      console.log(order);
+      // console.log("CREATE GAME order");
+      // console.log(order);
       let idList = order.playerList;
       let usernameList = [];
       await mapAwaiter(idList, async function (token) {
@@ -107,13 +107,11 @@ module.exports = function (deps) {
         // console.log(JSON.stringify(game))
         io.emit("createGame", JSON.stringify(game));
 
-
         //GetGames second, async buffer for client
-        console.log("backbone.js");
-        console.log(game);
+        // console.log("backbone.js");
+        // console.log(game);
         const games = await Game.getGames({ public: true, started: false });
         io.emit("get games", { data: games });
-
 
         //Message Last, hopefully client has received createGame emit and emptied messageList
         // newMessage = await Message.systemMessage("Game Created", game.room);
@@ -132,12 +130,12 @@ module.exports = function (deps) {
       // console.log(id)
       let user = await User.findOne({ _id: jwt.decode(order.token, key)._id });
       let game = await Game.findOne({ _id: order.game });
-      console.log(user);
+      // console.log(user);
       if (!game.started) {
         game = await game.addPlayer({ id: user._id, username: user.username });
       }
-      console.log("SENDING THIS GAME:");
-      console.log(game);
+      // console.log("SENDING THIS GAME:");
+      // console.log(game);
       io.emit("createGame", JSON.stringify(game));
     });
 
@@ -161,16 +159,16 @@ module.exports = function (deps) {
       //   // console.log("Emitting off of taskObj in markScore from backbone.js");
       //   this.io.emit("get messages", JSON.stringify(message));
       // };
-      console.log(taskObj);
+      // console.log(taskObj);
       if (taskObj.game && taskObj.scoreCard) {
         let game = await Game.findOne({ _id: taskObj.game });
-        console.log("//////////////////Game //////////////");
-        console.log(game);
+        // console.log("//////////////////Game //////////////");
+        // console.log(game);
         // console.log('//////////////////Sending In //////////////')
         // console.log(game.scoreCards[0])
         game = await game.performTasks(taskObj);
-        console.log("//////////////////Sending Back ////////////");
-        console.log(game);
+        // console.log("//////////////////Sending Back ////////////");
+        // console.log(game);
         io.emit("markScore", JSON.stringify(game));
       } else {
         console.log("NO DATA FOUND, NO WAY TO SEND MESSAGE BACK");
@@ -193,10 +191,6 @@ module.exports = function (deps) {
       io.emit("endGame", JSON.stringify(game));
     });
 
-    // socket.on("connect-to-room", (room) => {
-    //   socket.join(room);
-    //   // console.log("Joined room " + room);
-    // });
     socket.on("new room", (room) => {
       Room.newRoom(room);
       if (!Room.private) {
@@ -205,17 +199,17 @@ module.exports = function (deps) {
     });
     socket.on("new message", async (msgObj) => {
       let newMessage = await Message.newMessage(JSON.parse(msgObj));
-      console.log("NEW MESSAGE");
-      console.log(newMessage);
+      // console.log("NEW MESSAGE");
+      // console.log(newMessage);
       io.emit("get messages", JSON.stringify({ data: [newMessage] }));
     });
     socket.on("get messages", async (filter) => {
       let newFilter = JSON.parse(filter);
-      console.log("FILTER");
-      console.log(newFilter);
+      // console.log("FILTER");
+      // console.log(newFilter);
       let messages = await Message.getMessages(newFilter);
-      console.log("MESSAGES");
-      console.log(messages);
+      // console.log("MESSAGES");
+      // console.log(messages);
       let output = JSON.stringify({ data: messages });
       // JSON.stringify(await Message.getMessages(JSON.parse(filter)))
       io.emit("get messages", output);

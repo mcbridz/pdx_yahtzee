@@ -7,15 +7,15 @@ const router = express.Router();
 const User = require("../protected_routes/userModel");
 
 router.post("/register", (req, res) => {
-  console.log(`Looking for user ${req.body.username}`);
-  console.log(req.body)
+  // console.log(`Looking for user ${req.body.username}`);
+  console.log(req.body);
   User.findOne({ username: req.body.username }, async (err, userExists) => {
-    console.log("finished searching for username");
+    // console.log("finished searching for username");
     if (err) return res.status(500).send(err);
     if (userExists) return res.status(400).send("username already exists");
-    console.log("creating user");
+    // console.log("creating user");
     const user = await User.signup(req.body);
-    console.log(user)
+    // console.log(user)
     res.status(201).send(user.sanitize());
   });
 });

@@ -67,10 +67,6 @@ const scoreCardSchema = new Schema({
     default: { score: 0, numYahtzees: 0 },
     required: true,
   },
-  //   chance: {
-  //     type: Object,
-  //     default: { score: 0, marked: false },
-  //   },
   lowerSectionTotal: {
     type: Number,
     default: 0,
@@ -101,7 +97,7 @@ scoreCardSchema.methods.updateScore = function () {
   }
   this.upperSectionTotal = upperSectionTotal;
   if (upperSectionTotal >= 63) {
-    this.bonus = 35
+    this.bonus = 35;
   }
   let lowerSectionTotal = 0;
   for (let i = 0; i < lowerSectionRef.length; i++) {
@@ -136,7 +132,7 @@ const systemMessageBuilder = async function (text, room) {
 };
 
 scoreCardSchema.methods.markAces = async function (numAces, taskObj, room) {
-  console.log("IN SCORECARD");
+  // console.log("IN SCORECARD");
   // console.log(this.upperSection)
   if (!this.upperSection[0].marked) {
     let subtotal = this.upperSection[0].value * numAces;
@@ -153,11 +149,11 @@ scoreCardSchema.methods.markAces = async function (numAces, taskObj, room) {
 
 scoreCardSchema.methods.markTwos = async function (numTwos, taskObj, room) {
   if (!this.upperSection[1].marked) {
-    console.log(
-      `${this.upperSection[1].value} * ${numTwos} = ${
-        this.upperSection[1].value * numTwos
-      }`
-    );
+    // console.log(
+    //   `${this.upperSection[1].value} * ${numTwos} = ${
+    //     this.upperSection[1].value * numTwos
+    //   }`
+    // );
     let subtotal = this.upperSection[1].value * numTwos;
     this.upperSection[1].twos = subtotal;
     this.upperSection[1].marked = true;
@@ -214,7 +210,7 @@ scoreCardSchema.methods.markFives = async function (numFives, taskObj, room) {
 };
 
 scoreCardSchema.methods.markSixes = function (numSixes, taskObj, room) {
-  console.log("ENTERING SCORECARD");
+  // console.log("ENTERING SCORECARD");
   if (!this.upperSection[5].marked) {
     let subtotal = this.upperSection[5].value * numSixes;
     // console.log(subtotal)
@@ -306,7 +302,7 @@ scoreCardSchema.methods.markYahtzee = async function (data, taskObj, room) {
 
 scoreCardSchema.methods.markThreeOfAKind = function (data, taskObj, room) {
   if (!this.lowerSection[0].marked) {
-    console.log("this is data: ", data);
+    // console.log("this is data: ", data);
     this.lowerSection[0].threeOfAKind = data;
     this.lowerSection[0].marked = true;
     // const newMessage = systemMessageBuilder(`Three of a kind marked`, room);

@@ -6,13 +6,9 @@
 }
 
 .signup-inputs-div {
-  /* position: absolute;
-    left: 50%;
-    top: 50%; */
   margin-bottom: 250px;
   display: flex;
   flex-direction: column;
-  /* border: 3px solid black; */
   border-radius: 15px;
   min-width: 500px;
   max-width: 500px;
@@ -39,7 +35,6 @@
   justify-content: center;
   background-color: white;
   margin-top: 15px;
-  /* border-radius: 5px 5px 0px 0px; */
 }
 
 .signup-input input {
@@ -91,7 +86,6 @@
   cursor: pointer;
   margin-bottom: 20px;
   font-family: Revue;
-  /* margin-left: 10px; */
 }
 
 .firstLast {
@@ -109,7 +103,6 @@
   outline: none;
   background-color: white;
   width: 200px;
-  
 }
 
 .last input {
@@ -124,7 +117,6 @@
 }
 
 .first {
-  /* margin-right: 2px;  */
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid black;

@@ -1,10 +1,9 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import ScoreCard from "./ScoreCard";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { FaArrowCircleRight } from "react-icons/fa";
 
 const OpposingScores = (props) => {
- 
   const [selectedCard, setSelectedScoreCard] = useState(0);
   const [showScoreCards, setShowScoreCards] = useState(false);
 
@@ -17,7 +16,7 @@ const OpposingScores = (props) => {
       if (!showing) {
         hideScoreCards();
       }
-      
+
       setSelectedScoreCard(index);
     };
   };
@@ -25,7 +24,15 @@ const OpposingScores = (props) => {
   const makeButtons = (opposingPlayerScoreCards) => {
     return opposingPlayerScoreCards.map((opponent, i) => {
       return (
-        <button className="opponent-title" onClick={changeHandler(i)}>
+        <button
+          style={
+            selectedCard === i && showScoreCards
+              ? { backgroundColor: "orange" }
+              : { backgroundColor: "darkred" }
+          }
+          className={"opponent-title"}
+          onClick={changeHandler(i)}
+        >
           {opponent.player}
         </button>
       );
@@ -33,15 +40,13 @@ const OpposingScores = (props) => {
   };
 
   const hideScoreCards = () => {
-    console.log("hideScoreCards fired");
+    // console.log("hideScoreCards fired");
     if (!showScoreCards) {
-      console.log("Setting buttonsAndCardFlexBox width to inherit");
+      // console.log("Setting buttonsAndCardFlexBox width to inherit");
       document.getElementById("buttonsAndCardFlexBox").style.width = "inherit";
-      // document.getElementById("buttonsAndCardFlexBox").style.display = "flex";
       setShowScoreCards(true);
     } else {
       document.getElementById("buttonsAndCardFlexBox").style.width = "70px";
-      // document.getElementById("buttonsAndCardFlexBox").style.display = "none";
       setShowScoreCards(false);
     }
   };
@@ -54,15 +59,19 @@ const OpposingScores = (props) => {
   return (
     <div id="scoreCardsContainer">
       <div id="scoreCardFlexBox">
-        <div id="buttonsFlexBox">
-          <button id="hideScoreCards" onClick={hideScoreCards}>
-            {showScoreCards ? (
-              <FaArrowCircleRight size={28} color="white" />
-            ) : (
-              <FaArrowCircleLeft size={28} color="white" />
-            )}
-          </button>
-        </div>
+        {props.opposingPlayers.length !== 0 ? (
+          <div id="buttonsFlexBox">
+            <button id="hideScoreCards" onClick={hideScoreCards}>
+              {showScoreCards ? (
+                <FaArrowCircleRight size={28} color="white" />
+              ) : (
+                <FaArrowCircleLeft size={28} color="white" />
+              )}
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
         <div id="buttonsAndCardFlexBox">
           <div id="buttonContainer">{makeButtons(props.opposingPlayers)}</div>
           {props.opposingPlayers.map((opponent, i) => {
@@ -73,10 +82,6 @@ const OpposingScores = (props) => {
                 style={setHidden(i === selectedCard)}
                 id={"oppossingScoreCard" + i}
               >
-                <p className="opposing-player-indicator">
-                  {opponent.player}'s Scorecard
-                </p>
-                {/* {console.log(opponent)} */}
                 <ScoreCard
                   scoreCard={opponent}
                   dice={props.dice}

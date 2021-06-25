@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import ScoreLine from "./ScoreLine";
 import "../styles/ScoreCard.css";
 import LittleScoreLine from "./LittleScoreLine";
 import {
   sum,
-  sameDice,
   count,
   fullHouse,
   smStraight,
@@ -12,11 +11,9 @@ import {
   yahtzee,
   threeOfAKind,
   fourOfAKind,
-  chance,
 } from "../ScoringRules";
 
 const ScoreCard = (props) => {
-  // const [numOfChecks, setNumOfChecks] = useState(0);
   const upperScores = ["Aces", "Twos", "Threes", "Fours", "Fives", "Sixes"];
   const lowerScores = [
     "3 of a kind",
@@ -28,8 +25,7 @@ const ScoreCard = (props) => {
     "Chance",
   ];
 
-  const { scoreCard, dice, markScore, gameState, ourTurn, rollsRemaining } =
-    props;
+  const { scoreCard, dice, markScore, gameState, ourTurn } = props;
   const version = ["", "-mini"];
 
   const sendOrder = (task) => {
@@ -149,7 +145,6 @@ const ScoreCard = (props) => {
   const scoreChance = () => {
     return () => {
       let chanceScore = sum(dice);
-      console.log(chanceScore);
       const chanceTask = [{ task: "markChance", data: chanceScore }];
       sendOrder(chanceTask);
     };
@@ -186,14 +181,11 @@ const ScoreCard = (props) => {
                   ? "upper-scores-category-title gold"
                   : "upper-scores-category-title" + version[props.version]
               }
-              // disabled={!ourTurn}
-              // onClick={scoreAces()}
               onClick={
                 !(disabled || scoreCard.upperSection[0].marked)
                   ? scoreAces()
                   : doNothing
               }
-              // disabled={disabled}
             >
               <div className={"gold-overlay" + version[props.version]}>
                 {upperScores[0]}{" "}
@@ -423,7 +415,7 @@ const ScoreCard = (props) => {
             <td className="upper-total-desc">Upper Scores w/ Bonus</td>
             <td colSpan="1" className={"spacer" + version[props.version]}></td>
             <LittleScoreLine
-              scores={scoreCard.upperSectionTotal}
+              scores={scoreCard.upperSectionTotal + scoreCard.bonus}
               name="upperSectionTotalBonus"
               version={props.version}
             />
@@ -695,7 +687,6 @@ const ScoreCard = (props) => {
                 version={props.version}
               />
             </div>
-            {/* <td colSpan="2"></td> */}
             <div className={"chance-row-right-side" + version[props.version]}>
               <td
                 colSpan="4"
@@ -704,7 +695,6 @@ const ScoreCard = (props) => {
                 Each check mark for a Yahtzee after the first scores 100 points
               </td>
 
-              {/* <td colSpan="6"></td> */}
               <div className={"checkboxes" + version[props.version]}>
                 <td
                   colSpan="1"
@@ -734,7 +724,6 @@ const ScoreCard = (props) => {
                     className={"bonus-checkbox" + version[props.version]}
                     type="checkbox"
                     checked={scoreCard.yahtzeeBonus.numYahtzees >= 3}
-                    // disabled
                   />
                 </td>
               </div>
@@ -761,7 +750,7 @@ const ScoreCard = (props) => {
             </td>
             <td colSpan="1" className={"spacer" + version[props.version]}></td>
             <LittleScoreLine
-              scores={scoreCard.upperSectionTotal}
+              scores={scoreCard.upperSectionTotal + scoreCard.bonus}
               disabled
               name="upperSectionTotal"
               version={props.version}

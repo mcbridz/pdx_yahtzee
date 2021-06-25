@@ -3,15 +3,6 @@ import { useHistory, Link } from "react-router-dom";
 import { FaUserCircle, FaLock } from "react-icons/fa";
 import "../styles/Login.css";
 
-const handleErrors = async (response) => {
-  if (!response.ok) {
-    const { message } = await response.json();
-    throw Error(message);
-  }
-  console.log(response.json());
-  return response.json();
-};
-
 const Login = (props) => {
   const [user, setUser] = useState({ username: "", password: "" });
   const [loginError, setLoginError] = useState("");
@@ -34,16 +25,14 @@ const Login = (props) => {
         "Content-Type": "application/json",
       },
     })
-      //   .then(handleErrors)
       .then(async (res) => await res.json())
       .then(async (data) => {
-        console.log('TOKEN RECEIVED')
-        console.log(data)
+        console.log("TOKEN RECEIVED");
+        console.log(data);
         await props.setCredentials({
           username: user.username,
           token: data.token,
         });
-        // history.push("/");
       })
       .catch((err) => {
         console.log(err.message);

@@ -1,10 +1,8 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../styles/NavBar.css";
 
 const NavBar = (props) => {
-  const history = useHistory();
-
   const logout = () => {
     props.setCredentials({ username: "", token: "" });
   };

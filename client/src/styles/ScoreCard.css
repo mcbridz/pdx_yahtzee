@@ -1,6 +1,5 @@
 .score-card {
   min-width: 1050px;
-  /* text-align: center; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,8 +8,6 @@
   border: 3px solid black;
   border-radius: 13px;
   max-width: 1050px;
-  /* position: absolute;
-  bottom: 0; */
   margin-bottom: 10px;
   background-color: antiquewhite;
 }
@@ -70,17 +67,12 @@
   background-color: white;
 }
 
-.upper-totals-table {
-  /* margin-top: -20px; */
-}
-
 .upper-totals-table-header {
   margin-bottom: 10px;
 }
 
 .lower-scores-table {
   border-collapse: collapse;
-  /* margin-top: -20px; */
 }
 
 .bonus-yahtzee-checkbox {
@@ -129,11 +121,7 @@
 }
 
 .chance-row-right-side {
-  /* display: inline-block; */
-  /* justify-content: flex-end */
   flex: 50%;
-  /* display: flex; */
-  /* justify-content: space-between; */
   margin-left: 75px;
   display: flex;
   flex-direction: row;
@@ -194,7 +182,6 @@ Mini version
 
 .score-card-mini {
   min-width: 525px;
-  /* text-align: center; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -203,19 +190,9 @@ Mini version
   border: 3px solid black;
   border-radius: 13px;
   max-width: 525px;
-  /* position: absolute;
-  bottom: 0; */
   margin-bottom: 1px;
   background-color: antiquewhite;
-  /* background-color: antiquewhite; */
 }
-
-/* .game-table-mini {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-} */
 
 .upper-scores-category-title-mini {
   border: 1px solid black;
@@ -225,6 +202,7 @@ Mini version
   max-height: 25px;
   font-weight: normal;
   line-height: 0.8;
+  background-color: white;
 }
 
 .upper-scores-table-mini {
@@ -254,10 +232,6 @@ Mini version
   border-bottom: 2px solid black;
   cursor: pointer;
   background-color: white;
-}
-
-.upper-totals-table-mini {
-  /* margin-top: -20px; */
 }
 
 .upper-totals-table-header-mini {
@@ -315,11 +289,7 @@ Mini version
 }
 
 .chance-row-right-side-mini {
-  /* display: inline-block; */
-  /* justify-content: flex-end */
   flex: 50%;
-  /* display: flex; */
-  /* justify-content: space-between; */
   margin-left: 37px;
   display: flex;
   flex-direction: row;
@@ -367,9 +337,6 @@ Mini version
 }
 
 .opposingScoreCard {
-  /* position: fixed;
-  bottom: 0;
-  right: 0; */
   background-color: transparent;
 }
 
@@ -410,11 +377,10 @@ Mini version
 
 .opponent-title {
   width: 80px;
-  background-color: darkred;
+  /* background-color: darkred; */
   color: antiquewhite;
   border-radius: 5px;
   font-size: 24px;
-  /* margin-right: 30px; */
 }
 
 #hideScoreCards {

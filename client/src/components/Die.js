@@ -10,7 +10,7 @@ const Die = (props) => {
   const diceSides = ["One", "Two", "Three", "Four", "Five", "Six"];
   const numDie = diceSides[props.val - 1];
   const lockedStyle = { color: "red" };
-  const disabled = !props.ourTurn || props.rollsRemaing === 0;
+  const disabled = !props.ourTurn
 
   return (
     <div id="die">

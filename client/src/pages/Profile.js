@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Avatar from "react-avatar-edit";
+// import Avatar from "react-avatar-edit";
 import { useHistory } from "react-router-dom";
 import "../styles/Profile.css";
 
@@ -11,8 +11,8 @@ const Profile = (props) => {
     emailAddress: "",
   });
   // const [newPassword, setNewPassword] = useState("");
-  const [preview, setPreview] = useState(null);
-  const [avatar, setAvatar] = useState(null);
+  // const [preview, setPreview] = useState(null);
+  // const [avatar, setAvatar] = useState(null);
 
   const history = useHistory();
 
@@ -26,19 +26,19 @@ const Profile = (props) => {
     checkLoginStatus();
   }, [checkLoginStatus]);
 
-  function onClose() {
-    newAvatar();
-    setPreview(null);
-  }
-  function onCrop(pv) {
-    setPreview(pv);
-  }
-  function onBeforeFileLoad(elem) {
-    if (elem.target.files[0].size > 71680) {
-      alert("File is too big!");
-      elem.target.value = "";
-    }
-  }
+  // function onClose() {
+  //   newAvatar();
+  //   setPreview(null);
+  // }
+  // function onCrop(pv) {
+  //   setPreview(pv);
+  // }
+  // function onBeforeFileLoad(elem) {
+  //   if (elem.target.files[0].size > 71680) {
+  //     alert("File is too big!");
+  //     elem.target.value = "";
+  //   }
+  // }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -48,9 +48,9 @@ const Profile = (props) => {
     setUpdateUser({ ...updateUser, [evt.target.name]: evt.target.value });
   };
 
-  const newAvatar = () => {
-    setAvatar(preview);
-  };
+  // const newAvatar = () => {
+  //   setAvatar(preview);
+  // };
 
   async function getUserInfo() {
     await fetch("/" + props.credentials.username, {
@@ -72,7 +72,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     getUserInfo();
-  }, []);
+  });
 
   return (
     <div className="profile-container">
