@@ -279,7 +279,15 @@ function App() {
 
       //Production
     }
-  }, [credentials, listening, messageList, setMessageList, game, history, ourTurn]);
+  }, [
+    credentials,
+    listening,
+    messageList,
+    setMessageList,
+    game,
+    history,
+    ourTurn,
+  ]);
   ///////////////////////////////////////
   //         Prop Functions
   //////////////////////////////////////
@@ -305,7 +313,7 @@ function App() {
         started: false,
         currentPlayer: { id: "", username: "" },
         host: "",
-      })
+      });
       setScoreCard({
         id: "",
         game: "",
@@ -333,17 +341,16 @@ function App() {
         yahtzeeBonus: { score: 0, numYahtzees: 0 },
         lowerSectionTotal: 0,
         grandTotal: 0,
-      })
-      setLocked(Array(3).fill(false))
-      setDice(Array.from({ length: 3 }))
-      setRolling(false)
-      setRollsRemaining(3)
-      setOpposingPlayers([])
-      setOurTurn(false)
-    }
-  }
-
-
+      });
+      setLocked(Array(3).fill(false));
+      setDice(Array.from({ length: 3 }));
+      setRolling(false);
+      setRollsRemaining(3);
+      setOpposingPlayers([]);
+      setOurTurn(false);
+      history.push("/mainlobby");
+    };
+  };
 
   const markScore = function (taskObj) {
     // console.log("Sending the following task: ");
