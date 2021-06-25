@@ -154,7 +154,7 @@ const ScoreCard = (props) => {
     return;
   };
 
-  const disabled = dice[0] === undefined || !ourTurn;
+  const disabled = dice[0] === undefined || !ourTurn || props.version === 1;
 
   return (
     <div className={"score-card" + version[props.version]}>

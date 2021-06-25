@@ -26,7 +26,9 @@ const OpposingScores = (props) => {
       return (
         <button
           style={
-            selectedCard === i && showScoreCards
+            selectedCard === i &&
+            showScoreCards &&
+            opposingPlayerScoreCards.length > 1
               ? { backgroundColor: "orange" }
               : { backgroundColor: "darkred" }
           }
